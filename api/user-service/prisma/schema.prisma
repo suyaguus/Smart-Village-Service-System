@@ -1,6 +1,6 @@
 generator client {
   provider     = "prisma-client"
-  output       = "../generated/prisma"
+  output       = "../src/generated/prisma"
   // delete folder genereated lalu genereate ulang dan + src/generated/prisma
   moduleFormat = "cjs"
 }
@@ -15,7 +15,7 @@ enum Role {
 }
 
 model User {
-  id         String   @id @default(uuid()) @db.Uuid
+  id         Int      @id @default(autoincrement())
   name       String   @db.VarChar(255)
   email      String   @unique @db.VarChar(255)
   password   String   @db.VarChar(255)

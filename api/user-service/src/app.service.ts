@@ -2,7 +2,9 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  getWellcome(): string {
+    return 'API User Service Port 3001';
   }
 }
+
+// logic untuk service utama aplikasi, bisa digunakan untuk menyimpan fungsi-fungsi umum yang dibutuhkan di seluruh aplikasi.
