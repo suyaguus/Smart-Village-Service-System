@@ -1,4 +1,9 @@
-import { ConflictException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -67,7 +72,7 @@ export class UserService {
 
     // jika data user tidak ditemukan, maka kirimkan pesan error
     if (data.length === 0) {
-      throw new ConflictException({
+      throw new NotFoundException({
         success: false,
         message: 'Data user tidak ditemukan!',
         metadata: {
@@ -76,6 +81,16 @@ export class UserService {
         },
       });
     }
+
+    // jika data ditemukan, maka tampilkan respon dan data user
+    return {
+      success: true,
+      message: 'Data user berhasil ditemukan.',
+      metadata: {
+        status: HttpStatus.OK,
+        total_data: data.length,
+      },
+    };
   }
 
   findOne(id: number) {
