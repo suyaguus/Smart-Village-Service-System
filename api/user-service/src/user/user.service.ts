@@ -90,6 +90,7 @@ export class UserService {
         status: HttpStatus.OK,
         total_data: data.length,
       },
+      data,
     };
   }
 
