@@ -161,6 +161,12 @@ export class UserService {
         });
       }
     }
+
+    // update data user ke database
+    await this.prisma.user.update({
+      where: { id },
+      data: updateUserDto,
+    });
   }
 
   remove(id: number) {
