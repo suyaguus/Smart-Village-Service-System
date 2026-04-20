@@ -18,19 +18,19 @@ export class UserService {
     });
 
     // jika email sudah terdaftar, maka throw exception
-    if(existingUser) {
+    if (existingUser) {
       throw new ConflictException({
         success: false,
         message: 'Email sudah terdaftar!',
-        metadata: { 
-          status: HttpStatus.CONFLICT 
+        metadata: {
+          status: HttpStatus.CONFLICT,
         },
       });
     }
 
     // hash password sebelum disimpan ke database
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-    
+
     // simpan data user baru ke database
     await this.prisma.user.create({
       data: {
@@ -42,12 +42,12 @@ export class UserService {
     // response jika data berhasil disimpan
     return {
       success: true,
-      message: "User barhasil dibuat.",
+      message: 'User barhasil dibuat.',
       metadata: {
-        status: HttpStatus.CREATED
-      }
-    }
-  } 
+        status: HttpStatus.CREATED,
+      },
+    };
+  }
 
   findAll() {
     return `This action returns all user`;
@@ -64,3 +64,4 @@ export class UserService {
   remove(id: number) {
     return `This action removes a #${id} user`;
   }
+}
