@@ -138,6 +138,11 @@ export class UserService {
 
     // cek apakah user ada atau tidak
     await this.findOne(id);
+
+    // jika user mengupdate password, hash terlebih dahulu sebelum disimpan ke database
+    if (updateUserDto.password) {
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
+    }
   }
 
   remove(id: number) {
