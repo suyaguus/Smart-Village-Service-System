@@ -167,6 +167,15 @@ export class UserService {
       where: { id },
       data: updateUserDto,
     });
+
+    // response jika data berhasil diupdate
+    return {
+      success: true,
+      message: 'Data user berhasil diupdate.',
+      metadata: {
+        status: HttpStatus.OK,
+      },
+    };
   }
 
   remove(id: number) {
