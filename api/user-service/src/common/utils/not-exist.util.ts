@@ -32,4 +32,6 @@ export const notExistUser = async (
       },
     });
   }
+
+  return data;
 };
