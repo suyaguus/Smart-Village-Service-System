@@ -1,0 +1,28 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  // delete folder genereated lalu genereate ulang dan + src/generated/prisma
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+model User {
+  id         String   @id @default(uuid()) @db.Uuid
+  name       String   @db.VarChar(255)
+  email      String   @unique @db.VarChar(255)
+  password   String   @db.VarChar(255)
+  phone      String   @db.VarChar(20)
+  role       Role     @default(USER)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("tb_users")
+}
