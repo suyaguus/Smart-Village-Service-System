@@ -29,6 +29,13 @@ export class UserService {
     // hash password sebelum disimpan ke database
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
     
+    // simpan data user baru ke database
+    await this.prisma.user.create({
+      data: {
+        ...createUserDto,
+        password: hashedPassword,
+      },
+    });
   } 
 
   findAll() {
