@@ -143,6 +143,24 @@ export class UserService {
     if (updateUserDto.password) {
       updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
     }
+
+    // jika update email, cek apakah email sudah terdaftar atau belum
+    if (updateUserDto.email) {
+      const existingUser = await this.prisma.user.findUnique({
+        where: { email: updateUserDto.email },
+      });
+
+      // jika email sudah terdaftar, maka throw exception
+      if (existingUser && existingUser.id !== id) {
+        throw new ConflictException({
+          success: false,
+          message: 'Email sudah digunakan user lain!',
+          metadata: {
+            status: HttpStatus.CONFLICT,
+          },
+        });
+      }
+    }
   }
 
   remove(id: number) {
