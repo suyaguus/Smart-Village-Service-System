@@ -8,8 +8,13 @@ export class UserService {
   // buat constructor untuk inject PrismaService
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create(createUserDto: CreateUserDto) {
+    // return 'This action adds a new user';
+
+    // cek apakah email sudah terdaftar atau belum
+    const existingUser = await this.prisma.user.findUnique({
+      where: { email: createUserDto.email },
+    });
   }
 
   findAll() {
