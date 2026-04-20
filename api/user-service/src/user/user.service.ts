@@ -64,6 +64,18 @@ export class UserService {
         updated_at: true,
       },
     });
+
+    // jika data user tidak ditemukan, maka kirimkan pesan error
+    if (data.length === 0) {
+      throw new ConflictException({
+        success: false,
+        message: 'Data user tidak ditemukan!',
+        metadata: {
+          status: HttpStatus.NOT_FOUND,
+          total_data: 0,
+        },
+      });
+    }
   }
 
   findOne(id: number) {
