@@ -183,5 +183,10 @@ export class UserService {
 
     // cek apakah user ada atau tidak
     await this.findOne(id);
+
+    // jika user ada, maka hapus data user
+    await this.prisma.user.delete({
+      where: { id },
+    });
   }
 }
