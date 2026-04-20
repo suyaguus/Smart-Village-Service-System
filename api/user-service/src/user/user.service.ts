@@ -94,8 +94,22 @@ export class UserService {
     };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(id: string) {
+    // return `This action returns a #${id} user`;
+
+    // membuat fungsi untuk mengambil data user berdasarkan id dari database
+    const data = await this.prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        role: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
