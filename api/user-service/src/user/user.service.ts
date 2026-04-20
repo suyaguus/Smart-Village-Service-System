@@ -110,6 +110,17 @@ export class UserService {
         updated_at: true,
       },
     });
+
+    // jika data user tidak ditemukan, maka kirimkan pesan error
+    if (!data) {
+      throw new NotFoundException({
+        success: false,
+        message: 'User tidak ditemukan!',
+        metadata: {
+          status: HttpStatus.NOT_FOUND,
+        },
+      });
+    }
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
