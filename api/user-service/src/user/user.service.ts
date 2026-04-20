@@ -49,8 +49,21 @@ export class UserService {
     };
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async findAll() {
+    // return `GET DATA USER`;
+
+    // membuat fungsi untuk mengambil semua data user dari database
+    const data = await this.prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        role: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
   }
 
   findOne(id: number) {
