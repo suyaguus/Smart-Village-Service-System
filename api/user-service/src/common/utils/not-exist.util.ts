@@ -1,6 +1,7 @@
 // buat fungsi untuk cek data kategori
 // (jika tidak ditemukqan datanya)
 
+import { HttpStatus, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 
 export const notExistUser = async (
@@ -20,4 +21,15 @@ export const notExistUser = async (
       updated_at: true,
     },
   });
+
+  // jika data user tidak ditemukan, maka kirimkan pesan error
+  if (!data) {
+    throw new NotFoundException({
+      success: false,
+      message: process.env.NOT_FOUND_MESSAGE,
+      metadata: {
+        status: HttpStatus.NOT_FOUND,
+      },
+    });
+  }
 };
