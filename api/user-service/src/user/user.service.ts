@@ -94,7 +94,7 @@ export class UserService {
     };
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
     // return `This action returns a #${id} user`;
 
     // membuat fungsi untuk mengambil data user berdasarkan id dari database
