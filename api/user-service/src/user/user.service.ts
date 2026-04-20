@@ -121,6 +121,16 @@ export class UserService {
         },
       });
     }
+
+    // jika data ditemukan, maka tampilkan respon dan data user
+    return {
+      success: true,
+      message: 'Data user berhasil ditemukan.',
+      metadata: {
+        status: HttpStatus.OK,
+      },
+      data,
+    };
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
