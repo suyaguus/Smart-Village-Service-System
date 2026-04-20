@@ -22,7 +22,9 @@ export class UserService {
       throw new ConflictException({
         success: false,
         message: 'Email sudah terdaftar!',
-        metadata: { status: HttpStatus.CONFLICT },
+        metadata: { 
+          status: HttpStatus.CONFLICT 
+        },
       });
     }
 
@@ -36,6 +38,15 @@ export class UserService {
         password: hashedPassword,
       },
     });
+
+    // response jika data berhasil disimpan
+    return {
+      success: true,
+      message: "User barhasil dibuat.",
+      metadata: {
+        status: HttpStatus.CREATED
+      }
+    }
   } 
 
   findAll() {
