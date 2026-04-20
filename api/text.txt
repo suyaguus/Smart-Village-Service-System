@@ -1,0 +1,12 @@
+api/
+├── gateway/          # Port 3000 — API Gateway (HTTP entry point)
+├── user-service/     # Port 3001 — db_user
+├── jenis-surat-service/  # Port 3002 — db_jenis_surat
+├── field-surat-service/  # Port 3003 — db_field_surat
+├── pengajuan-surat-service/ # Port 3004 — db_pengajuan_surat (+ detail, dokumen, status_log)
+├── pengaduan-service/    # Port 3005 — db_pengaduan (+ respon)
+└── informasi-service/    # Port 3006 — db_informasi
+
+npm i -g @nestjs/cli
+nest new (user-service)
+pnpm dlx @nestjs/cli generate resource user (REST API / CRUD[YES])

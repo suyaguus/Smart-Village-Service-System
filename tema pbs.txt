@@ -1,0 +1,133 @@
+tema pbs:
+- kebencanaan
+- smart farming
+- smart village
+- wisata
+
+struktur folder
+- api (backend: nestjs)
+- cms (nextjs)
+- user (react)
+
+fe
+- fe cms : administrator(crud)
+- fe end user
+
+be
+- nest js
+- golang
+
+fe cms
+- next / react
+
+fe end user
+- react
+- flutter
+
+ERD
+
+tb_users
+id              UUID (PK)
+name            VARCHAR
+email           VARCHAR (UNIQUE)
+password        VARCHAR
+phone           VARCHAR
+role            ENUM ('ADMIN', 'USER')
+created_at      TIMESTAMP
+updated_at      TIMESTAMP
+
+tb_jenis_surat
+id              UUID (PK)
+nama_surat      VARCHAR
+kode_surat      VARCHAR (UNIQUE)
+deskripsi       TEXT
+created_at      TIMESTAMP
+updated_at      TIMESTAMP
+
+tb_field_surat
+id              UUID (PK)
+jenis_surat_id  UUID (FK → tb_jenis_surat.id)
+field_name      VARCHAR        -- contoh: nama, nik
+field_label     VARCHAR        -- "Nama Lengkap"
+field_type      ENUM ('text', 'number', 'date', 'textarea', 'file')
+is_required     BOOLEAN
+field_order     INT
+max_file_size     INT      -- dalam KB atau MB
+accepted_format   VARCHAR  -- contoh: jpg,png,pdf
+created_at      TIMESTAMP
+
+tb_pengajuan_surat
+id                  UUID (PK)
+user_id             UUID (FK → tb_users.id)
+jenis_surat_id      UUID (FK → tb_jenis_surat.id)
+
+status              ENUM ('MENUNGGU', 'DIPROSES', 'DITOLAK', 'SELESAI')
+catatan_admin       TEXT
+file_surat          VARCHAR
+estimasi_selesai    TIMESTAMP
+
+created_at          TIMESTAMP
+updated_at          TIMESTAMP
+
+tb_pengajuan detail
+id              UUID (PK)
+pengajuan_id    UUID (FK → tb_pengajuan_surat.id)
+field_id        UUID (FK → tb_field_surat.id)
+value           TEXT
+
+tb_pengajuan_dokumen
+id              UUID (PK)
+pengajuan_id    UUID (FK → tb_pengajuan_surat.id)
+field_id        UUID (FK → tb_field_surat.id)
+file_url        VARCHAR
+created_at      TIMESTAMP
+
+tb_pengaduan
+id              UUID (PK)
+user_id         UUID (FK → tb_users.id)
+judul           VARCHAR
+deskripsi       TEXT
+status          ENUM ('MENUNGGU', 'DIPROSES', 'SELESAI')
+created_at      TIMESTAMP
+updated_at      TIMESTAMP
+
+tb_pengaduan_respon
+id              UUID (PK)
+pengaduan_id    UUID (FK → tb_pengaduan.id)
+admin_id        UUID (FK → tb_users.id)
+text            TEXT
+created_at      TIMESTAMP
+
+tb_informasi
+id              UUID (PK)
+admin_id        UUID (FK → tb_users.id)
+judul           VARCHAR
+isi             TEXT
+foto            VARCHAR
+created_at      TIMESTAMP
+updated_at      TIMESTAMP
+
+tb_status_log
+id              UUID (PK)
+pengajuan_id    UUID (FK → tb_pengajuan_surat.id)
+status          VARCHAR
+keterangan      TEXT
+created_at      TIMESTAMP
+
+relasi erd
+tb_users (1) —— (N) tb_pengajuan_surat
+tb_jenis_surat (1) —— (N) tb_field_surat
+
+tb_pengajuan_surat (1) —— (N) tb_pengajuan_detail
+tb_pengajuan_surat (1) —— (N) tb_pengajuan_dokumen
+
+tb_field_surat (1) —— (N) tb_pengajuan_detail
+tb_field_surat (1) —— (N) tb_pengajuan_dokumen
+
+tb_users (1) —— (N) tb_pengaduan
+tb_pengaduan (1) —— (N) tb_pengaduan_respon
+
+tb_users (1) —— (N) tb_informasi
+
+tb_pengajuan_surat (1) —— (N) tb_status_log
+
