@@ -133,8 +133,11 @@ export class UserService {
     };
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    // return `This action updates a #${id} user`;
+
+    // cek apakah user ada atau tidak
+    await this.findOne(id);
   }
 
   remove(id: number) {
