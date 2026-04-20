@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -14,6 +14,13 @@ export class UserService {
     // cek apakah email sudah terdaftar atau belum
     const existingUser = await this.prisma.user.findUnique({
       where: { email: createUserDto.email },
+    });
+
+  if(existingUser) {
+    throw new ConflictException({
+      success: false,
+      message: 'Email sudah terdaftar!',
+      metadata: { status: HttpStatus.CONFLICT },
     });
   }
 
