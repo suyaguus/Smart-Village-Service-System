@@ -2,6 +2,7 @@ import { ConflictException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -16,13 +17,19 @@ export class UserService {
       where: { email: createUserDto.email },
     });
 
-  if(existingUser) {
-    throw new ConflictException({
-      success: false,
-      message: 'Email sudah terdaftar!',
-      metadata: { status: HttpStatus.CONFLICT },
-    });
-  }
+    // jika email sudah terdaftar, maka throw exception
+    if(existingUser) {
+      throw new ConflictException({
+        success: false,
+        message: 'Email sudah terdaftar!',
+        metadata: { status: HttpStatus.CONFLICT },
+      });
+    }
+
+    // hash password sebelum disimpan ke database
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+    
+  } 
 
   findAll() {
     return `This action returns all user`;
@@ -39,4 +46,3 @@ export class UserService {
   remove(id: number) {
     return `This action removes a #${id} user`;
   }
-}
