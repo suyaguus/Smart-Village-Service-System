@@ -1,6 +1,6 @@
 import {
   BadRequestException,
-  // ConflictException,
+  HttpException,
   HttpStatus,
   Injectable,
   NotFoundException,
@@ -240,8 +240,8 @@ export class UserService {
         },
       };
     } catch (error) {
-      // membuat kondisi jika error yang terjadi adalah NotFoundException, maka throw error tersebut
-      if (error instanceof NotFoundException) {
+      // tangkap semua HttpException (NotFoundException, ConflictException, dll)
+      if (error instanceof HttpException) {
         throw error;
       }
 
