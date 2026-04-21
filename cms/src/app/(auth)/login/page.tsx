@@ -24,4 +24,12 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
   });
+
+  //   fungsi untuk menangani submit form login
+  function onSubmit(values: LoginFormValues) {
+    // todo: hubungkan ke api login saat auth service sudah tersedia
+    setIsLoading(true);
+    console.log(values);
+    setTimeout(() => setIsLoading(false), 5000);
+  }
 }
