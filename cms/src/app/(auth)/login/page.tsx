@@ -8,3 +8,6 @@ const loginSchema = z.object({
   email: z.string().email("Email Tidak Valid!"),
   password: z.string().min(6, "Password minimal 6 karakter!"),
 });
+
+// Tipe data untuk form login berdasarkan skema Zod
+type LoginFormValues = z.infer<typeof loginSchema>;
