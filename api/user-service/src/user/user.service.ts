@@ -215,6 +215,17 @@ export class UserService {
     try {
       // mengecek apakah user ada atau tidak
       await notExistUser(id, this.prisma.user);
+
+      // jika id user ditemuukan, maka cek duplikasi email
+      if (updateUserDto.email) {
+        // panngil fungsi conflictEmail
+        await conflictEmail(
+          updateUserDto.email,
+          this.prisma.user,
+          process.env.CONFLICT_EMAIL_UPDATE_MESSAGE ?? '',
+          id
+        )
+      }
     }
   }
 
