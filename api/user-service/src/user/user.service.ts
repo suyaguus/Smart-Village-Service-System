@@ -37,7 +37,7 @@ export class UserService {
     //   });
     // }
 
-    // refactor: cek duplikasi email
+    // refactor: cek duplikasi email / panggil fungsi email conflict
     await conflictEmail(
       createUserDto.email,
       this.prisma.user,
