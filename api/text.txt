@@ -10,3 +10,61 @@ api/
 npm i -g @nestjs/cli
 nest new (user-service)
 pnpm dlx @nestjs/cli generate resource user (REST API / CRUD[YES])
+
+Langkah 1: Buat NestJS Project
+├── npx @nestjs/cli new user-service --package-manager pnpm --skip-git
+
+Langkah 2: Install Dependencies
+├── pnpm add @prisma/client @nestjs/microservices bcrypt class-validator class-transformer uuid
+├── pnpm add -D prisma @types/bcrypt @types/uuid
+
+Langkah 3: Inisialisasi Prisma
+├── npx prisma init
+
+Langkah 4: Konfigurasi Database
+├── DATABASE_URL="postgresql://postgres:YOUR_PASSWORD@localhost:5432/db_user"
+
+Langkah 5: Buat Prisma Schema
+├── prisma/schema.prisma
+
+Langkah 6: Migrasi Database
+├── npx prisma migrate dev --name init_user
+
+Langkah 7: Struktur Moduleuser-service/src/
+├── main.ts                   
+├── app.module.ts
+├── prisma/
+│   ├── prisma.module.ts
+│   └── prisma.service.ts
+└── user/
+    ├── user.module.ts
+    ├── user.controller.ts
+    ├── user.service.ts
+    └── dto/
+        ├── create-user.dto.ts
+        └── update-user.dto.ts
+
+Langkah 7: Generate Resource
+├── cd "d:/KULIAH/SEMESTER 6/PBS/Project Revisi/api/user-service"
+├── npx nest g resource user --no-spec
+└── Saat ditanya:
+    └── What transport layer do you use? → Pilih REST API
+    └── Would you like to generate CRUD entry points? → Yes
+
+Langkah 8: Setup Prisma Service & Module
+├── 8a
+│   └── src/prisma/prisma.service.ts
+├── 8b
+│   └── src/prisma/prisma.module.ts
+├── 8c
+    └── Cek src/app.module.ts, pastikan PrismaModule ada di imports
+
+Langkah 9: DTO dan User Service CRUD Logic
+├── 9a. Install validasi dependencies
+│   └── pnpm add class-validator class-transformer bcrypt
+│   └── pnpm add -D @types/bcrypt
+├── 9b. Edit src/user/dto/create-user.dto.ts
+├── 9c. Edit src/user/dto/update-user.dto.ts
+├── 9d. Edit src/user/user.service.ts
+├── 9e. Edit src/user/user.controller.ts
+└── 9f. Aktifkan ValidationPipe di src/main.ts
