@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 // Validasi Form Login menggunakan Zod
 const loginSchema = z.object({
@@ -13,8 +15,13 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
-
-    // validasi useState untuk form login
+  // validasi useState untuk form login
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  //   Inisialisasi useForm dengan skema validasi Zod
+  const form = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: "", password: "" },
+  });
 }
