@@ -55,7 +55,7 @@ export class UserService {
     // response jika data berhasil disimpan
     return {
       success: true,
-      message: 'User barhasil dibuat.',
+      message: process.env.CREATE_USER_SUCCESS_MESSAGE,
       metadata: {
         status: HttpStatus.CREATED,
       },
