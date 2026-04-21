@@ -224,7 +224,12 @@ export class UserService {
           this.prisma.user,
           process.env.CONFLICT_EMAIL_UPDATE_MESSAGE ?? '',
           id
-        )
+        );
+      }
+
+      // jika user ingin mengupdate password, hash password terlebih dahulu sebelum disimpan ke database
+      if (updateUserDto.password) {
+        updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
       }
     }
   }
