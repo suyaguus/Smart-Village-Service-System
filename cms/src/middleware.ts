@@ -14,4 +14,17 @@ export function middleware(request: NextRequest) {
   if (pathname === "/login" && token) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
+
+  //   Jika pengguna mengakses root path, arahkan mereka ke dashboard jika sudah memiliki token, atau ke halaman login jika belum memiliki token
+  if (pathname === "/") {
+    if (token) {
+      return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
+
+    // Jika tidak ada token, arahkan ke halaman login
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  //   Jika tidak ada kondisi yang terpenuhi, lanjutkan ke rute yang diminta
+  return NextResponse.next();
 }
