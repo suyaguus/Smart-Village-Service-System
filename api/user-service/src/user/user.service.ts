@@ -52,7 +52,7 @@ export class UserService {
       },
     });
 
-    // response jika data berhasil disimpan
+    // refactor: response jika data berhasil disimpan
     return {
       success: true,
       message: process.env.CREATE_USER_SUCCESS_MESSAGE,
@@ -82,7 +82,7 @@ export class UserService {
     if (data.length === 0) {
       throw new NotFoundException({
         success: false,
-        message: 'Data user tidak ditemukan!',
+        message: process.env.NOT_FOUND_MESSAGE,
         metadata: {
           status: HttpStatus.NOT_FOUND,
           total_data: 0,
