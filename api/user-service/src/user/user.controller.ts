@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Controller,
   Get,
   Post,
@@ -7,10 +8,22 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  HttpStatus,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+
+// custom ParseIntPipe untuk override pesan error default
+const IntParam = new ParseIntPipe({
+  errorHttpStatusCode: HttpStatus.BAD_REQUEST,
+  exceptionFactory: () =>
+    new BadRequestException({
+      success: false,
+      message: process.env.BAD_REQUEST_MESSAGE,
+      metadata: { status: HttpStatus.BAD_REQUEST },
+    }),
+});
 
 @Controller('user')
 export class UserController {
@@ -27,20 +40,20 @@ export class UserController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.userService.findOne(+id);
+  findOne(@Param('id', IntParam) id: number) {
+    return this.userService.findOne(id);
   }
 
   @Patch(':id')
   update(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', IntParam) id: number,
     @Body() updateUserDto: UpdateUserDto,
   ) {
     return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
+  remove(@Param('id', IntParam) id: number) {
     return this.userService.remove(id);
   }
 }
