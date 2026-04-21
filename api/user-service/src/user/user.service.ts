@@ -284,7 +284,9 @@ export class UserService {
     try {
       // mengecek apakah user ada atau tidak
       await notExistUser(id, this.prisma.user);
-      
+
+      // jika user ditemukan, maka hapus data user
+      await this.prisma.user.delete({where: { id } });
     }
   }
 }
