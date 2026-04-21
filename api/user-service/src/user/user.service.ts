@@ -11,6 +11,7 @@ import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { conflictEmail } from 'src/common/utils/conflict.util';
 import { notExistUser } from 'src/common/utils/not-exist.util';
+import { USER_SELECT } from 'src/common/constants/select';
 
 @Injectable()
 export class UserService {
@@ -69,15 +70,7 @@ export class UserService {
 
     // membuat fungsi untuk mengambil semua data user dari database
     const data = await this.prisma.user.findMany({
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        role: true,
-        created_at: true,
-        updated_at: true,
-      },
+      select: USER_SELECT,
     });
 
     // jika data user tidak ditemukan, maka kirimkan pesan error
