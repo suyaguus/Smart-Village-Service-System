@@ -13,3 +13,20 @@ export const metadata: Metadata = {
   title: "Smart Village CMS",
   description: "Layanan Desa Digital",
 };
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="id" className={`${geistSans.variable} h-full antialiased`}>
+      <body className="min-h-full">
+        <QueryProvider>
+          {children}
+          <Toaster />
+        </QueryProvider>
+      </body>
+    </html>
+  );
+}
