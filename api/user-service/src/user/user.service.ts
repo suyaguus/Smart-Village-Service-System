@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   HttpStatus,
   Injectable,
@@ -144,17 +145,30 @@ export class UserService {
     // refactor: menambahkan fungsi try catch
     try {
       // panggil fungsi notExistUser
-      const data = await notExistUser(id, this.prisma.user)
+      const data = await notExistUser(id, this.prisma.user);
 
       // response jika data berhasil ditemukan
       return {
         success: true,
         message: process.env.SUCCESS_FIND_MESSAGE,
         metadata: {
-          status: HttpStatus.OK
+          status: HttpStatus.OK,
         },
-        data
+        data,
+      };
+    } catch (error) {
+      // membuat kondisi jika error yang terjadi adalah NotFoundException, maka throw error tersebut
+      if (error instanceof NotFoundException) {
+        throw error;
       }
+
+      throw new BadRequestException({
+        success: false,
+        message: process.env.BAD_REQUEST_MESSAGE,
+        metadata: {
+          status: HttpStatus.BAD_REQUEST,
+        },
+      });
     }
   }
 
