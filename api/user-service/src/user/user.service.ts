@@ -93,7 +93,7 @@ export class UserService {
     // jika data ditemukan, maka tampilkan respon dan data user
     return {
       success: true,
-      message: 'Data user berhasil ditemukan.',
+      message: process.env.SUCCESS_FIND_MESSAGE,
       metadata: {
         status: HttpStatus.OK,
         total_data: data.length,
