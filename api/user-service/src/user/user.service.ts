@@ -174,47 +174,48 @@ export class UserService {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     // return `This action updates a #${id} user`;
-
     // cek apakah user ada atau tidak
-    await this.findOne(id);
-
+    // await this.findOne(id);
     // jika user mengupdate password, hash terlebih dahulu sebelum disimpan ke database
-    if (updateUserDto.password) {
-      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
-    }
-
+    // if (updateUserDto.password) {
+    //   updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
+    // }
     // jika update email, cek apakah email sudah terdaftar atau belum
-    if (updateUserDto.email) {
-      const existingUser = await this.prisma.user.findUnique({
-        where: { email: updateUserDto.email },
-      });
-
-      // jika email sudah terdaftar, maka throw exception
-      if (existingUser && existingUser.id !== id) {
-        throw new ConflictException({
-          success: false,
-          message: 'Email sudah digunakan user lain!',
-          metadata: {
-            status: HttpStatus.CONFLICT,
-          },
-        });
-      }
-    }
-
+    // if (updateUserDto.email) {
+    //   const existingUser = await this.prisma.user.findUnique({
+    //     where: { email: updateUserDto.email },
+    //   });
+    // jika email sudah terdaftar, maka throw exception
+    // if (existingUser && existingUser.id !== id) {
+    //   throw new ConflictException({
+    //     success: false,
+    //     message: 'Email sudah digunakan user lain!',
+    //     metadata: {
+    //       status: HttpStatus.CONFLICT,
+    //     },
+    //   });
+    // }
+    // }
     // update data user ke database
-    await this.prisma.user.update({
-      where: { id },
-      data: updateUserDto,
-    });
-
+    // await this.prisma.user.update({
+    //   where: { id },
+    //   data: updateUserDto,
+    // });
     // response jika data berhasil diupdate
-    return {
-      success: true,
-      message: 'Data user berhasil diupdate.',
-      metadata: {
-        status: HttpStatus.OK,
-      },
-    };
+    // return {
+    //   success: true,
+    //   message: 'Data user berhasil diupdate.',
+    //   metadata: {
+    //     status: HttpStatus.OK,
+    //   },
+    // };
+    // }
+
+    // refacotor: menambahkan fungsi try catch
+    try {
+      // mengecek apakah user ada atau tidak
+      await notExistUser(id, this.prisma.user);
+    }
   }
 
   async remove(id: number) {
