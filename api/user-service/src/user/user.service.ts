@@ -287,6 +287,15 @@ export class UserService {
 
       // jika user ditemukan, maka hapus data user
       await this.prisma.user.delete({where: { id } });
+
+      // response jika data berhasil dihapus
+      return {
+        success: true,
+        message: process.env.SUCCESS_DELETE_MESSAGE,
+        metadata: {
+          status: HttpStatus.OK,
+        },
+      };
     }
   }
 }
