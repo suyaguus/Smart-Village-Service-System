@@ -8,6 +8,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { conflictEmail } from 'src/common/utils/conflict.util';
 
 @Injectable()
 export class UserService {
@@ -18,20 +19,27 @@ export class UserService {
     // return 'This action adds a new user';
 
     // cek apakah email sudah terdaftar atau belum
-    const existingUser = await this.prisma.user.findUnique({
-      where: { email: createUserDto.email },
-    });
+    // const existingUser = await this.prisma.user.findUnique({
+    //   where: { email: createUserDto.email },
+    // });
 
-    // jika email sudah terdaftar, maka throw exception
-    if (existingUser) {
-      throw new ConflictException({
-        success: false,
-        message: 'Email sudah terdaftar!',
-        metadata: {
-          status: HttpStatus.CONFLICT,
-        },
-      });
-    }
+    // // jika email sudah terdaftar, maka throw exception
+    // if (existingUser) {
+    //   throw new ConflictException({
+    //     success: false,
+    //     message: 'Email sudah terdaftar!',
+    //     metadata: {
+    //       status: HttpStatus.CONFLICT,
+    //     },
+    //   });
+    // }
+
+    // refactor: cek duplikasi email
+    await conflictEmail(
+      createUserDto.email,
+      this.prisma.user,
+      process.env.CONFLICT_EMAIL_MESSAGE ?? '',
+    );
 
     // hash password sebelum disimpan ke database
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
