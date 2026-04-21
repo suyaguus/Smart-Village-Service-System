@@ -3,6 +3,7 @@
 
 import { HttpStatus, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
+import { USER_SELECT } from '../constants/select';
 
 export const notExistUser = async (
   id: number,
@@ -11,15 +12,7 @@ export const notExistUser = async (
   // tampilkan data user berdasarkan id
   const data = await prisma.findUnique({
     where: { id },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      phone: true,
-      role: true,
-      created_at: true,
-      updated_at: true,
-    },
+    select: USER_SELECT,
   });
 
   // jika data user tidak ditemukan, maka kirimkan pesan error
