@@ -231,6 +231,12 @@ export class UserService {
       if (updateUserDto.password) {
         updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
       }
+
+      // update data user ke database
+      await this.prisma.user.update({
+        where: { id },
+        data: updateUserDto,
+      });
     }
   }
 
