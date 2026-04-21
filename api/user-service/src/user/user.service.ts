@@ -9,6 +9,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { conflictEmail } from 'src/common/utils/conflict.util';
+import { notExistUser } from 'src/common/utils/not-exist.util';
 
 @Injectable()
 export class UserService {
@@ -106,39 +107,45 @@ export class UserService {
     // return `This action returns a #${id} user`;
 
     // membuat fungsi untuk mengambil data user berdasarkan id dari database
-    const data = await this.prisma.user.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        role: true,
-        created_at: true,
-        updated_at: true,
-      },
-    });
+    // const data = await this.prisma.user.findUnique({
+    //   where: { id },
+    //   select: {
+    //     id: true,
+    //     name: true,
+    //     email: true,
+    //     phone: true,
+    //     role: true,
+    //     created_at: true,
+    //     updated_at: true,
+    //   },
+    // });
 
     // jika data user tidak ditemukan, maka kirimkan pesan error
-    if (!data) {
-      throw new NotFoundException({
-        success: false,
-        message: 'User tidak ditemukan!',
-        metadata: {
-          status: HttpStatus.NOT_FOUND,
-        },
-      });
-    }
+    // if (!data) {
+    //   throw new NotFoundException({
+    //     success: false,
+    //     message: 'User tidak ditemukan!',
+    //     metadata: {
+    //       status: HttpStatus.NOT_FOUND,
+    //     },
+    //   });
+    // }
 
     // jika data ditemukan, maka tampilkan respon dan data user
-    return {
-      success: true,
-      message: 'Data user berhasil ditemukan.',
-      metadata: {
-        status: HttpStatus.OK,
-      },
-      data,
-    };
+    // return {
+    //   success: true,
+    //   message: 'Data user berhasil ditemukan.',
+    //   metadata: {
+    //     status: HttpStatus.OK,
+    //   },
+    //   data,
+    // };
+
+    // refactor: menambahkan fungsi try catch
+    try {
+      // panggil fungsi notExistUser
+      const data = await notExistUser(id, this.prisma.user)
+    }
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
