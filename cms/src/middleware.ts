@@ -9,4 +9,9 @@ export function middleware(request: NextRequest) {
   if (pathname.startsWith("/dashboard") && !token) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
+
+  //   Jika pengguna sudah memiliki token dan mencoba mengakses halaman login, arahkan mereka ke dashboard
+  if (pathname === "/login" && token) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
 }
