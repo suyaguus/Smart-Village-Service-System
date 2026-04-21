@@ -223,7 +223,7 @@ export class UserService {
           updateUserDto.email,
           this.prisma.user,
           process.env.CONFLICT_EMAIL_UPDATE_MESSAGE ?? '',
-          id
+          id,
         );
       }
 
@@ -246,6 +246,20 @@ export class UserService {
           status: HttpStatus.OK,
         },
       };
+    } catch (error) {
+      // membuat kondisi jika error yang terjadi adalah NotFoundException, maka throw error tersebut
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+
+      // kirimkan response jika terjadi error
+      throw new BadRequestException({
+        success: false,
+        message: process.env.BAD_REQUEST_MESSAGE,
+        metadata: {
+          status: HttpStatus.BAD_REQUEST,
+        },
+      });
     }
   }
 
