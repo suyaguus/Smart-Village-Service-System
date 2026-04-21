@@ -149,10 +149,11 @@ export class UserService {
       // response jika data berhasil ditemukan
       return {
         success: true,
-        message: process.env.BAD_REQUEST_MESSAGE,
+        message: process.env.SUCCESS_FIND_MESSAGE,
         metadata: {
-          status: HttpStatus.BAD_REQUEST
-        }
+          status: HttpStatus.OK
+        },
+        data
       }
     }
   }
