@@ -237,6 +237,15 @@ export class UserService {
         where: { id },
         data: updateUserDto,
       });
+
+      // reponse jika data berhasil di update
+      return {
+        success: true,
+        message: process.env.SUCCESS_UPDATE_MESSAGE,
+        metadata: {
+          status: HttpStatus.OK,
+        },
+      };
     }
   }
 
