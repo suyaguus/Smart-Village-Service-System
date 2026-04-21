@@ -28,3 +28,8 @@ export function middleware(request: NextRequest) {
   //   Jika tidak ada kondisi yang terpenuhi, lanjutkan ke rute yang diminta
   return NextResponse.next();
 }
+
+// Menentukan rute yang akan diproteksi oleh middleware
+export const config = {
+  matcher: ["/", "/dashboard/:path*", "/login"],
+};
