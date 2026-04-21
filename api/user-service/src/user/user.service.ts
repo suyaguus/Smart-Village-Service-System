@@ -265,22 +265,26 @@ export class UserService {
 
   async remove(id: number) {
     // return `This action removes a #${id} user`;
-
     // cek apakah user ada atau tidak
-    await this.findOne(id);
-
+    // await this.findOne(id);
     // jika user ada, maka hapus data user
-    await this.prisma.user.delete({
-      where: { id },
-    });
-
+    // await this.prisma.user.delete({
+    //   where: { id },
+    // });
     // response jika data berhasil dihapus
-    return {
-      success: true,
-      message: 'Data user berhasil dihapus.',
-      metadata: {
-        status: HttpStatus.OK,
-      },
-    };
+    // return {
+    //   success: true,
+    //   message: 'Data user berhasil dihapus.',
+    //   metadata: {
+    //     status: HttpStatus.OK,
+    //   },
+    // };
+
+    // refactor: menambahkan fungsi try catch
+    try {
+      // mengecek apakah user ada atau tidak
+      await notExistUser(id, this.prisma.user);
+      
+    }
   }
 }
