@@ -11,3 +11,10 @@ const loginSchema = z.object({
 
 // Tipe data untuk form login berdasarkan skema Zod
 type LoginFormValues = z.infer<typeof loginSchema>;
+
+export default function LoginPage() {
+
+    // validasi useState untuk form login
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+}
