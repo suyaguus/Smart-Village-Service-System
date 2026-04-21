@@ -145,6 +145,15 @@ export class UserService {
     try {
       // panggil fungsi notExistUser
       const data = await notExistUser(id, this.prisma.user)
+
+      // response jika data berhasil ditemukan
+      return {
+        success: true,
+        message: process.env.BAD_REQUEST_MESSAGE,
+        metadata: {
+          status: HttpStatus.BAD_REQUEST
+        }
+      }
     }
   }
 
