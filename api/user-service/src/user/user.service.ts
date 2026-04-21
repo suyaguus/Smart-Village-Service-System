@@ -286,7 +286,7 @@ export class UserService {
       await notExistUser(id, this.prisma.user);
 
       // jika user ditemukan, maka hapus data user
-      await this.prisma.user.delete({where: { id } });
+      await this.prisma.user.delete({ where: { id } });
 
       // response jika data berhasil dihapus
       return {
@@ -296,6 +296,20 @@ export class UserService {
           status: HttpStatus.OK,
         },
       };
+    } catch (error) {
+      // membuat kondisi jika error yang terjadi adalah NotFoundException, maka throw error tersebut
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+
+      // kirimkan response jika terjadi error
+      throw new BadRequestException({
+        success: false,
+        message: process.env.BAD_REQUEST_MESSAGE,
+        metadata: {
+          status: HttpStatus.BAD_REQUEST,
+        },
+      });
     }
   }
 }
