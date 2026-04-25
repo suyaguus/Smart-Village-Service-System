@@ -47,7 +47,6 @@ export default function LoginPage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-slate-100">
       <section className="w-full max-w-md px-4">
-
         {/* title */}
         <header className="text-center mb-8">
           {/* logo */}
@@ -58,8 +57,27 @@ export default function LoginPage() {
           {/* judul */}
           <h1 className="text-2xl font-bold text-slate-800">Smart Village</h1>
           {/* deskripsi */}
-          <p className="text-slate-500 text-sm mt-1">Sistem Layanan Desa Digital</p>
+          <p className="text-slate-500 text-sm mt-1">
+            Sistem Layanan Desa Digital
+          </p>
         </header>
+
+        {/* card login */}
+        <article className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+
+          {/* header */}
+          <header className="mb-6">
+
+            {/* judul */}
+            <h2 className="text-xl font-semibold text-slate-800">
+              Masuk ke CMS
+            </h2>
+            {/* deskripsi */}
+            <p className="text-sm text-slate-500 mt-1">
+              Login sebagai admin desa
+            </p>
+          </header>
+        </article>
       </section>
     </main>
   );
