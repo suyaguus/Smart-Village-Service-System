@@ -18,4 +18,9 @@ export default function Header() {
     Object.entries(pageTitles).find(
       ([key]) => pathname === key || pathname.startsWith(key + "/"),
     )?.[1] ?? "Dashboard";
+
+  function handleLogout() {
+    document.cookie = "token; Max-Age=0; path=/";
+    window.location.href = "/login";
+  }
 }
