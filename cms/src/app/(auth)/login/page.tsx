@@ -64,10 +64,8 @@ export default function LoginPage() {
 
         {/* card login */}
         <article className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-
           {/* header */}
           <header className="mb-6">
-
             {/* judul */}
             <h2 className="text-xl font-semibold text-slate-800">
               Masuk ke CMS
@@ -77,6 +75,26 @@ export default function LoginPage() {
               Login sebagai admin desa
             </p>
           </header>
+
+          {/* form login */}
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              {/* input email */}
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input type="email" placeholder="admin@desa.id" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </form>
+          </Form>
         </article>
       </section>
     </main>
