@@ -4,7 +4,17 @@ import { useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 // Validasi Form Login menggunakan Zod
 const loginSchema = z.object({
   email: z.string().email("Email Tidak Valid!"),
@@ -32,4 +42,25 @@ export default function LoginPage() {
     console.log(values);
     setTimeout(() => setIsLoading(false), 5000);
   }
+
+  //   bagian UI
+  return (
+    <main className="min-h-screen flex items-center justify-center bg-slate-100">
+      <section className="w-full max-w-md px-4">
+
+        {/* title */}
+        <header className="text-center mb-8">
+          {/* logo */}
+          <figure className="inline-flex items-center justify-center w-16 h-16 bg-slate-800 rounded-2xl mb-4">
+            <span className="text-white text-2xl font-bold">SV</span>
+          </figure>
+
+          {/* judul */}
+          <h1 className="text-2xl font-bold text-slate-800">Smart Village</h1>
+          {/* deskripsi */}
+          <p className="text-slate-500 text-sm mt-1">Sistem Layanan Desa Digital</p>
+        </header>
+      </section>
+    </main>
+  );
 }
