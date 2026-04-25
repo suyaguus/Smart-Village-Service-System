@@ -2,11 +2,16 @@
 
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Bell } from "lucide-react";
-import { Avatar, DropdownMenu } from "radix-ui";
-import { DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { AvatarFallback } from "../ui/avatar";
-import { AvatarFallback } from "../ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Bell, LogOut, User } from "lucide-react";
 
 const pageTitles: Record<string, string> = {
   "/dashboard": "Dashboard",
@@ -47,6 +52,7 @@ export default function Header() {
 
         {/* user menu */}
         <DropdownMenu>
+          {/* DropdownMenuTrigger */}
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
@@ -63,6 +69,24 @@ export default function Header() {
               </span>
             </Button>
           </DropdownMenuTrigger>
+
+          {/* DropdownMenuContent */}
+          <DropdownMenuContent align="end" className="w-48">
+            <DropdownMenuLabel>Akun Saya</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <User className="w-4 h-4 mr-2" />
+              Profil
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={handleLogout}
+              className="text-red-600 focus:text-red-600 focus:bg-red-50"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Keluar
+            </DropdownMenuItem>
+          </DropdownMenuContent>
         </DropdownMenu>
       </nav>
     </header>
