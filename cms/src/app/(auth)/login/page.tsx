@@ -143,6 +143,13 @@ export default function LoginPage() {
             </form>
           </Form>
         </article>
+
+        {/* footer */}
+        <footer className="text-center mt-6">
+          <p className="text-xs text-slate-400">
+            © 2026 Smart Village — Sistem Layanan Desa Digital
+          </p>
+        </footer>
       </section>
     </main>
   );
