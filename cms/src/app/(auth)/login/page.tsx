@@ -79,7 +79,6 @@ export default function LoginPage() {
           {/* form login */}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              
               {/* input email */}
               <FormField
                 control={form.control}
@@ -135,6 +134,12 @@ export default function LoginPage() {
                   </FormItem>
                 )}
               />
+
+              {/* button submit */}
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Masuk
+              </Button>
             </form>
           </Form>
         </article>
