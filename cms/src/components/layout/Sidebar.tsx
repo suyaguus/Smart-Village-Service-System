@@ -72,6 +72,11 @@ export default function Sidebar() {
           })}
         </ul>
       </nav>
+
+      {/* Footer */}
+      <footer className="px-6 py-4 border-t border-slate-700">
+        <p className="text-slate-500 text-xs">© 2026 Smart Village</p>
+      </footer>
     </aside>
   );
 }
