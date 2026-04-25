@@ -42,6 +42,36 @@ export default function Sidebar() {
           </figcaption>
         </figure>
       </header>
+
+      {/* navigation items */}
+      <nav className="flex-1 px-3 py-4 space-y-1">
+        <ul className="space-y-1">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive =
+              item.href === "/dashboard"
+                ? pathname === "/dashboard"
+                : pathname.startsWith(item.href);
+
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={cn(
+                    "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
+                    isActive
+                      ? "bg-white text-slate-900"
+                      : "text-slate-400 hover:bg-slate-800 hover:text-white",
+                  )}
+                >
+                  <Icon className="w-4 h-4 shrink-0" />
+                  <span>{item.label}</span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
     </aside>
   );
 }
