@@ -1,4 +1,9 @@
-import { ConflictException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateJenisSuratDto } from './dto/create-jenis-surat.dto';
 import { UpdateJenisSuratDto } from './dto/update-jenis-surat.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -48,6 +53,18 @@ export class JenisSuratService {
 
     // membuat fungsi untuk mengambil semua data jenis surat dari database
     const data = await this.prisma.jenisSurat.findMany();
+
+    // jika jenis surat tidak ditemukan, maka kirimkan pesan error
+    if (data.length === 0) {
+      throw new NotFoundException({
+        success: false,
+        message: 'Jenis Surat tidak ditemukan!',
+        metadata: {
+          status: HttpStatus.NOT_FOUND,
+          total_data: 0,
+        },
+      });
+    }
   }
 
   findOne(id: number) {
