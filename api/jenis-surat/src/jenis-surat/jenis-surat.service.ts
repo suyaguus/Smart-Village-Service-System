@@ -82,6 +82,17 @@ export class JenisSuratService {
 
     // membuat fungsi untuk mengambil data jenis surat dari database berdasarkan id
     const data = await this.prisma.jenisSurat.findUnique({ where: { id } });
+
+    // jika data jenis surat tidak ditemukan, maka kirimkan pesan error
+    if (!data) {
+      throw new NotFoundException({
+        success: false,
+        message: 'Jenis Surat tidak ditemukan!',
+        metadata: {
+          status: HttpStatus.NOT_FOUND,
+        },
+      });
+    }
   }
 
   update(id: number, updateJenisSuratDto: UpdateJenisSuratDto) {
