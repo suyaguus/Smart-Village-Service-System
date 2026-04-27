@@ -7,6 +7,7 @@ import {
 import { CreateJenisSuratDto } from './dto/create-jenis-surat.dto';
 import { UpdateJenisSuratDto } from './dto/update-jenis-surat.dto';
 import { PrismaService } from 'src/prisma.service';
+import { metadata } from 'reflect-metadata/no-conflict';
 
 @Injectable()
 export class JenisSuratService {
@@ -74,6 +75,7 @@ export class JenisSuratService {
         status: HttpStatus.OK,
         total_data: data.length,
       },
+      data,
     };
   }
 
@@ -93,6 +95,16 @@ export class JenisSuratService {
         },
       });
     }
+
+    // jika data jenis surat ditemukan, maka kirimkan response sukses
+    return {
+      success: true,
+      message: 'Jenis Surat berhasil ditemukan.',
+      metadata: {
+        status: HttpStatus.OK,
+      },
+      data,
+    };
   }
 
   update(id: number, updateJenisSuratDto: UpdateJenisSuratDto) {
