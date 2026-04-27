@@ -27,6 +27,11 @@ export class JenisSuratService {
         },
       });
     }
+
+    // simpan jenis surat baru ke database
+    await this.prisma.jenisSurat.create({
+      data: createJenisSuratDto,
+    });
   }
 
   findAll() {
