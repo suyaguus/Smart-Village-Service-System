@@ -32,6 +32,15 @@ export class JenisSuratService {
     await this.prisma.jenisSurat.create({
       data: createJenisSuratDto,
     });
+
+    // response jika data berhasil disimpan
+    return {
+      success: true,
+      message: 'Jenis Surat berhasil dibuat.',
+      metadata: {
+        status: HttpStatus.CREATED,
+      },
+    };
   }
 
   findAll() {
