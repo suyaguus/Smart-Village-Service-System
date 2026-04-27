@@ -6,7 +6,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  // ubah get hello menjadi getwelcome sesuai dengan app.service
+  getWellcome(): string {
+    return this.appService.getWellcome();
   }
 }
