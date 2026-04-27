@@ -7,8 +7,15 @@ import { PrismaService } from 'src/prisma.service';
 export class JenisSuratService {
   // buat constructor untuk inject PrismaService
   constructor(private readonly prisma: PrismaService) {}
-  create(createJenisSuratDto: CreateJenisSuratDto) {
-    return 'This action adds a new jenisSurat';
+
+  // methode create
+  async create(createJenisSuratDto: CreateJenisSuratDto) {
+    // return 'This action adds a new jenisSurat';
+
+    // cek duplikasi kode_surat
+    const existingJenisSurat = await this.prisma.jenisSurat.findUnique({
+      where: { kode_surat: createJenisSuratDto.kode_surat },
+    });
   }
 
   findAll() {
