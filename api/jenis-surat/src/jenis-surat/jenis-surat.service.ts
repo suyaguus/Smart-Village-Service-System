@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateJenisSuratDto } from './dto/create-jenis-surat.dto';
 import { UpdateJenisSuratDto } from './dto/update-jenis-surat.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -16,6 +16,17 @@ export class JenisSuratService {
     const existingJenisSurat = await this.prisma.jenisSurat.findUnique({
       where: { kode_surat: createJenisSuratDto.kode_surat },
     });
+
+    // jika kode_surat sudah terdaftar, maka throw exception
+    if (existingJenisSurat) {
+      throw new ConflictException({
+        success: false,
+        message: 'Kode Surat sudah terdaftar!',
+        metadata: {
+          status: HttpStatus.CONFLICT,
+        },
+      });
+    }
   }
 
   findAll() {
