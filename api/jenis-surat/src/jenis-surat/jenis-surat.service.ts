@@ -77,8 +77,11 @@ export class JenisSuratService {
     };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} jenisSurat`;
+  async findOne(id: number) {
+    // return `This action returns a #${id} jenisSurat`;
+
+    // membuat fungsi untuk mengambil data jenis surat dari database berdasarkan id
+    const data = await this.prisma.jenisSurat.findUnique({ where: { id } });
   }
 
   update(id: number, updateJenisSuratDto: UpdateJenisSuratDto) {
