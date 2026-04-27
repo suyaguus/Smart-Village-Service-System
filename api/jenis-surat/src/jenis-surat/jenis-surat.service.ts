@@ -43,8 +43,11 @@ export class JenisSuratService {
     };
   }
 
-  findAll() {
-    return `This action returns all jenisSurat`;
+  async findAll() {
+    // return `This action returns all jenisSurat`;
+
+    // membuat fungsi untuk mengambil semua data jenis surat dari database
+    const data = await this.prisma.jenisSurat.findMany();
   }
 
   findOne(id: number) {
