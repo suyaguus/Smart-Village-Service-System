@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CreateJenisSuratDto } from './dto/create-jenis-surat.dto';
 import { UpdateJenisSuratDto } from './dto/update-jenis-surat.dto';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class JenisSuratService {
+  // buat constructor untuk inject PrismaService
+  constructor(private readonly prisma: PrismaService) {}
   create(createJenisSuratDto: CreateJenisSuratDto) {
     return 'This action adds a new jenisSurat';
   }
