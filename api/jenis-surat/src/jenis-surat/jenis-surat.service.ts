@@ -253,7 +253,11 @@ export class JenisSuratService {
 
     // refactor: menggunakan try catch
     try {
+      // cek apakah jenis surat dengan id tersebut ada di database
       await notExistJenisSurat(id, this.prisma.jenisSurat);
+
+      // jika data ditemukan maka hapus data jenis surat dari database
+      await this.prisma.jenisSurat.delete({ where: { id } });
     }
   }
 }
