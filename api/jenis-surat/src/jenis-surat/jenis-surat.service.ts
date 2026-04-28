@@ -133,6 +133,10 @@ export class JenisSuratService {
           status: HttpStatus.OK,
         },
         data,
+      };
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
       }
     }
   }
