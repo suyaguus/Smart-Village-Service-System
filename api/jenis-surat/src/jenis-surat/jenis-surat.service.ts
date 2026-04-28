@@ -7,7 +7,6 @@ import {
 import { CreateJenisSuratDto } from './dto/create-jenis-surat.dto';
 import { UpdateJenisSuratDto } from './dto/update-jenis-surat.dto';
 import { PrismaService } from 'src/prisma.service';
-import { stat } from 'node:fs';
 
 @Injectable()
 export class JenisSuratService {
