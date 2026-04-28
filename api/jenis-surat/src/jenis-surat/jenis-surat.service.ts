@@ -258,6 +258,14 @@ export class JenisSuratService {
 
       // jika data ditemukan maka hapus data jenis surat dari database
       await this.prisma.jenisSurat.delete({ where: { id } });
+
+      return {
+        success: true,
+        message: process.env.SUCCESS_DELETE_MESSAGE,
+        metadata: {
+          status: HttpStatus.OK,
+        }
+      }
     }
   }
 }
