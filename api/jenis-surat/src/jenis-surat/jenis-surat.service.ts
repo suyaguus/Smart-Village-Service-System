@@ -7,6 +7,7 @@ import {
 import { CreateJenisSuratDto } from './dto/create-jenis-surat.dto';
 import { UpdateJenisSuratDto } from './dto/update-jenis-surat.dto';
 import { PrismaService } from 'src/prisma.service';
+import { stat } from 'node:fs';
 
 @Injectable()
 export class JenisSuratService {
@@ -139,6 +140,15 @@ export class JenisSuratService {
       where: { id },
       data: updateJenisSuratDto,
     });
+
+    // tampilakan response jika data berhasil diupdate
+    return {
+      success: true,
+      message: 'Jenis Surat berhasil diupdate.',
+      metadata: {
+        status: HttpStatus.OK,
+      },
+    };
   }
 
   remove(id: number) {
