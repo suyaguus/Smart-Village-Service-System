@@ -42,8 +42,8 @@ export class JenisSuratController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.jenisSuratService.findOne(+id);
+  findOne(@Param('id', IntParam) id: number) {
+    return this.jenisSuratService.findOne(id);
   }
 
   @Patch(':id')
