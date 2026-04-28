@@ -11,6 +11,7 @@ import { PrismaService } from 'src/prisma.service';
 import { conflictKodeSurat } from 'src/common/utils/conflict.util';
 import { JENIS_SURAT_SELECT } from 'src/common/constants/select';
 import { notExistJenisSurat } from 'src/common/utils/not-exist.util';
+import { not } from 'supertest/lib/cookies';
 
 @Injectable()
 export class JenisSuratService {
@@ -155,45 +156,46 @@ export class JenisSuratService {
   // method update
   async update(id: number, updateJenisSuratDto: UpdateJenisSuratDto) {
     // return `This action updates a #${id} jenisSurat`;
-
     // cek apakah jenis surat dengan id tersebut ada di database
-    await this.findOne(id);
-
+    // await this.findOne(id);
     // cek duplikasi kode_surat jika kode_surat diupdate
-    if (updateJenisSuratDto.kode_surat) {
-      const existingJenisSurat = await this.prisma.jenisSurat.findFirst({
-        where: {
-          kode_surat: updateJenisSuratDto.kode_surat,
-          NOT: { id },
-        },
-      });
-
-      // jika kode_surat sudah terdaftar, maka throw exception
-      if (existingJenisSurat) {
-        throw new ConflictException({
-          success: false,
-          message: 'Kode Surat sudah terdaftar!',
-          metadata: {
-            status: HttpStatus.CONFLICT,
-          },
-        });
-      }
-    }
-
+    // if (updateJenisSuratDto.kode_surat) {
+    //   const existingJenisSurat = await this.prisma.jenisSurat.findFirst({
+    //     where: {
+    //       kode_surat: updateJenisSuratDto.kode_surat,
+    //       NOT: { id },
+    //     },
+    //   });
+    // jika kode_surat sudah terdaftar, maka throw exception
+    //   if (existingJenisSurat) {
+    //     throw new ConflictException({
+    //       success: false,
+    //       message: 'Kode Surat sudah terdaftar!',
+    //       metadata: {
+    //         status: HttpStatus.CONFLICT,
+    //       },
+    //     });
+    //   }
+    // }
     // update data jenis surat di database
-    await this.prisma.jenisSurat.update({
-      where: { id },
-      data: updateJenisSuratDto,
-    });
-
+    // await this.prisma.jenisSurat.update({
+    //   where: { id },
+    //   data: updateJenisSuratDto,
+    // });
     // tampilakan response jika data berhasil diupdate
-    return {
-      success: true,
-      message: 'Jenis Surat berhasil diupdate.',
-      metadata: {
-        status: HttpStatus.OK,
-      },
-    };
+    // return {
+    //   success: true,
+    //   message: 'Jenis Surat berhasil diupdate.',
+    //   metadata: {
+    //     status: HttpStatus.OK,
+    //   },
+    // };
+
+    // refactor: menggunakan try catch
+    try {
+      // cek apakah jenis surat dengan id tersebut ada di database
+      await notExistJenisSurat(id, this.prisma.jenisSurat);
+    }
   }
 
   async remove(id: number) {
