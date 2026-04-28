@@ -106,8 +106,22 @@ export class JenisSuratService {
     };
   }
 
-  update(id: number, updateJenisSuratDto: UpdateJenisSuratDto) {
-    return `This action updates a #${id} jenisSurat`;
+  // method update
+  async update(id: number, updateJenisSuratDto: UpdateJenisSuratDto) {
+    // return `This action updates a #${id} jenisSurat`;
+
+    // cek apakah jenis surat dengan id tersebut ada di database
+    await this.findOne(id);
+
+    // cek duplikasi kode_surat jika kode_surat diupdate
+    if (updateJenisSuratDto.kode_surat) {
+      const existingJenisSurat = await this.prisma.jenisSurat.findFirst({
+        where: {
+          kode_surat: updateJenisSuratDto.kode_surat,
+          NOT: { id },
+        },
+      });
+    }
   }
 
   remove(id: number) {
