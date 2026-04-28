@@ -195,6 +195,16 @@ export class JenisSuratService {
     try {
       // cek apakah jenis surat dengan id tersebut ada di database
       await notExistJenisSurat(id, this.prisma.jenisSurat);
+
+      // cek duplikasi kode_surat jika kode_surat diupdate
+      if (updateJenisSuratDto.kode_surat) {
+        await conflictKodeSurat(
+          updateJenisSuratDto.kode_surat,
+          this.prisma.jenisSurat,
+          process.env.CONFLICT_KODE_MESSAGE ?? '',
+          id,
+        )
+      }
     }
   }
 
