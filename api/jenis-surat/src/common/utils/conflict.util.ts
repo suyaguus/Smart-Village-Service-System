@@ -1,3 +1,4 @@
+import { ConflictException, HttpStatus } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 
 export const conflictKodeSuratc = async (
@@ -13,4 +14,15 @@ export const conflictKodeSuratc = async (
       ...(id ? { NOT: { id } } : undefined),
     },
   });
+
+  //   jika data jenis surat ditemukan, maka kirimkan conflict exception
+  if (exist) {
+    throw new ConflictException({
+      success: false,
+      message,
+      metadata: {
+        status: HttpStatus.CONFLICT,
+      },
+    });
+  }
 };
