@@ -211,6 +211,15 @@ export class JenisSuratService {
         where: {id},
         data: updateJenisSuratDto,
       });
+
+      // tampilakan response jika data berhasil diupdate
+      return {
+        success: true,
+        message: process.env.SUCCESS_UPDATE_MESSAGE,
+        metadata: {
+          status: HttpStatus.OK
+        }
+      }
     }
   }
 
