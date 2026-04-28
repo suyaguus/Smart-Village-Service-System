@@ -48,10 +48,10 @@ export class JenisSuratController {
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateJenisSuratDto: UpdateJenisSuratDto,
   ) {
-    return this.jenisSuratService.update(+id, updateJenisSuratDto);
+    return this.jenisSuratService.update(id, updateJenisSuratDto);
   }
 
   @Delete(':id')
