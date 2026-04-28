@@ -1,7 +1,7 @@
 import { ConflictException, HttpStatus } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 
-export const conflictKodeSuratc = async (
+export const conflictKodeSurat = async (
   kode_surat: string,
   prisma: PrismaService['jenisSurat'],
   message: string,
