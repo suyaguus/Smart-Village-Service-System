@@ -238,20 +238,22 @@ export class JenisSuratService {
 
   async remove(id: number) {
     // return `This action removes a #${id} jenisSurat`;
-
     // cek apakah jenis surat dengan id tersebut ada di database
-    await this.findOne(id);
-
+    // await this.findOne(id);
     // jika data ditemukan maka hapus data jenis surat dari database
-    await this.prisma.jenisSurat.delete({ where: { id } });
-
+    // await this.prisma.jenisSurat.delete({ where: { id } });
     // tampilakan response jika data berhasil dihapus
-    return {
-      success: true,
-      message: 'Jenis Surat berhasil dihapus.',
-      metadata: {
-        status: HttpStatus.OK,
-      },
-    };
+    // return {
+    //   success: true,
+    //   message: 'Jenis Surat berhasil dihapus.',
+    //   metadata: {
+    //     status: HttpStatus.OK,
+    //   },
+    // };
+
+    // refactor: menggunakan try catch
+    try {
+      await notExistJenisSurat(id, this.prisma.jenisSurat);
+    }
   }
 }
