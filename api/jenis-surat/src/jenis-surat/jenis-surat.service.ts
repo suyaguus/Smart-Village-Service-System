@@ -84,7 +84,9 @@ export class JenisSuratService {
     // jika data jenis surat ditemukan, maka kirimkan response sukses
     return {
       success: true,
-      message: 'Jenis Surat berhasil ditemukan.',
+      // message: 'Jenis Surat berhasil ditemukan.',
+      // refactor: gunakan environment variable untuk pesan success
+      message: process.env.SUCCESS_FIND_MESSAGE,
       metadata: {
         status: HttpStatus.OK,
         total_data: data.length,
