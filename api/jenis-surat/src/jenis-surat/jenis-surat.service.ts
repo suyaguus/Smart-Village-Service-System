@@ -151,7 +151,10 @@ export class JenisSuratService {
     };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} jenisSurat`;
+  async remove(id: number) {
+    // return `This action removes a #${id} jenisSurat`;
+
+    // cek apakah jenis surat dengan id tersebut ada di database
+    await this.findOne(id);
   }
 }
