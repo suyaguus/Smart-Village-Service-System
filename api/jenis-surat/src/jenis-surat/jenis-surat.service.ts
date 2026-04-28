@@ -124,6 +124,16 @@ export class JenisSuratService {
     try {
       // cek apakah jenis surat dengan id tersebut ada di database
       const data = await notExistJenisSurat(id, this.prisma.jenisSurat);
+
+      // jika data jenis surat ditemukan, maka kirimkan response sukses
+      return {
+        success: true,
+        message: process.env.SUCCESS_FIND_MESSAGE,
+        metadata: {
+          status: HttpStatus.OK,
+        },
+        data,
+      }
     }
   }
 
