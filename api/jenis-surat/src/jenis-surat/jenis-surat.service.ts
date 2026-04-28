@@ -264,8 +264,11 @@ export class JenisSuratService {
         message: process.env.SUCCESS_DELETE_MESSAGE,
         metadata: {
           status: HttpStatus.OK,
-        }
-      }
+        },
+      };
+    } catch (error) {
+      // jika jenis surat tidak ditemukan, maka kirimkan not found exception
+      if (error instanceof NotFoundException) throw error;
     }
   }
 }
