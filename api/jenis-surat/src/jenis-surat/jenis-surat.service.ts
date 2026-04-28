@@ -156,5 +156,8 @@ export class JenisSuratService {
 
     // cek apakah jenis surat dengan id tersebut ada di database
     await this.findOne(id);
+
+    // jika data ditemukan maka hapus data jenis surat dari database
+    await this.prisma.jenisSurat.delete({ where: { id } });
   }
 }
