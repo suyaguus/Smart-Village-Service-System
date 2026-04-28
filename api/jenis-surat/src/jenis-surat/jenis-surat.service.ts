@@ -7,6 +7,7 @@ import {
 import { CreateJenisSuratDto } from './dto/create-jenis-surat.dto';
 import { UpdateJenisSuratDto } from './dto/update-jenis-surat.dto';
 import { PrismaService } from 'src/prisma.service';
+import { conflictKodeSurat } from 'src/common/utils/conflict.util';
 
 @Injectable()
 export class JenisSuratService {
@@ -18,20 +19,27 @@ export class JenisSuratService {
     // return 'This action adds a new jenisSurat';
 
     // cek duplikasi kode_surat
-    const existingJenisSurat = await this.prisma.jenisSurat.findUnique({
-      where: { kode_surat: createJenisSuratDto.kode_surat },
-    });
+    // const existingJenisSurat = await this.prisma.jenisSurat.findUnique({
+    //   where: { kode_surat: createJenisSuratDto.kode_surat },
+    // });
 
     // jika kode_surat sudah terdaftar, maka throw exception
-    if (existingJenisSurat) {
-      throw new ConflictException({
-        success: false,
-        message: 'Kode Surat sudah terdaftar!',
-        metadata: {
-          status: HttpStatus.CONFLICT,
-        },
-      });
-    }
+    // if (existingJenisSurat) {
+    //   throw new ConflictException({
+    //     success: false,
+    //     message: 'Kode Surat sudah terdaftar!',
+    //     metadata: {
+    //       status: HttpStatus.CONFLICT,
+    //     },
+    //   });
+    // }
+
+    // refactor cek duplikasi kode_surat / panggil fungsi kode_surat conflict
+    await conflictKodeSurat(
+      createJenisSuratDto.kode_surat,
+      this.prisma.jenisSurat,
+      process.env.CONFLICT_KODE_MESSAGE ?? '',
+    );
 
     // simpan jenis surat baru ke database
     await this.prisma.jenisSurat.create({
