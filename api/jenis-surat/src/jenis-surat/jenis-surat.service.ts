@@ -49,7 +49,7 @@ export class JenisSuratService {
     // response jika data berhasil disimpan
     return {
       success: true,
-      message: 'Jenis Surat berhasil dibuat.',
+      message: process.env.SUCCESS_SAVE_MESSAGE,
       metadata: {
         status: HttpStatus.CREATED,
       },
