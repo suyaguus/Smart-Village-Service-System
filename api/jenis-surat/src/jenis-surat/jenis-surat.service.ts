@@ -8,6 +8,7 @@ import { CreateJenisSuratDto } from './dto/create-jenis-surat.dto';
 import { UpdateJenisSuratDto } from './dto/update-jenis-surat.dto';
 import { PrismaService } from 'src/prisma.service';
 import { conflictKodeSurat } from 'src/common/utils/conflict.util';
+import { JENIS_SURAT_SELECT } from 'src/common/constants/select';
 
 @Injectable()
 export class JenisSuratService {
@@ -60,7 +61,12 @@ export class JenisSuratService {
     // return `This action returns all jenisSurat`;
 
     // membuat fungsi untuk mengambil semua data jenis surat dari database
-    const data = await this.prisma.jenisSurat.findMany();
+    // const data = await this.prisma.jenisSurat.findMany();
+
+    // refactor: ambil semua data jenis surat dengan select
+    const data = await this.prisma.jenisSurat.findMany({
+      select: JENIS_SURAT_SELECT,
+    });
 
     // jika jenis surat tidak ditemukan, maka kirimkan pesan error
     if (data.length === 0) {
