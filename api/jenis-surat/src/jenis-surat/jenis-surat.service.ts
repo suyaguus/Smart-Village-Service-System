@@ -1,6 +1,5 @@
 import {
   BadRequestException,
-  ConflictException,
   HttpException,
   HttpStatus,
   Injectable,
@@ -12,7 +11,6 @@ import { PrismaService } from 'src/prisma.service';
 import { conflictKodeSurat } from 'src/common/utils/conflict.util';
 import { JENIS_SURAT_SELECT } from 'src/common/constants/select';
 import { notExistJenisSurat } from 'src/common/utils/not-exist.util';
-import { not } from 'supertest/lib/cookies';
 
 @Injectable()
 export class JenisSuratService {
