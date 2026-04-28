@@ -121,6 +121,16 @@ export class JenisSuratService {
           NOT: { id },
         },
       });
+
+      if (existingJenisSurat) {
+        throw new ConflictException({
+          success: false,
+          message: 'Kode Surat sudah terdaftar!',
+          metadata: {
+            status: HttpStatus.CONFLICT,
+          },
+        });
+      }
     }
   }
 
