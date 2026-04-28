@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   ConflictException,
+  HttpException,
   HttpStatus,
   Injectable,
   NotFoundException,
@@ -208,7 +209,7 @@ export class JenisSuratService {
 
       // update data jenis surat di database
       await this.prisma.jenisSurat.update({
-        where: {id},
+        where: { id },
         data: updateJenisSuratDto,
       });
 
@@ -217,9 +218,12 @@ export class JenisSuratService {
         success: true,
         message: process.env.SUCCESS_UPDATE_MESSAGE,
         metadata: {
-          status: HttpStatus.OK
-        }
-      }
+          status: HttpStatus.OK,
+        },
+      };
+    } catch (error) {
+      // jika jenis surat tidak ditemukan, maka kirimkan not found exception
+      if (error instanceof HttpException) throw error;
     }
   }
 
