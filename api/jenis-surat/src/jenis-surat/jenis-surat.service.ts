@@ -224,6 +224,15 @@ export class JenisSuratService {
     } catch (error) {
       // jika jenis surat tidak ditemukan, maka kirimkan not found exception
       if (error instanceof HttpException) throw error;
+
+      // jika terjadi error lain, maka kirimkan bad request exception
+      throw new BadRequestException({
+        success: false,
+        message: process.env.BAD_REQUEST_MESSAGE,
+        metadata: {
+          status: HttpStatus.BAD_REQUEST,
+        },
+      });
     }
   }
 
