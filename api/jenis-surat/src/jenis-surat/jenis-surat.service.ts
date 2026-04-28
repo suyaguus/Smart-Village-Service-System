@@ -9,6 +9,7 @@ import { UpdateJenisSuratDto } from './dto/update-jenis-surat.dto';
 import { PrismaService } from 'src/prisma.service';
 import { conflictKodeSurat } from 'src/common/utils/conflict.util';
 import { JENIS_SURAT_SELECT } from 'src/common/constants/select';
+import { notExistJenisSurat } from 'src/common/utils/not-exist.util';
 
 @Injectable()
 export class JenisSuratService {
@@ -97,30 +98,33 @@ export class JenisSuratService {
 
   async findOne(id: number) {
     // return `This action returns a #${id} jenisSurat`;
-
     // membuat fungsi untuk mengambil data jenis surat dari database berdasarkan id
-    const data = await this.prisma.jenisSurat.findUnique({ where: { id } });
-
+    // const data = await this.prisma.jenisSurat.findUnique({ where: { id } });
     // jika data jenis surat tidak ditemukan, maka kirimkan pesan error
-    if (!data) {
-      throw new NotFoundException({
-        success: false,
-        message: 'Jenis Surat tidak ditemukan!',
-        metadata: {
-          status: HttpStatus.NOT_FOUND,
-        },
-      });
-    }
-
+    // if (!data) {
+    //   throw new NotFoundException({
+    //     success: false,
+    //     message: 'Jenis Surat tidak ditemukan!',
+    //     metadata: {
+    //       status: HttpStatus.NOT_FOUND,
+    //     },
+    //   });
+    // }
     // jika data jenis surat ditemukan, maka kirimkan response sukses
-    return {
-      success: true,
-      message: 'Jenis Surat berhasil ditemukan.',
-      metadata: {
-        status: HttpStatus.OK,
-      },
-      data,
-    };
+    // return {
+    //   success: true,
+    //   message: 'Jenis Surat berhasil ditemukan.',
+    //   metadata: {
+    //     status: HttpStatus.OK,
+    //   },
+    //   data,
+    // };
+
+    // refactor: menggunakan fungsi try catch
+    try {
+      // cek apakah jenis surat dengan id tersebut ada di database
+      const data = await notExistJenisSurat(id, this.prisma.jenisSurat);
+    }
   }
 
   // method update
