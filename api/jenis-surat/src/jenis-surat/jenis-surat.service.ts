@@ -122,6 +122,7 @@ export class JenisSuratService {
         },
       });
 
+      // jika kode_surat sudah terdaftar, maka throw exception
       if (existingJenisSurat) {
         throw new ConflictException({
           success: false,
@@ -132,6 +133,12 @@ export class JenisSuratService {
         });
       }
     }
+
+    // update data jenis surat di database
+    await this.prisma.jenisSurat.update({
+      where: { id },
+      data: updateJenisSuratDto,
+    });
   }
 
   remove(id: number) {
