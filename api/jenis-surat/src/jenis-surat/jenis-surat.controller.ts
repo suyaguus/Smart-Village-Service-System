@@ -55,7 +55,7 @@ export class JenisSuratController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.jenisSuratService.remove(+id);
+  remove(@Param('id', IntParam) id: number) {
+    return this.jenisSuratService.remove(id);
   }
 }
