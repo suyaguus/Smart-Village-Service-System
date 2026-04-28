@@ -203,8 +203,14 @@ export class JenisSuratService {
           this.prisma.jenisSurat,
           process.env.CONFLICT_KODE_MESSAGE ?? '',
           id,
-        )
+        );
       }
+
+      // update data jenis surat di database
+      await this.prisma.jenisSurat.update({
+        where: {id},
+        data: updateJenisSuratDto,
+      });
     }
   }
 
