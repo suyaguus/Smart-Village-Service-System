@@ -134,6 +134,15 @@ export class FieldSuratService {
         where: {id},
         data: updateFieldSuratDto,
       });
+
+      // jika data berhasil diupdate, maka kirimkan pesan respon
+      return {
+        success: true,
+        message: 'Field Surat berhasil diupdate.',
+        metadata: {
+          status: HttpStatus.OK,
+        },
+      };
     }
   }
 
