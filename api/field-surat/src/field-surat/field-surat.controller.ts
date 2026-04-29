@@ -45,9 +45,10 @@ export class FieldSuratController {
     return this.fieldSuratService.findByJenisSurat(jenis_surat_id);
   }
 
+  // menambahkan IntParam, mengganti string > number
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.fieldSuratService.findOne(+id);
+  findOne(@Param('id', IntParam) id: number) {
+    return this.fieldSuratService.findOne(id);
   }
 
   @Patch(':id')
