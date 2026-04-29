@@ -164,7 +164,14 @@ export class FieldSuratService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} fieldSurat`;
+  // method remove
+  async remove(id: number) {
+    // return `This action removes a #${id} fieldSurat`;
+
+    // membuat fungsi try catch
+    try {
+      // mengecek apakah field surat dengan id tersebut ada di database
+      await this.findOne(id);
+    }
   }
 }
