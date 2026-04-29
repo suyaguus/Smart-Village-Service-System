@@ -175,8 +175,8 @@ export class FieldSuratService {
 
       // jika field surat ditemukan, maka hapus data field surat
       await this.prisma.fieldSurat.delete({
-        where: {id}
-      })
+        where: { id },
+      });
 
       // response jika data berhasil dihapus
       return {
@@ -184,8 +184,11 @@ export class FieldSuratService {
         message: 'Field Surat berhasil dihapus.',
         metadata: {
           status: HttpStatus.OK,
-        }
-      }
+        },
+      };
+    } catch (error) {
+      // membuat kondisi jika error yang terjadi adalah NotFoundException, maka throw error tersebut
+      if (error instanceof NotFoundException) throw error;
     }
   }
 }
