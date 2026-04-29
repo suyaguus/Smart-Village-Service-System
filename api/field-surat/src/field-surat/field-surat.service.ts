@@ -108,6 +108,16 @@ export class FieldSuratService {
         },
       });
     }
+
+    // jika field surat ditemukan kirimkan pesan respon
+    return {
+      success: false,
+      message: 'Field surat berhasil ditemukan!',
+      metadata: {
+        status: HttpStatus.OK,
+      },
+      data,
+    };
   }
 
   update(id: number, updateFieldSuratDto: UpdateFieldSuratDto) {
