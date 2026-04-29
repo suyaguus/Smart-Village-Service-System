@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { CreateFieldSuratDto } from './dto/create-field-surat.dto';
 import { UpdateFieldSuratDto } from './dto/update-field-surat.dto';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class FieldSuratService {
+  // buat constructor untuk inject PrismaService
+  constructor(private readonly prisma: PrismaService) {}
+
   create(createFieldSuratDto: CreateFieldSuratDto) {
     return 'This action adds a new fieldSurat';
   }
