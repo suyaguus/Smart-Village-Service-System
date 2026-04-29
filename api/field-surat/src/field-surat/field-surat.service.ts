@@ -8,8 +8,13 @@ export class FieldSuratService {
   // buat constructor untuk inject PrismaService
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createFieldSuratDto: CreateFieldSuratDto) {
-    return 'This action adds a new fieldSurat';
+  async create(createFieldSuratDto: CreateFieldSuratDto) {
+    // return 'This action adds a new fieldSurat';
+
+    // simpan field surat baru ke database
+    await this.prisma.fieldSurat.create({
+      data: createFieldSuratDto,
+    });
   }
 
   findAll() {
