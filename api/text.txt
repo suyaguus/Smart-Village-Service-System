@@ -9,6 +9,9 @@ api/
 
 npm i -g @nestjs/cli
 nest new (user-service)
+pnpm dlx prisma init
+pnpm add typescript tsx @types/node --save-dev
+
 pnpm dlx @nestjs/cli generate resource user (REST API / CRUD[YES])
 
 Langkah 1: Buat NestJS Project
