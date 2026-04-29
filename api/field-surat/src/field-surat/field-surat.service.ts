@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { CreateFieldSuratDto } from './dto/create-field-surat.dto';
 import { UpdateFieldSuratDto } from './dto/update-field-surat.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -15,6 +15,15 @@ export class FieldSuratService {
     await this.prisma.fieldSurat.create({
       data: createFieldSuratDto,
     });
+
+    // response jika data berhasil disimpan
+    return {
+      success: true,
+      message: 'Field Surat berhasil dibuat.',
+      metadata: {
+        status: HttpStatus.CREATED,
+      },
+    };
   }
 
   findAll() {
