@@ -177,6 +177,15 @@ export class FieldSuratService {
       await this.prisma.fieldSurat.delete({
         where: {id}
       })
+
+      // response jika data berhasil dihapus
+      return {
+        success: true,
+        message: 'Field Surat berhasil dihapus.',
+        metadata: {
+          status: HttpStatus.OK,
+        }
+      }
     }
   }
 }
