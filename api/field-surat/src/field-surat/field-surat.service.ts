@@ -45,6 +45,16 @@ export class FieldSuratService {
         },
       });
     }
+
+    // jika data ditemukan, maka tampilkan respon dan data field surat
+    return {
+      success: true,
+      message: 'Field Surat berhasil ditemukan.',
+      metadata: {
+        status: HttpStatus.OK,
+      },
+      data,
+    };
   }
 
   findOne(id: number) {
