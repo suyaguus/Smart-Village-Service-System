@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateFieldSuratDto } from './dto/create-field-surat.dto';
 import { UpdateFieldSuratDto } from './dto/update-field-surat.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -30,9 +30,20 @@ export class FieldSuratService {
   // method findAll
   async findAll() {
     // return `This action returns all fieldSurat`;
-    
+
     // ambil semua data field surat dari database
     const data = await this.prisma.fieldSurat.findMany();
+
+    // jika jenis surat tidak ditemukan, maka throw exception
+    if (data.length === 0) {
+      throw new NotFoundException({
+        success: false,
+        message: 'Field Surat tidak ditemukan!',
+        metadata: {
+          status: HttpStatus.NOT_FOUND,
+          total_data: 0,
+        },
+      });
     }
   }
 
