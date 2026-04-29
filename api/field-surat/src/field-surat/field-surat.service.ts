@@ -172,6 +172,11 @@ export class FieldSuratService {
     try {
       // mengecek apakah field surat dengan id tersebut ada di database
       await this.findOne(id);
+
+      // jika field surat ditemukan, maka hapus data field surat
+      await this.prisma.fieldSurat.delete({
+        where: {id}
+      })
     }
   }
 }
