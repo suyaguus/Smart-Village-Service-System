@@ -1,4 +1,9 @@
-import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateFieldSuratDto } from './dto/create-field-surat.dto';
 import { UpdateFieldSuratDto } from './dto/update-field-surat.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -124,14 +129,14 @@ export class FieldSuratService {
   async update(id: number, updateFieldSuratDto: UpdateFieldSuratDto) {
     // return `This action updates a #${id} fieldSurat`;
 
-    // membuat fungsi try catch 
+    // membuat fungsi try catch
     try {
       // update data field surat berdasarkan id dari database
       await this.findOne(id);
-      
+
       // jika data field surat ditemukan, maka update data field surat
       await this.prisma.fieldSurat.update({
-        where: {id},
+        where: { id },
         data: updateFieldSuratDto,
       });
 
@@ -143,6 +148,9 @@ export class FieldSuratService {
           status: HttpStatus.OK,
         },
       };
+    } catch (error) {
+      // jika terjadi error, maka kirimkan pesan error
+      if (error instanceof HttpException) throw error;
     }
   }
 
