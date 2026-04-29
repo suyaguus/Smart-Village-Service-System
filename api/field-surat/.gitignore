@@ -52,4 +52,4 @@ Thumbs.db
 # pnpm
 pnpm-debug.log
 
-/generated/prisma
+/src/generated/prisma
