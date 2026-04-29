@@ -39,6 +39,12 @@ export class FieldSuratController {
     return this.fieldSuratService.findAll();
   }
 
+  // menambahkan endpoint untuk mendapatkan field surat berdasarkan jenis surat
+  @Get('jenis-surat/:jenis_surat_id')
+  findByJenisSurat(@Param('jenis_surat_id', IntParam) jenis_surat_id: number) {
+    return this.fieldSuratService.findByJenisSurat(jenis_surat_id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.fieldSuratService.findOne(+id);
