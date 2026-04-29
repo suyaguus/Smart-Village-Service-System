@@ -129,6 +129,11 @@ export class FieldSuratService {
       // update data field surat berdasarkan id dari database
       await this.findOne(id);
       
+      // jika data field surat ditemukan, maka update data field surat
+      await this.prisma.fieldSurat.update({
+        where: {id},
+        data: updateFieldSuratDto,
+      });
     }
   }
 
