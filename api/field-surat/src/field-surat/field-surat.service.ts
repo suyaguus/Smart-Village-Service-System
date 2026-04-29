@@ -97,6 +97,17 @@ export class FieldSuratService {
     const data = await this.prisma.fieldSurat.findUnique({
       where: { id },
     });
+
+    // jika data field surat tidak ditemukan, maka throw exception
+    if (!data) {
+      throw new NotFoundException({
+        success: false,
+        message: 'Field Surat tidak ditemukan!',
+        metadata: {
+          status: HttpStatus.NOT_FOUND,
+        },
+      });
+    }
   }
 
   update(id: number, updateFieldSuratDto: UpdateFieldSuratDto) {
