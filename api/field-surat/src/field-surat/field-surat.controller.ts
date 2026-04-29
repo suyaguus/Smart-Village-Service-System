@@ -59,9 +59,9 @@ export class FieldSuratController {
   ) {
     return this.fieldSuratService.update(id, updateFieldSuratDto);
   }
-
+  // menambahkan IntParam, mengganti string > number
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.fieldSuratService.remove(+id);
+  remove(@Param('id', IntParam) id: number) {
+    return this.fieldSuratService.remove(id);
   }
 }
