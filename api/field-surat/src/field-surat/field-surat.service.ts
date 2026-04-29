@@ -89,8 +89,14 @@ export class FieldSuratService {
     };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} fieldSurat`;
+  // method findOne
+  async findOne(id: number) {
+    // return `This action returns a #${id} fieldSurat`;
+
+    // ambil data field surat berdasarkan id dari database
+    const data = await this.prisma.fieldSurat.findUnique({
+      where: { id },
+    });
   }
 
   update(id: number, updateFieldSuratDto: UpdateFieldSuratDto) {
