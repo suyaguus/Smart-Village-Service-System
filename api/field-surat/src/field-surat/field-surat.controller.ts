@@ -1,7 +1,29 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpStatus,
+  BadRequestException,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { FieldSuratService } from './field-surat.service';
 import { CreateFieldSuratDto } from './dto/create-field-surat.dto';
 import { UpdateFieldSuratDto } from './dto/update-field-surat.dto';
+
+// custom ParseIntPipe untuk override pesan error default
+const IntParam = new ParseIntPipe({
+  errorHttpStatusCode: HttpStatus.BAD_REQUEST,
+  exceptionFactory: () =>
+    new BadRequestException({
+      success: false,
+      message: 'Request tidak valid!',
+      metadata: { status: HttpStatus.BAD_REQUEST },
+    }),
+});
 
 @Controller('field-surat')
 export class FieldSuratController {
@@ -23,7 +45,10 @@ export class FieldSuratController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFieldSuratDto: UpdateFieldSuratDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateFieldSuratDto: UpdateFieldSuratDto,
+  ) {
     return this.fieldSuratService.update(+id, updateFieldSuratDto);
   }
 
