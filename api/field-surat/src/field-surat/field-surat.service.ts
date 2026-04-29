@@ -57,6 +57,14 @@ export class FieldSuratService {
     };
   }
 
+  // method find by jenis surat
+  async findByJenisSurat(jenis_surat_id: number) {
+    const data = await this.prisma.fieldSurat.findMany({
+      where: { jenis_surat_id },
+      orderBy: { field_order: 'asc' },
+    });
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} fieldSurat`;
   }
