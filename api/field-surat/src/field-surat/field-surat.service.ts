@@ -120,8 +120,16 @@ export class FieldSuratService {
     };
   }
 
-  update(id: number, updateFieldSuratDto: UpdateFieldSuratDto) {
-    return `This action updates a #${id} fieldSurat`;
+  // method update
+  async update(id: number, updateFieldSuratDto: UpdateFieldSuratDto) {
+    // return `This action updates a #${id} fieldSurat`;
+
+    // membuat fungsi try catch 
+    try {
+      // update data field surat berdasarkan id dari database
+      await this.findOne(id);
+      
+    }
   }
 
   remove(id: number) {
