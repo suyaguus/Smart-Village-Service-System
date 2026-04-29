@@ -8,6 +8,7 @@ export class FieldSuratService {
   // buat constructor untuk inject PrismaService
   constructor(private readonly prisma: PrismaService) {}
 
+  // method create
   async create(createFieldSuratDto: CreateFieldSuratDto) {
     // return 'This action adds a new fieldSurat';
 
@@ -26,8 +27,13 @@ export class FieldSuratService {
     };
   }
 
-  findAll() {
-    return `This action returns all fieldSurat`;
+  // method findAll
+  async findAll() {
+    // return `This action returns all fieldSurat`;
+    
+    // ambil semua data field surat dari database
+    const data = await this.prisma.fieldSurat.findMany();
+    }
   }
 
   findOne(id: number) {
