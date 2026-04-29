@@ -1,0 +1,35 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  // delete folder genereated lalu genereate ulang dan + src/generated/prisma
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// membuat enum field type
+enum FieldType {
+  text
+  number
+  date
+  textarea
+  file
+}
+
+// membuat model field surat
+model FieldSurat {
+  id              Int       @id @default(autoincrement())
+  jenis_surat_id  Int
+  field_name      String    @db.VarChar(100)
+  field_label     String    @db.VarChar(255)
+  field_type      FieldType
+  is_required     Boolean   @default(true)
+  field_order     Int
+  max_file_size   Int?
+  accepted_format String?   @db.VarChar(255)
+  created_at      DateTime  @default(now())
+
+  @@map("tb_field_surat")
+}
