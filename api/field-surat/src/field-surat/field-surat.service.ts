@@ -189,6 +189,15 @@ export class FieldSuratService {
     } catch (error) {
       // membuat kondisi jika error yang terjadi adalah NotFoundException, maka throw error tersebut
       if (error instanceof NotFoundException) throw error;
+
+      // kirimkan response jika terjadi error
+      throw new BadRequestException({
+        success: false,
+        message: 'Request Tidak Valid.',
+        metadata: {
+          status: HttpStatus.BAD_REQUEST,
+        },
+      });
     }
   }
 }
