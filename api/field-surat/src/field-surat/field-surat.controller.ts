@@ -51,12 +51,13 @@ export class FieldSuratController {
     return this.fieldSuratService.findOne(id);
   }
 
+  // menambahkan IntParam, mengganti string > number
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', IntParam) id: number,
     @Body() updateFieldSuratDto: UpdateFieldSuratDto,
   ) {
-    return this.fieldSuratService.update(+id, updateFieldSuratDto);
+    return this.fieldSuratService.update(id, updateFieldSuratDto);
   }
 
   @Delete(':id')
