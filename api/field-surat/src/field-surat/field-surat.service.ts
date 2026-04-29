@@ -59,10 +59,23 @@ export class FieldSuratService {
 
   // method find by jenis surat
   async findByJenisSurat(jenis_surat_id: number) {
+    // ambil data field surat berdasarkan jenis surat id dari database
     const data = await this.prisma.fieldSurat.findMany({
       where: { jenis_surat_id },
       orderBy: { field_order: 'asc' },
     });
+
+    // jika field surat tidak ditemukan, maka throw exception
+    if (data.length === 0) {
+      throw new NotFoundException({
+        success: false,
+        message: 'Field Surat tidak ditemukan!',
+        metadata: {
+          status: HttpStatus.NOT_FOUND,
+          total_data: data.length,
+        },
+      });
+    }
   }
 
   findOne(id: number) {
