@@ -247,7 +247,9 @@ export class FieldSuratService {
       // kirimkan response jika terjadi error
       throw new BadRequestException({
         success: false,
-        message: 'Request Tidak Valid.',
+        // message: 'Request Tidak Valid.',
+        // refactor: mengganti message response
+        message: process.env.BAD_REQUEST_MESSAGE,
         metadata: {
           status: HttpStatus.BAD_REQUEST,
         },
