@@ -9,6 +9,7 @@ import { CreateFieldSuratDto } from './dto/create-field-surat.dto';
 import { UpdateFieldSuratDto } from './dto/update-field-surat.dto';
 import { PrismaService } from 'src/prisma.service';
 import { FIELD_SURAT_SELECT } from 'src/common/constants/select';
+import { notExistFieldSurat } from 'src/common/utils/not-exist.util';
 
 @Injectable()
 export class FieldSuratService {
@@ -114,32 +115,34 @@ export class FieldSuratService {
   // method findOne
   async findOne(id: number) {
     // return `This action returns a #${id} fieldSurat`;
-
     // ambil data field surat berdasarkan id dari database
-    const data = await this.prisma.fieldSurat.findUnique({
-      where: { id },
-    });
-
+    // const data = await this.prisma.fieldSurat.findUnique({
+    //   where: { id },
+    // });
     // jika data field surat tidak ditemukan, maka throw exception
-    if (!data) {
-      throw new NotFoundException({
-        success: false,
-        message: 'Field Surat tidak ditemukan!',
-        metadata: {
-          status: HttpStatus.NOT_FOUND,
-        },
-      });
-    }
+    // // if (!data) {
+    // //   throw new NotFoundException({
+    // //     success: false,
+    // //     message: 'Field Surat tidak ditemukan!',
+    // //     metadata: {
+    // //       status: HttpStatus.NOT_FOUND,
+    // //     },
+    // //   });
+    // // }
+    // // jika field surat ditemukan kirimkan pesan respon
+    // return {
+    //   success: false,
+    //   message: 'Field surat berhasil ditemukan!',
+    //   metadata: {
+    //     status: HttpStatus.OK,
+    //   },
+    //   data,
+    // };
 
-    // jika field surat ditemukan kirimkan pesan respon
-    return {
-      success: false,
-      message: 'Field surat berhasil ditemukan!',
-      metadata: {
-        status: HttpStatus.OK,
-      },
-      data,
-    };
+    // refactor: menggunakan try catch
+    try {
+      const data = await notExistFieldSurat(id, this.prisma.fieldSurat);
+    }
   }
 
   // method update
