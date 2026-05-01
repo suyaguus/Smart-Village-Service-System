@@ -175,7 +175,10 @@ export class FieldSuratService {
     // membuat fungsi try catch
     try {
       // update data field surat berdasarkan id dari database
-      await this.findOne(id);
+      // await this.findOne(id);
+
+      // refactor: menggunakan fungsi notExistFieldSurat untuk mengecek apakah data field surat dengan id tersebut ada di database
+      await notExistFieldSurat(id, this.prisma.fieldSurat);
 
       // jika data field surat ditemukan, maka update data field surat
       await this.prisma.fieldSurat.update({
