@@ -233,7 +233,9 @@ export class FieldSuratService {
       // response jika data berhasil dihapus
       return {
         success: true,
-        message: 'Field Surat berhasil dihapus.',
+        // message: 'Field Surat berhasil dihapus.',
+        // refactor: mengganti message response
+        message: process.env.SUCCESS_DELETE_MESSAGE,
         metadata: {
           status: HttpStatus.OK,
         },
