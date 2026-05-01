@@ -52,7 +52,9 @@ export class FieldSuratService {
     if (data.length === 0) {
       throw new NotFoundException({
         success: false,
-        message: 'Field Surat tidak ditemukan!',
+        // message: 'Field Surat tidak ditemukan!',
+        // refactor message response
+        message: process.env.NOT_FOUND_MESSAGE,
         metadata: {
           status: HttpStatus.NOT_FOUND,
           total_data: 0,
