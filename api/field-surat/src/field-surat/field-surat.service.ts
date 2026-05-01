@@ -189,6 +189,17 @@ export class FieldSuratService {
       // refactor: menggunakan fungsi notExistFieldSurat untuk mengecek apakah data field surat dengan id tersebut ada di database
       await notExistFieldSurat(id, this.prisma.fieldSurat);
 
+      // refactor: menambahkan conflict field name
+      if (updateFieldSuratDto.field_name) {
+        await conflictFieldName(
+          updateFieldSuratDto.jenis_surat_id!,
+          updateFieldSuratDto.field_name,
+          this.prisma.fieldSurat,
+          process.env.CONFLICT_FIELD_UPDATE_MESSAGE ?? '',
+          id,
+        );
+      }
+
       // jika data field surat ditemukan, maka update data field surat
       await this.prisma.fieldSurat.update({
         where: { id },
