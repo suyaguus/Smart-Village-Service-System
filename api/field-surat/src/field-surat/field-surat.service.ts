@@ -189,7 +189,9 @@ export class FieldSuratService {
       // jika data berhasil diupdate, maka kirimkan pesan respon
       return {
         success: true,
-        message: 'Field Surat berhasil diupdate.',
+        // message: 'Field Surat berhasil diupdate.',
+        // refactor: mengganti message response
+        message: process.env.SUCCESS_UPDATE_MESSAGE,
         metadata: {
           status: HttpStatus.OK,
         },
