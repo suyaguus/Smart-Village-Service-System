@@ -141,7 +141,6 @@ export class FieldSuratService {
 
     // refactor: menggunakan try catch
     try {
-
       // ambil data field surat berdasarkan id dari database
       const data = await notExistFieldSurat(id, this.prisma.fieldSurat);
 
@@ -149,11 +148,14 @@ export class FieldSuratService {
       return {
         success: true,
         message: process.env.SUCCESS_FIND_MESSAGE,
-        metadata: { 
-          status: HttpStatus.OK 
+        metadata: {
+          status: HttpStatus.OK,
         },
         data,
       };
+    } catch (error) {
+      // jika terjadi error, maka kirimkan pesan error
+      if (error instanceof NotFoundException) throw error;
     }
   }
 
