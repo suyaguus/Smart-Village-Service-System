@@ -194,10 +194,16 @@ export class FieldSuratService {
       await notExistFieldSurat(id, this.prisma.fieldSurat);
 
       // refactor: menambahkan conflict field name
-      if (updateFieldSuratDto.field_name) {
+      if (
+        updateFieldSuratDto.field_name ||
+        updateFieldSuratDto.jenis_surat_id
+      ) {
+        const current = await this.prisma.fieldSurat.findUnique({
+          where: { id },
+        });
         await conflictFieldName(
-          updateFieldSuratDto.jenis_surat_id!,
-          updateFieldSuratDto.field_name,
+          updateFieldSuratDto.jenis_surat_id ?? current!.jenis_surat_id,
+          updateFieldSuratDto.field_name ?? current!.field_name,
           this.prisma.fieldSurat,
           process.env.CONFLICT_FIELD_UPDATE_MESSAGE ?? '',
           id,
