@@ -33,6 +33,10 @@ export class FieldSuratService {
       this.prisma.fieldSurat,
       process.env.CONFLICT_FIELD_MESSAGE ?? '',
     );
+    // simpan field surat baru ke database
+    await this.prisma.fieldSurat.create({
+      data: createFieldSuratDto,
+    });
 
     // response jika data berhasil disimpan
     return {
