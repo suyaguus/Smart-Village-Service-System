@@ -8,6 +8,7 @@ import {
 import { CreateFieldSuratDto } from './dto/create-field-surat.dto';
 import { UpdateFieldSuratDto } from './dto/update-field-surat.dto';
 import { PrismaService } from 'src/prisma.service';
+import { FIELD_SURAT_SELECT } from 'src/common/constants/select';
 
 @Injectable()
 export class FieldSuratService {
@@ -40,7 +41,12 @@ export class FieldSuratService {
     // return `This action returns all fieldSurat`;
 
     // ambil semua data field surat dari database
-    const data = await this.prisma.fieldSurat.findMany();
+    // const data = await this.prisma.fieldSurat.findMany();
+
+    // refactor: ambil semua data field surat dari database dengan select field tertentu
+    const data = await this.prisma.fieldSurat.findMany({
+      select: FIELD_SURAT_SELECT,
+    });
 
     // jika jenis surat tidak ditemukan, maka throw exception
     if (data.length === 0) {
