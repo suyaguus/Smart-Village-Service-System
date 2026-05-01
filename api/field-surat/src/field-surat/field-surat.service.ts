@@ -156,6 +156,15 @@ export class FieldSuratService {
     } catch (error) {
       // jika terjadi error, maka kirimkan pesan error
       if (error instanceof NotFoundException) throw error;
+
+      // jika terjadi error lain, maka kirimkan bad request exception
+      throw new BadRequestException({
+        success: false,
+        message: process.env.BAD_REQUEST_MESSAGE,
+        metadata: {
+          status: HttpStatus.BAD_REQUEST,
+        },
+      });
     }
   }
 
