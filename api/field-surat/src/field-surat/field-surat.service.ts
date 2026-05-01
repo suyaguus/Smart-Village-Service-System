@@ -78,6 +78,8 @@ export class FieldSuratService {
     // ambil data field surat berdasarkan jenis surat id dari database
     const data = await this.prisma.fieldSurat.findMany({
       where: { jenis_surat_id },
+      // refactor: menambahakan field select
+      select: FIELD_SURAT_SELECT,
       orderBy: { field_order: 'asc' },
     });
 
