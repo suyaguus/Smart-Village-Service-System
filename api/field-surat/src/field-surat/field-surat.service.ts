@@ -100,7 +100,9 @@ export class FieldSuratService {
     // jika data ditemukan, maka tampilkan respon dan data field surat
     return {
       success: true,
-      message: 'Field Surat berhasil ditemukan.',
+      // message: 'Field Surat berhasil ditemukan.',
+      // refactor: mengganti message response
+      message: process.env.SUCCESS_FIND_MESSAGE,
       metadata: {
         status: HttpStatus.OK,
         total_data: data.length,
