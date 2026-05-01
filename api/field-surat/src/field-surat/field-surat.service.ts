@@ -10,6 +10,7 @@ import { UpdateFieldSuratDto } from './dto/update-field-surat.dto';
 import { PrismaService } from 'src/prisma.service';
 import { FIELD_SURAT_SELECT } from 'src/common/constants/select';
 import { notExistFieldSurat } from 'src/common/utils/not-exist.util';
+import { conflictFieldName } from 'src/common/utils/conflict.util';
 
 @Injectable()
 export class FieldSuratService {
@@ -21,9 +22,17 @@ export class FieldSuratService {
     // return 'This action adds a new fieldSurat';
 
     // simpan field surat baru ke database
-    await this.prisma.fieldSurat.create({
-      data: createFieldSuratDto,
-    });
+    // await this.prisma.fieldSurat.create({
+    //   data: createFieldSuratDto,
+    // });
+
+    // refactor: menambahkan conflict field name
+    await conflictFieldName(
+      createFieldSuratDto.jenis_surat_id,
+      createFieldSuratDto.field_name,
+      this.prisma.fieldSurat,
+      process.env.CONFLICT_FIELD_MESSAGE ?? '',
+    );
 
     // response jika data berhasil disimpan
     return {
