@@ -31,5 +31,6 @@ model FieldSurat {
   accepted_format String?   @db.VarChar(255)
   created_at      DateTime  @default(now())
 
+  @@unique([jenis_surat_id, field_name])
   @@map("tb_field_surat")
 }
