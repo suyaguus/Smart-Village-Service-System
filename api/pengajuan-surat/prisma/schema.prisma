@@ -30,8 +30,9 @@ model PengajuanSurat {
   created_at       DateTime        @default(now())
   updated_at       DateTime        @updatedAt
 
-  detail  PengajuanDetail[]
-  dokumen PengajuanDokumen[]
+  detail     PengajuanDetail[]
+  dokumen    PengajuanDokumen[]
+  status_log StatusLog[]
 
   @@map("tb_pengajuan_surat")
 }
@@ -59,4 +60,17 @@ model PengajuanDokumen {
   pengajuan PengajuanSurat @relation(fields: [pengajuan_id], references: [id], onDelete: Cascade)
 
   @@map("tb_pengajuan_dokumen")
+}
+
+// model status log untuk menyimpan riwayat perubahan status pengajuan surat, relasi dengan pengajuan surat
+model StatusLog {
+  id           String   @id @default(uuid())
+  pengajuan_id String
+  status       String   @db.VarChar(50)
+  keterangan   String?  @db.Text
+  created_at   DateTime @default(now())
+
+  pengajuan PengajuanSurat @relation(fields: [pengajuan_id], references: [id], onDelete: Cascade)
+
+  @@map("tb_status_log")
 }
