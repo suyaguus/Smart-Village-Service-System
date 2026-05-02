@@ -28,5 +28,18 @@ model PengajuanSurat {
   created_at       DateTime        @default(now())
   updated_at       DateTime        @updatedAt
 
+  detail PengajuanDetail[]
+
   @@map("tb_pengajuan_surat")
+}
+
+model PengajuanDetail {
+  id           String @id @default(uuid())
+  pengajuan_id String
+  field_id     String
+  value        String @db.Text
+
+  pengajuan PengajuanSurat @relation(fields: [pengajuan_id], references: [id], onDelete: Cascade)
+
+  @@map("tb_pengajuan_detail")
 }
