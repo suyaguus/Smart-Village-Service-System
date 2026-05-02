@@ -1,13 +1,32 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+// enum status pengajuan surat
+enum StatusPengajuan {
+  MENUNGGU
+  DIPROSES
+  DITOLAK
+  SELESAI
+}
+
+// model pengajuan surat
+model PengajuanSurat {
+  id               String          @id @default(uuid())
+  user_id          String
+  jenis_surat_id   String
+  status           StatusPengajuan @default(MENUNGGU)
+  catatan_admin    String?         @db.Text
+  file_surat       String?         @db.VarChar(255)
+  estimasi_selesai DateTime?
+  created_at       DateTime        @default(now())
+  updated_at       DateTime        @updatedAt
+
+  @@map("tb_pengajuan_surat")
 }
