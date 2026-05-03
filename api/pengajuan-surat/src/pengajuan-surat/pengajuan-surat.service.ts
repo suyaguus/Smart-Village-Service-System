@@ -251,6 +251,15 @@ export class PengajuanSuratService {
       const data = await this.prisma.pengajuanSurat.findUnique({
         where: {id}
       })
+
+      // jika data pengajuan surat tidak ditemukan, maka throw exception
+      if (!data) {
+      throw new NotFoundException({
+        success: false,
+        message: 'Pengajuan surat tidak ditemukan!',
+        metadata: { status: HttpStatus.NOT_FOUND },
+      });
+    }
     }
   }
 }
