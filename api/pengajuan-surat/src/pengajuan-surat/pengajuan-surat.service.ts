@@ -23,6 +23,19 @@ export class PengajuanSuratService {
 
     // membuat constanta untuk memisahkan data pengajuan dengan detail dan dokumen
     const { detail, dokumen, ...pengajuanData } = createPengajuanSuratDto;
+
+    // simpan data pengajuan surat beserta detail dan dokumen ke database
+    await this.prisma.pengajuanSurat.create({
+      data: {
+        ...pengajuanData,
+        detail: {
+          create: detail,
+        },
+        dokumen: {
+          create: dokumen ?? [],
+        },
+      },
+    });
   }
 
   findAll() {
