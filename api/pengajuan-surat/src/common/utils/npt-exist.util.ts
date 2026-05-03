@@ -24,4 +24,7 @@ export const notExistPengajuan = async (
       },
     });
   }
+
+  //   jika data pengajuan surat ditemukan, maka kembalikan data pengajuan surat
+  return data;
 };
