@@ -1,4 +1,3 @@
-import { Type } from 'class-transformer/types/decorators/type.decorator';
 import {
   IsArray,
   IsNotEmpty,
@@ -7,6 +6,7 @@ import {
   IsUUID,
   ValidateNested,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 
 // DTO untuk membuat pengajuan dokumen
 export class CreatePengajuanDokumenDto {
