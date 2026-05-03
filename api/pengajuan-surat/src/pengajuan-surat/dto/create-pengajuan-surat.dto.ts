@@ -1,4 +1,11 @@
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { Type } from 'class-transformer/types/decorators/type.decorator';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsString,
+  IsUUID,
+  ValidateNested,
+} from 'class-validator';
 
 // DTO untuk membuat pengajuan dokumen
 export class CreatePengajuanDokumenDto {
@@ -31,4 +38,10 @@ export class CreatePengajuanSuratDto {
   @IsUUID()
   @IsNotEmpty()
   jenis_surat_id!: string;
+
+  //   array untuk menanggung banyak pengajuan detail
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreatePengajuanDetailDto)
+  detail!: CreatePengajuanDetailDto[];
 }
