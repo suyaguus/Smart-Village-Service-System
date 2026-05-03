@@ -82,6 +82,16 @@ export class PengajuanSuratService {
     };
   }
 
+  // method findByUser
+  async findByUser(user_id: string) {
+    // ambil data pengajuan surat berdasarkan user id dari database
+    const data = await this.prisma.pengajuanSurat.findMany({
+      where: { user_id },
+      orderBy: {
+        created_at: 'desc',
+      },
+    });
+  }
   findOne(id: number) {
     return `This action returns a #${id} pengajuanSurat`;
   }
