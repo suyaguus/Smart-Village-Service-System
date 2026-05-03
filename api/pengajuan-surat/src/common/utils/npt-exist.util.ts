@@ -1,6 +1,7 @@
 // buat fungsi untuk cek data jenis surat
 // (jika tidak ditemukan datanya)
 
+import { HttpStatus, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 
 export const notExistPengajuan = async (
@@ -12,4 +13,15 @@ export const notExistPengajuan = async (
   const data = await prisma.findUnique({
     where: { id },
   });
+
+  //   jika data pengajuan surat tidak ditemukan, maka kirimkan pesan error
+  if (!data) {
+    throw new NotFoundException({
+      success: false,
+      message,
+      metadata: {
+        status: HttpStatus.NOT_FOUND,
+      },
+    });
+  }
 };
