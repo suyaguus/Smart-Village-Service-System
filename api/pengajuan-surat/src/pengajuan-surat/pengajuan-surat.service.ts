@@ -91,6 +91,15 @@ export class PengajuanSuratService {
         created_at: 'desc',
       },
     });
+
+    // jika pengajuan surat tidak ditemukan, maka throw exception
+    if (data.length === 0) {
+      throw new NotFoundException({
+        success: false,
+        message: 'Pengajuan surat tidak ditemukan!',
+        metadata: { status: HttpStatus.NOT_FOUND, total_data: 0 },
+      });
+    }
   }
   findOne(id: number) {
     return `This action returns a #${id} pengajuanSurat`;
