@@ -249,29 +249,32 @@ export class PengajuanSuratService {
     try {
       // ambil data pengajuan surat berdasarkan id dari database
       const data = await this.prisma.pengajuanSurat.findUnique({
-        where: {id}
-      })
+        where: { id },
+      });
 
       // jika data pengajuan surat tidak ditemukan, maka throw exception
       if (!data) {
-      throw new NotFoundException({
-        success: false,
-        message: 'Pengajuan surat tidak ditemukan!',
-        metadata: { status: HttpStatus.NOT_FOUND },
+        throw new NotFoundException({
+          success: false,
+          message: 'Pengajuan surat tidak ditemukan!',
+          metadata: { status: HttpStatus.NOT_FOUND },
+        });
+      }
+
+      // jika data ditemukan, maka hapus data pengajuan surat berdasarkan id dari database
+      await this.prisma.pengajuanSurat.delete({
+        where: { id },
       });
-    }
 
-    // jika data ditemukan, maka hapus data pengajuan surat berdasarkan id dari database
-    await this.prisma.pengajuanSurat.delete({
-      where: {id}
-    })
-
-    // response jika data berhasil dihapus
-    return {
-      success: true,
-      message: 'Pengajuan surat berhasil dihapus.',
-      metadata: { status: HttpStatus.OK },
-    };
+      // response jika data berhasil dihapus
+      return {
+        success: true,
+        message: 'Pengajuan surat berhasil dihapus.',
+        metadata: { status: HttpStatus.OK },
+      };
+    } catch (error) {
+      // jika error merupakan NotFoundException, maka throw error tersebut
+      if (error instanceof NotFoundException) throw error;
     }
   }
 }
