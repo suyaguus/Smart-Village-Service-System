@@ -1,7 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePengajuanSuratDto } from './dto/create-pengajuan-surat.dto';
-import { UpdatePengajuanSuratDto } from './dto/update-pengajuan-surat.dto';
+import { UpdateStatusDto } from './dto/update-pengajuan-surat.dto';
+import { StatusPengajuan } from 'src/generated/prisma/browser';
 
+// buat constant untuk status transitions
+const STATUS_TRANSITIONS: Record<StatusPengajuan, StatusPengajuan[]> = {
+  MENUNGGU: [StatusPengajuan.DIPROSES],
+  DIPROSES: [StatusPengajuan.SELESAI, StatusPengajuan.DITOLAK],
+  DITOLAK: [],
+  SELESAI: [],
+};
 @Injectable()
 export class PengajuanSuratService {
   create(createPengajuanSuratDto: CreatePengajuanSuratDto) {
@@ -16,7 +24,7 @@ export class PengajuanSuratService {
     return `This action returns a #${id} pengajuanSurat`;
   }
 
-  update(id: number, updatePengajuanSuratDto: UpdatePengajuanSuratDto) {
+  update(id: number, updateStatusDto: UpdateStatusDto) {
     return `This action updates a #${id} pengajuanSurat`;
   }
 
