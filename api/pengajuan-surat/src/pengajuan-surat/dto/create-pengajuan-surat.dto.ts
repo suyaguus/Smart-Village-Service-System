@@ -1,4 +1,15 @@
-import { IsNotEmpty, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+
+// DTO untuk membuat pengajuan detail
+export class CreatePengajuanDetailDto {
+  @IsUUID()
+  @IsNotEmpty()
+  field_id!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  value!: string;
+}
 
 // DTO untuk membuat pengajuan surat
 export class CreatePengajuanSuratDto {
