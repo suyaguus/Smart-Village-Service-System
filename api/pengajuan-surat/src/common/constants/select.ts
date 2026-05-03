@@ -34,3 +34,15 @@ export const PENGAJUAN_SURAT_SELECT = {
     orderBy: { created_at: 'asc' as const },
   },
 };
+
+// membuat select untuk list pengajuan surat
+export const PENGAJUAN_SURAT_LIST_SELECT = {
+  id: true,
+  user_id: true,
+  jenis_surat_id: true,
+  status: true,
+  file_surat: true,
+  estimasi_selesai: true,
+  created_at: true,
+  updated_at: true,
+};
