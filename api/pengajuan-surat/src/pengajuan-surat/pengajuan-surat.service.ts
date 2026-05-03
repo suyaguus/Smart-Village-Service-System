@@ -4,6 +4,7 @@ import { UpdateStatusDto } from './dto/update-pengajuan-surat.dto';
 import { StatusPengajuan } from 'src/generated/prisma/browser';
 import { PrismaService } from 'src/prisma.service';
 import { PENGAJUAN_SURAT_LIST_SELECT } from 'src/common/constants/select';
+import { metadata } from 'reflect-metadata/no-conflict';
 
 // buat constant untuk status transitions
 const STATUS_TRANSITIONS: Record<StatusPengajuan, StatusPengajuan[]> = {
@@ -132,6 +133,17 @@ export class PengajuanSuratService {
           }
         }
       })
+
+      // jika data pengajuan surat tidak ditemukan, maka throw exception
+      if (!data) {
+        throw new NotFoundException({
+          success: false,
+          message: 'Pengajuan surat tidak ditemukan!',
+          metadata: {
+            status: HttpStatus.NOT_FOUND
+          }
+        })
+      }
     }
   }
 
