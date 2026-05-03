@@ -3,6 +3,7 @@ import { CreatePengajuanSuratDto } from './dto/create-pengajuan-surat.dto';
 import { UpdateStatusDto } from './dto/update-pengajuan-surat.dto';
 import { StatusPengajuan } from 'src/generated/prisma/browser';
 import { PrismaService } from 'src/prisma.service';
+import { PENGAJUAN_SURAT_LIST_SELECT } from 'src/common/constants/select';
 
 // buat constant untuk status transitions
 const STATUS_TRANSITIONS: Record<StatusPengajuan, StatusPengajuan[]> = {
@@ -47,8 +48,17 @@ export class PengajuanSuratService {
     };
   }
 
-  findAll() {
-    return `This action returns all pengajuanSurat`;
+  // method findAll
+  async findAll() {
+    // return `This action returns all pengajuanSurat`;
+
+    // ambil semua data pengajuan surat dari database
+    const data = await this.prisma.pengajuanSurat.findMany({
+      select: PENGAJUAN_SURAT_LIST_SELECT,
+      orderBy: {
+        created_at: 'desc',
+      },
+    });
   }
 
   findOne(id: number) {
