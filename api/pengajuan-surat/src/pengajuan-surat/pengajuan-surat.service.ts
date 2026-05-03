@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePengajuanSuratDto } from './dto/create-pengajuan-surat.dto';
 import { UpdateStatusDto } from './dto/update-pengajuan-surat.dto';
 import { StatusPengajuan } from 'src/generated/prisma/browser';
@@ -54,11 +54,22 @@ export class PengajuanSuratService {
 
     // ambil semua data pengajuan surat dari database
     const data = await this.prisma.pengajuanSurat.findMany({
-      select: PENGAJUAN_SURAT_LIST_SELECT,
       orderBy: {
         created_at: 'desc',
       },
     });
+
+    // jika pengajuan surat tidak ditemukan, maka throw exception
+    if (data.length === 0) {
+      throw new NotFoundException({
+        success: false,
+        message: 'Pengajuan Surat tidak ditemukan!',
+        metadata: {
+          status: HttpStatus.NOT_FOUND,
+          total_data: 0,
+        },
+      });
+    }
   }
 
   findOne(id: number) {
