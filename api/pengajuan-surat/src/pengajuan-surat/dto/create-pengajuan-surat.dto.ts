@@ -2,6 +2,7 @@ import { Type } from 'class-transformer/types/decorators/type.decorator';
 import {
   IsArray,
   IsNotEmpty,
+  IsOptional,
   IsString,
   IsUUID,
   ValidateNested,
@@ -44,4 +45,11 @@ export class CreatePengajuanSuratDto {
   @ValidateNested({ each: true })
   @Type(() => CreatePengajuanDetailDto)
   detail!: CreatePengajuanDetailDto[];
+
+  //   array untuk menanggung banyak pengajuan dokumen, sifatnya optional karena tidak semua jenis surat membutuhkan dokumen
+  @IsArray()
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => CreatePengajuanDokumenDto)
+  dokumen?: CreatePengajuanDokumenDto[];
 }
