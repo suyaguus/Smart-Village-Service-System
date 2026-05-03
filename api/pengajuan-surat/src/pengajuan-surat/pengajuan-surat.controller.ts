@@ -71,12 +71,24 @@ export class PengajuanSuratController {
     return this.pengajuanSuratService.findOne(id);
   }
 
+  // tambahkan endpoint untuk update status pengajuan surat
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updatePengajuanSuratDto: UpdatePengajuanSuratDto,
+  updateStatus(
+    @Param(
+      'id',
+      new ParseUUIDPipe({
+        exceptionFactory: () =>
+          new BadRequestException({
+            success: false,
+            message: process.env.BAD_REQUEST_MESSAGE,
+            metadata: { status: HttpStatus.BAD_REQUEST },
+          }),
+      }),
+    )
+    id: string,
+    @Body() updateStatusDto: UpdateStatusDto,
   ) {
-    return this.pengajuanSuratService.update(+id, updatePengajuanSuratDto);
+    return this.pengajuanSuratService.updateStatus(id, updateStatusDto);
   }
 
   @Delete(':id')
