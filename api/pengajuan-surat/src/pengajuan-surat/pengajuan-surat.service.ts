@@ -265,6 +265,13 @@ export class PengajuanSuratService {
     await this.prisma.pengajuanSurat.delete({
       where: {id}
     })
+
+    // response jika data berhasil dihapus
+    return {
+      success: true,
+      message: 'Pengajuan surat berhasil dihapus.',
+      metadata: { status: HttpStatus.OK },
+    };
     }
   }
 }
