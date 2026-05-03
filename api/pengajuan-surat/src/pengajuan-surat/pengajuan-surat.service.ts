@@ -204,6 +204,21 @@ export class PengajuanSuratService {
           status: HttpStatus.BAD_REQUEST },
       })
     }
+
+    // update data pengajuan surat berdasarkan id dari database
+    await this.prisma.pengajuanSurat.update({
+      where: {id},
+      data: {
+        status: updateStatusDto.status,
+        catatan_admin: updateStatusDto.catatan_admin,
+        status_log: {
+          create: {
+            status: updateStatusDto.status,
+            keterangan: updateStatusDto.keterangan,
+          }
+        }
+      }
+    })
     }
   }
 
