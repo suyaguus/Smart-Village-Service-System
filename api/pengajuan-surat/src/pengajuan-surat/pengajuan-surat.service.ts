@@ -144,6 +144,14 @@ export class PengajuanSuratService {
           }
         })
       }
+
+      // jika data ditemukan, maka tampilkan respon dan data pengajuan surat
+      return {
+      success: true,
+      message: 'Pengajuan surat berhasil ditemukan.',
+      metadata: { status: HttpStatus.OK },
+      data,
+    };
     }
   }
 
