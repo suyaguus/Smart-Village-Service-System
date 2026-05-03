@@ -84,9 +84,7 @@ export class PengajuanSuratService {
     // ambil data pengajuan surat berdasarkan user id dari database
     const data = await this.prisma.pengajuanSurat.findMany({
       where: { user_id },
-      orderBy: {
-        created_at: 'desc',
-      },
+      orderBy: { created_at: 'desc' },
     });
 
     // jika pengajuan surat tidak ditemukan, maka throw exception
