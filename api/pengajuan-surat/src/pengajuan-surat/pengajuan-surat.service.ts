@@ -172,8 +172,17 @@ export class PengajuanSuratService {
     }
   }
 
-  update(id: number, updateStatusDto: UpdateStatusDto) {
-    return `This action updates a #${id} pengajuanSurat`;
+  // method update
+  async update(id: string, updateStatusDto: UpdateStatusDto) {
+    // return `This action updates a #${id} pengajuanSurat`;
+
+    // menggunakan try catch
+    try {
+      // ambil data pengajuan surat berdasarkan id dari database
+      const current = await this.prisma.pengajuanSurat.findUnique({
+        where: {id}
+      })
+    }
   }
 
   remove(id: number) {
