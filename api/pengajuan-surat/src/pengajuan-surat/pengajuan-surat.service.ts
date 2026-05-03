@@ -75,6 +75,7 @@ export class PengajuanSuratService {
         status: HttpStatus.OK,
         total_data: data.length,
       },
+      data,
     };
   }
 
@@ -144,7 +145,9 @@ export class PengajuanSuratService {
       return {
         success: true,
         message: 'Pengajuan surat berhasil ditemukan.',
-        metadata: { status: HttpStatus.OK },
+        metadata: {
+          status: HttpStatus.OK,
+        },
         data,
       };
     } catch (error) {
