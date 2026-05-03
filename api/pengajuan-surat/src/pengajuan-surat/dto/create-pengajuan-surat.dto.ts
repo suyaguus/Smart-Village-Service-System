@@ -3,14 +3,13 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsUUID,
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
 // DTO untuk membuat pengajuan dokumen
 export class CreatePengajuanDokumenDto {
-  @IsUUID()
+  @IsString()
   @IsNotEmpty()
   field_id!: string;
 
@@ -21,7 +20,7 @@ export class CreatePengajuanDokumenDto {
 
 // DTO untuk membuat pengajuan detail
 export class CreatePengajuanDetailDto {
-  @IsUUID()
+  @IsString()
   @IsNotEmpty()
   field_id!: string;
 
@@ -32,11 +31,11 @@ export class CreatePengajuanDetailDto {
 
 // DTO untuk membuat pengajuan surat
 export class CreatePengajuanSuratDto {
-  @IsUUID()
+  @IsString()
   @IsNotEmpty()
   user_id!: string;
 
-  @IsUUID()
+  @IsString()
   @IsNotEmpty()
   jenis_surat_id!: string;
 
