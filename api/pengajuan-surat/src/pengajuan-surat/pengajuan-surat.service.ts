@@ -1,4 +1,9 @@
-import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreatePengajuanSuratDto } from './dto/create-pengajuan-surat.dto';
 import { UpdateStatusDto } from './dto/update-pengajuan-surat.dto';
 import { StatusPengajuan } from 'src/generated/prisma/browser';
@@ -155,6 +160,15 @@ export class PengajuanSuratService {
     } catch (error) {
       // jika error merupakan NotFoundException, maka throw error tersebut
       if (error instanceof NotFoundException) throw error;
+
+      // jika error lainnya, maka throw BadRequestException
+      throw new BadRequestException({
+        success: false,
+        message: 'Request tidak valid!',
+        metadata: {
+          status: HttpStatus.BAD_REQUEST,
+        },
+      });
     }
   }
 
