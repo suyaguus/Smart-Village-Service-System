@@ -70,6 +70,16 @@ export class PengajuanSuratService {
         },
       });
     }
+
+    // jika data ditemukan, maka tampilkan respon dan data pengajuan surat
+    return {
+      success: true,
+      message: 'Pengajuan Surat berhasil ditemukan.',
+      metadata: {
+        status: HttpStatus.OK,
+        total_data: data.length,
+      },
+    };
   }
 
   findOne(id: number) {
