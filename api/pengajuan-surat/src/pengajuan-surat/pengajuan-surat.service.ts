@@ -14,10 +14,15 @@ const STATUS_TRANSITIONS: Record<StatusPengajuan, StatusPengajuan[]> = {
 
 @Injectable()
 export class PengajuanSuratService {
+  // buat constructor untuk inject PrismaService
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createPengajuanSuratDto: CreatePengajuanSuratDto) {
-    return 'This action adds a new pengajuanSurat';
+  // method create
+  async create(createPengajuanSuratDto: CreatePengajuanSuratDto) {
+    // return 'This action adds a new pengajuanSurat';
+
+    // membuat constanta untuk memisahkan data pengajuan dengan detail dan dokumen
+    const { detail, dokumen, ...pengajuanData } = createPengajuanSuratDto;
   }
 
   findAll() {
