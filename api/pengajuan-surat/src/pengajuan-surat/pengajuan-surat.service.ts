@@ -231,6 +231,13 @@ export class PengajuanSuratService {
     } catch (error) {
       // jika terjadi error, maka throw error tersebut
       if (error instanceof HttpException) throw error;
+
+      // jika error lainnya, maka throw BadRequestException
+      throw new BadRequestException({
+        success: false,
+        message: 'Request tidak valid!',
+        metadata: { status: HttpStatus.BAD_REQUEST },
+      });
     }
   }
 
