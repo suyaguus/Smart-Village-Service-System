@@ -1,4 +1,17 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreatePengajuanSuratDto } from './create-pengajuan-surat.dto';
+import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { StatusPengajuan } from '../../generated/prisma/client';
 
-export class UpdatePengajuanSuratDto extends PartialType(CreatePengajuanSuratDto) {}
+// DTO untuk update status pengajuan surat
+export class UpdateStatusDto {
+  @IsEnum(StatusPengajuan)
+  @IsNotEmpty()
+  status!: StatusPengajuan;
+
+  @IsString()
+  @IsOptional()
+  catatan_admin?: string;
+
+  @IsString()
+  @IsOptional()
+  keterangan?: string;
+}
