@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { CreatePengajuanSuratDto } from './dto/create-pengajuan-surat.dto';
 import { UpdateStatusDto } from './dto/update-pengajuan-surat.dto';
 import { StatusPengajuan } from 'src/generated/prisma/browser';
@@ -36,6 +36,15 @@ export class PengajuanSuratService {
         },
       },
     });
+
+    // response jika data berhasil disimpan
+    return {
+      success: true,
+      message: 'Pengajuan Surat berhasil dibuat.',
+      metadata: {
+        status: HttpStatus.CREATED,
+      },
+    };
   }
 
   findAll() {
