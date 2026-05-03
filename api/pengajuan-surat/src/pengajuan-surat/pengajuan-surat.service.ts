@@ -241,7 +241,16 @@ export class PengajuanSuratService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pengajuanSurat`;
+  // method remove
+  async remove(id: string) {
+    // return `This action removes a #${id} pengajuanSurat`;
+
+    // menggunakan try catch
+    try {
+      // ambil data pengajuan surat berdasarkan id dari database
+      const data = await this.prisma.pengajuanSurat.findUnique({
+        where: {id}
+      })
+    }
   }
 }
