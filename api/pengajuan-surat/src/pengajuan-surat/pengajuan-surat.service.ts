@@ -122,17 +122,17 @@ export class PengajuanSuratService {
     try {
       // ambil data pengajuan surat berdasarkan id dari database
       const data = await this.prisma.pengajuanSurat.findUnique({
-        where: {id},
+        where: { id },
         include: {
           detail: true,
           dokumen: true,
           status_log: {
             orderBy: {
               created_at: 'desc',
-            }
-          }
-        }
-      })
+            },
+          },
+        },
+      });
 
       // jika data pengajuan surat tidak ditemukan, maka throw exception
       if (!data) {
@@ -140,18 +140,21 @@ export class PengajuanSuratService {
           success: false,
           message: 'Pengajuan surat tidak ditemukan!',
           metadata: {
-            status: HttpStatus.NOT_FOUND
-          }
-        })
+            status: HttpStatus.NOT_FOUND,
+          },
+        });
       }
 
       // jika data ditemukan, maka tampilkan respon dan data pengajuan surat
       return {
-      success: true,
-      message: 'Pengajuan surat berhasil ditemukan.',
-      metadata: { status: HttpStatus.OK },
-      data,
-    };
+        success: true,
+        message: 'Pengajuan surat berhasil ditemukan.',
+        metadata: { status: HttpStatus.OK },
+        data,
+      };
+    } catch (error) {
+      // jika error merupakan NotFoundException, maka throw error tersebut
+      if (error instanceof NotFoundException) throw error;
     }
   }
 
