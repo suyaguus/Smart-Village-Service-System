@@ -52,9 +52,23 @@ export class PengajuanSuratController {
     return this.pengajuanSuratService.findByUser(user_id);
   }
 
+  // tambahkan endpoint untuk mendapatkan pengajuan surat berdasarkan id
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pengajuanSuratService.findOne(+id);
+  findOne(
+    @Param(
+      'id',
+      new ParseUUIDPipe({
+        exceptionFactory: () =>
+          new BadRequestException({
+            success: false,
+            message: process.env.BAD_REQUEST_MESSAGE,
+            metadata: { status: HttpStatus.BAD_REQUEST },
+          }),
+      }),
+    )
+    id: string,
+  ) {
+    return this.pengajuanSuratService.findOne(id);
   }
 
   @Patch(':id')
