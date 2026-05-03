@@ -260,6 +260,11 @@ export class PengajuanSuratService {
         metadata: { status: HttpStatus.NOT_FOUND },
       });
     }
+
+    // jika data ditemukan, maka hapus data pengajuan surat berdasarkan id dari database
+    await this.prisma.pengajuanSurat.delete({
+      where: {id}
+    })
     }
   }
 }
