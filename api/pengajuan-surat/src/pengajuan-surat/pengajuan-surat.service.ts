@@ -11,14 +11,6 @@ import { PrismaService } from 'src/prisma.service';
 import { PENGAJUAN_SURAT_LIST_SELECT } from 'src/common/constants/select';
 import { metadata } from 'reflect-metadata/no-conflict';
 
-// buat constant untuk status transitions
-const STATUS_TRANSITIONS: Record<StatusPengajuan, StatusPengajuan[]> = {
-  MENUNGGU: [StatusPengajuan.DIPROSES],
-  DIPROSES: [StatusPengajuan.SELESAI, StatusPengajuan.DITOLAK],
-  DITOLAK: [],
-  SELESAI: [],
-};
-
 @Injectable()
 export class PengajuanSuratService {
   // buat constructor untuk inject PrismaService
@@ -193,6 +185,14 @@ export class PengajuanSuratService {
           }
         })
       }
+
+      // cek apakah status yang akan diupdate valid berdasarkan status saat ini
+       const STATUS_TRANSITIONS: Record<string, string[]> = {
+      MENUNGGU: ['DIPROSES'],
+      DIPROSES: ['SELESAI', 'DITOLAK'],
+      DITOLAK: [],
+      SELESAI: [],
+    };
     }
   }
 
