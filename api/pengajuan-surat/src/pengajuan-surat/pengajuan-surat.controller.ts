@@ -91,8 +91,22 @@ export class PengajuanSuratController {
     return this.pengajuanSuratService.updateStatus(id, updateStatusDto);
   }
 
+  // tambahkan endpoint untuk menghapus pengajuan surat berdasarkan id
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.pengajuanSuratService.remove(+id);
+  remove(
+    @Param(
+      'id',
+      new ParseUUIDPipe({
+        exceptionFactory: () =>
+          new BadRequestException({
+            success: false,
+            message: process.env.BAD_REQUEST_MESSAGE,
+            metadata: { status: HttpStatus.BAD_REQUEST },
+          }),
+      }),
+    )
+    id: string,
+  ) {
+    return this.pengajuanSuratService.remove(id);
   }
 }
