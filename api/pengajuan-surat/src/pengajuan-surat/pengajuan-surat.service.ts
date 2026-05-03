@@ -113,8 +113,26 @@ export class PengajuanSuratService {
     };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pengajuanSurat`;
+  // method findOne
+  async findOne(id: string) {
+    // return `This action returns a #${id} pengajuanSurat`;
+
+    // menggunakan try catch
+    try {
+      // ambil data pengajuan surat berdasarkan id dari database
+      const data = await this.prisma.pengajuanSurat.findUnique({
+        where: {id},
+        include: {
+          detail: true,
+          dokumen: true,
+          status_log: {
+            orderBy: {
+              created_at: 'desc',
+            }
+          }
+        }
+      })
+    }
   }
 
   update(id: number, updateStatusDto: UpdateStatusDto) {
