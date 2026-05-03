@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  HttpException,
   HttpStatus,
   Injectable,
   NotFoundException,
@@ -172,8 +173,8 @@ export class PengajuanSuratService {
     try {
       // ambil data pengajuan surat berdasarkan id dari database
       const current = await this.prisma.pengajuanSurat.findUnique({
-        where: {id}
-      })
+        where: { id },
+      });
 
       // jika data pengajuan surat tidak ditemukan, maka throw exception
       if (!current) {
@@ -182,50 +183,54 @@ export class PengajuanSuratService {
           message: 'Pengajuan surat tidak ditemukan!',
           metadata: {
             status: HttpStatus.NOT_FOUND,
-          }
-        })
+          },
+        });
       }
 
       // cek apakah status yang akan diupdate valid berdasarkan status saat ini
-       const STATUS_TRANSITIONS: Record<string, string[]> = {
-      MENUNGGU: ['DIPROSES'],
-      DIPROSES: ['SELESAI', 'DITOLAK'],
-      DITOLAK: [],
-      SELESAI: [],
-    };
+      const STATUS_TRANSITIONS: Record<string, string[]> = {
+        MENUNGGU: ['DIPROSES'],
+        DIPROSES: ['SELESAI', 'DITOLAK'],
+        DITOLAK: [],
+        SELESAI: [],
+      };
 
-    // ambil status saat ini
-    const allowed = STATUS_TRANSITIONS[current.status];
-    if (!allowed.includes(updateStatusDto.status)) {
-      throw new BadRequestException({
-        success: false,
-        message: 'Perubahan status tidak valid!',
-        metadata: { 
-          status: HttpStatus.BAD_REQUEST },
-      })
-    }
-
-    // update data pengajuan surat berdasarkan id dari database
-    await this.prisma.pengajuanSurat.update({
-      where: {id},
-      data: {
-        status: updateStatusDto.status,
-        catatan_admin: updateStatusDto.catatan_admin,
-        status_log: {
-          create: {
-            status: updateStatusDto.status,
-            keterangan: updateStatusDto.keterangan,
-          }
-        }
+      // ambil status saat ini
+      const allowed = STATUS_TRANSITIONS[current.status];
+      if (!allowed.includes(updateStatusDto.status)) {
+        throw new BadRequestException({
+          success: false,
+          message: 'Perubahan status tidak valid!',
+          metadata: {
+            status: HttpStatus.BAD_REQUEST,
+          },
+        });
       }
-    })
 
-    // response jika data berhasil diupdate
-    return {
-      success: true,
-      message: 'Status pengajuan berhasil diupdate.',
-      metadata: { status: HttpStatus.OK },
-    };
+      // update data pengajuan surat berdasarkan id dari database
+      await this.prisma.pengajuanSurat.update({
+        where: { id },
+        data: {
+          status: updateStatusDto.status,
+          catatan_admin: updateStatusDto.catatan_admin,
+          status_log: {
+            create: {
+              status: updateStatusDto.status,
+              keterangan: updateStatusDto.keterangan,
+            },
+          },
+        },
+      });
+
+      // response jika data berhasil diupdate
+      return {
+        success: true,
+        message: 'Status pengajuan berhasil diupdate.',
+        metadata: { status: HttpStatus.OK },
+      };
+    } catch (error) {
+      // jika terjadi error, maka throw error tersebut
+      if (error instanceof HttpException) throw error;
     }
   }
 
