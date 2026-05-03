@@ -7,10 +7,7 @@ import {
 } from '@nestjs/common';
 import { CreatePengajuanSuratDto } from './dto/create-pengajuan-surat.dto';
 import { UpdateStatusDto } from './dto/update-pengajuan-surat.dto';
-import { StatusPengajuan } from 'src/generated/prisma/browser';
 import { PrismaService } from 'src/prisma.service';
-import { PENGAJUAN_SURAT_LIST_SELECT } from 'src/common/constants/select';
-import { metadata } from 'reflect-metadata/no-conflict';
 
 @Injectable()
 export class PengajuanSuratService {
@@ -165,8 +162,8 @@ export class PengajuanSuratService {
     }
   }
 
-  // method update
-  async update(id: string, updateStatusDto: UpdateStatusDto) {
+  // method updateStatus
+  async updateStatus(id: string, updateStatusDto: UpdateStatusDto) {
     // return `This action updates a #${id} pengajuanSurat`;
 
     // menggunakan try catch
