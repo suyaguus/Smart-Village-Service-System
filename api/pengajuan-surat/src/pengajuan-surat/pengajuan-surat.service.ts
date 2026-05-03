@@ -100,7 +100,19 @@ export class PengajuanSuratService {
         metadata: { status: HttpStatus.NOT_FOUND, total_data: 0 },
       });
     }
+
+    // jika data ditemukan, maka tampilkan respon dan data pengajuan surat
+    return {
+      success: true,
+      message: 'Pengajuan surat berhasil ditemukan.',
+      metadata: {
+        status: HttpStatus.OK,
+        total_data: data.length,
+      },
+      data,
+    };
   }
+
   findOne(id: number) {
     return `This action returns a #${id} pengajuanSurat`;
   }
