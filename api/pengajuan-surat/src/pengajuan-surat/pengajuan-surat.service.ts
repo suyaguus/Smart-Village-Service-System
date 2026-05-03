@@ -219,6 +219,13 @@ export class PengajuanSuratService {
         }
       }
     })
+
+    // response jika data berhasil diupdate
+    return {
+      success: true,
+      message: 'Status pengajuan berhasil diupdate.',
+      metadata: { status: HttpStatus.OK },
+    };
     }
   }
 
