@@ -52,9 +52,10 @@ export class PengaduanController {
     return this.pengaduanService.findByUser(user_id);
   }
 
+  // tambahkan endpoint untuk mendapatkan pengaduan berdasarkan id
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pengaduanService.findOne(+id);
+  findOne(@IntParam('id') id: number) {
+    return this.pengaduanService.findOne(id);
   }
 
   @Patch(':id')
