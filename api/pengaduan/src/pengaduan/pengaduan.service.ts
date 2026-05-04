@@ -98,15 +98,14 @@ export class PengaduanService {
 
     // menggunakan try catch
     try {
-
       // ambil data pengaduan berdasarkan id dari database
       const data = await this.prisma.pengaduan.findUnique({
         where: { id },
         include: {
-          respon: { 
-            orderBy: { 
-              created_at: 'asc' 
-            } 
+          respon: {
+            orderBy: {
+              created_at: 'asc',
+            },
           },
         },
       });
@@ -116,8 +115,8 @@ export class PengaduanService {
         throw new NotFoundException({
           success: false,
           message: 'Pengaduan tidak ditemukan!',
-          metadata: { 
-            status: HttpStatus.NOT_FOUND 
+          metadata: {
+            status: HttpStatus.NOT_FOUND,
           },
         });
       }
@@ -126,11 +125,14 @@ export class PengaduanService {
       return {
         success: true,
         message: 'Pengaduan berhasil ditemukan.',
-        metadata: { 
-          status: HttpStatus.OK 
+        metadata: {
+          status: HttpStatus.OK,
         },
         data,
       };
+    } catch (error) {
+      // jika error yang terjadi adalah NotFoundException, maka throw error tersebut
+      if (error instanceof NotFoundException) throw error;
     }
   }
 
