@@ -121,6 +121,16 @@ export class PengaduanService {
           },
         });
       }
+
+      // jika data ditemukan, maka tampilkan respon dan data pengaduan
+      return {
+        success: true,
+        message: 'Pengaduan berhasil ditemukan.',
+        metadata: { 
+          status: HttpStatus.OK 
+        },
+        data,
+      };
     }
   }
 
