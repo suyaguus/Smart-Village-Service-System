@@ -222,7 +222,14 @@ export class PengaduanService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pengaduan`;
+  // method remove
+  async remove(id: number) {
+    // return `This action removes a #${id} pengaduan`;
+
+    // menggunakan try catch
+    try {
+      // cek apakah data pengaduan dengan id tersebut ada di database
+      const data = await this.prisma.pengaduan.findUnique({ where: { id } });
+    }
   }
 }
