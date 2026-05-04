@@ -288,18 +288,25 @@ export class PengajuanSuratService {
     // menggunakan try catch
     try {
       // ambil data pengajuan surat berdasarkan id dari database
-      const data = await this.prisma.pengajuanSurat.findUnique({
-        where: { id },
-      });
+      // const data = await this.prisma.pengajuanSurat.findUnique({
+      //   where: { id },
+      // });
 
       // jika data pengajuan surat tidak ditemukan, maka throw exception
-      if (!data) {
-        throw new NotFoundException({
-          success: false,
-          message: 'Pengajuan surat tidak ditemukan!',
-          metadata: { status: HttpStatus.NOT_FOUND },
-        });
-      }
+      // if (!data) {
+      //   throw new NotFoundException({
+      //     success: false,
+      //     message: 'Pengajuan surat tidak ditemukan!',
+      //     metadata: { status: HttpStatus.NOT_FOUND },
+      //   });
+      // }
+
+      // refactor: menggunakan fungsi notExistPengajuan untuk mengecek apakah data pengajuan surat dengan id tersebut ada atau tidak
+      await notExistPengajuan(
+        id,
+        this.prisma.pengajuanSurat,
+        process.env.NOT_FOUND_MESSAGE ?? '',
+      );
 
       // jika data ditemukan, maka hapus data pengajuan surat berdasarkan id dari database
       await this.prisma.pengajuanSurat.delete({
