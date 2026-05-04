@@ -73,9 +73,23 @@ export class PengaduanService {
       throw new NotFoundException({
         success: false,
         message: 'Pengaduan tidak ditemukan!',
-        metadata: { status: HttpStatus.NOT_FOUND, total_data: 0 },
+        metadata: {
+          status: HttpStatus.NOT_FOUND,
+          total_data: 0,
+        },
       });
     }
+
+    // response jika data berhasil ditemukan
+    return {
+      success: true,
+      message: 'Pengaduan berhasil ditemukan.',
+      metadata: {
+        status: HttpStatus.OK,
+        total_data: data.length,
+      },
+      data,
+    };
   }
 
   findOne(id: number) {
