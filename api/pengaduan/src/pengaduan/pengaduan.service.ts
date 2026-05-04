@@ -110,6 +110,17 @@ export class PengaduanService {
           },
         },
       });
+
+      // jika data pengaduan tidak ditemukan, maka throw exception
+      if (!data) {
+        throw new NotFoundException({
+          success: false,
+          message: 'Pengaduan tidak ditemukan!',
+          metadata: { 
+            status: HttpStatus.NOT_FOUND 
+          },
+        });
+      }
     }
   }
 
