@@ -184,9 +184,17 @@ export class PengaduanService {
         throw new BadRequestException({
           success: false,
           message: 'Perubahan status tidak valid!',
-          metadata: { status: HttpStatus.BAD_REQUEST },
+          metadata: { 
+            status: HttpStatus.BAD_REQUEST 
+          },
         });
       }
+
+      // update status pengaduan di database
+       await this.prisma.pengaduan.update({
+        where: { id },
+        data: { status: updateStatusDto.status },
+      });
     }
   }
 
