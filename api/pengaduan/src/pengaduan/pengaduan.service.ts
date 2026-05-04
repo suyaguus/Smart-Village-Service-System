@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { CreatePengaduanDto } from './dto/create-pengaduan.dto';
 import { PrismaService } from 'src/prisma.service';
+import { UpdateStatusDto } from './dto/update-pengaduan.dto';
 
 @Injectable()
 export class PengaduanService {
@@ -150,8 +151,14 @@ export class PengaduanService {
     }
   }
 
-  update(id: number, updatePengaduanDto: UpdatePengaduanDto) {
-    return `This action updates a #${id} pengaduan`;
+  async updateStatus(id: number, updateStatusDto: UpdateStatusDto) {
+    // return `This action updates a #${id} pengaduan`;
+
+    // menggunakan try catch
+    try {
+      // ambil status pengaduan berdasarkan id dari database
+      const current = await this.prisma.pengaduan.findUnique({ where: { id } });
+    }
   }
 
   remove(id: number) {
