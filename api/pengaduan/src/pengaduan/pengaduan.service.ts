@@ -92,8 +92,25 @@ export class PengaduanService {
     };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pengaduan`;
+  // method findOne
+  async findOne(id: number) {
+    // return `This action returns a #${id} pengaduan`;
+
+    // menggunakan try catch
+    try {
+
+      // ambil data pengaduan berdasarkan id dari database
+      const data = await this.prisma.pengaduan.findUnique({
+        where: { id },
+        include: {
+          respon: { 
+            orderBy: { 
+              created_at: 'asc' 
+            } 
+          },
+        },
+      });
+    }
   }
 
   update(id: number, updatePengaduanDto: UpdatePengaduanDto) {
