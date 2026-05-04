@@ -8,7 +8,10 @@ import {
 import { CreatePengajuanSuratDto } from './dto/create-pengajuan-surat.dto';
 import { UpdateStatusDto } from './dto/update-pengajuan-surat.dto';
 import { PrismaService } from 'src/prisma.service';
-import { PENGAJUAN_SURAT_LIST_SELECT } from 'src/common/constants/select';
+import {
+  PENGAJUAN_SURAT_LIST_SELECT,
+  PENGAJUAN_SURAT_SELECT,
+} from 'src/common/constants/select';
 import { notExistPengajuan } from 'src/common/utils/not-exist.util';
 
 @Injectable()
@@ -138,15 +141,16 @@ export class PengajuanSuratService {
       // ambil data pengajuan surat berdasarkan id dari database
       const data = await this.prisma.pengajuanSurat.findUnique({
         where: { id },
-        include: {
-          detail: true,
-          dokumen: true,
-          status_log: {
-            orderBy: {
-              created_at: 'desc',
-            },
-          },
-        },
+        // include: {
+        //   detail: true,
+        //   dokumen: true,
+        //   status_log: {
+        //     orderBy: {
+        //       created_at: 'desc',
+        //     },
+        //   },
+        // },
+        select: PENGAJUAN_SURAT_SELECT,
       });
 
       // jika data pengajuan surat tidak ditemukan, maka throw exception
