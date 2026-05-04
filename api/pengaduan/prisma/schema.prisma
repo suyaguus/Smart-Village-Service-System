@@ -14,3 +14,15 @@ enum StatusPengaduan {
   DIPROSES
   SELESAI
 }
+
+model Pengaduan {
+  id         String          @id @default(uuid())
+  user_id    String
+  judul      String          @db.VarChar(255)
+  deskripsi  String          @db.Text
+  status     StatusPengaduan @default(MENUNGGU)
+  created_at DateTime        @default(now())
+  updated_at DateTime        @updatedAt
+
+  @@map("tb_pengaduan")
+}
