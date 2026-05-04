@@ -232,25 +232,30 @@ export class PengaduanService {
       const data = await this.prisma.pengaduan.findUnique({ where: { id } });
 
       // jika data pengaduan tidak ditemukan, maka throw exception
-       if (!data) {
+      if (!data) {
         throw new NotFoundException({
           success: false,
           message: 'Pengaduan tidak ditemukan!',
-          metadata: { 
-            status: HttpStatus.NOT_FOUND },
+          metadata: {
+            status: HttpStatus.NOT_FOUND,
+          },
         });
       }
 
       // jika data ditemukan, maka hapus data pengaduan berdasarkan id dari database
-       await this.prisma.pengaduan.delete({ where: { id } });
+      await this.prisma.pengaduan.delete({ where: { id } });
 
       // response jika data berhasil dihapus
-       return {
+      return {
         success: true,
         message: 'Pengaduan berhasil dihapus.',
-        metadata: { 
-          status: HttpStatus.OK },
+        metadata: {
+          status: HttpStatus.OK,
+        },
       };
+    } catch (error) {
+      // jika error yang terjadi adalah NotFoundException, maka throw error tersebut
+      if (error instanceof NotFoundException) throw error;
     }
   }
 }
