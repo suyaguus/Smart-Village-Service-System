@@ -77,8 +77,9 @@ export class PengaduanController {
     return this.pengaduanService.createRespon(id, createResponDto);
   }
 
+  // endpoint untuk menghapus pengaduan berdasarkan id
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.pengaduanService.remove(+id);
+  remove(@IntParam('id') id: number) {
+    return this.pengaduanService.remove(id);
   }
 }
