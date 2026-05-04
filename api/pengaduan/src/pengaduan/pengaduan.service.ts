@@ -193,8 +193,19 @@ export class PengaduanService {
       // update status pengaduan di database
        await this.prisma.pengaduan.update({
         where: { id },
-        data: { status: updateStatusDto.status },
+        data: { 
+          status: updateStatusDto.status 
+        },
       });
+
+      // response jika status berhasil diupdate
+      return {
+        success: true,
+        message: 'Status pengaduan berhasil diupdate.',
+        metadata: { 
+          status: HttpStatus.OK 
+        },
+      };
     }
   }
 
