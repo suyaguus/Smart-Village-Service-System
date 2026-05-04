@@ -13,6 +13,7 @@ import {
 import { PengaduanService } from './pengaduan.service';
 import { CreatePengaduanDto } from './dto/create-pengaduan.dto';
 import { UpdateStatusDto } from './dto/update-pengaduan.dto';
+import { CreateResponDto } from './dto/create-respon.dto';
 
 // membuat custom ParseIntPipe untuk override pesan error default
 const IntParam = (property: string) =>
@@ -65,6 +66,15 @@ export class PengaduanController {
     @Body() updateStatusDto: UpdateStatusDto,
   ) {
     return this.pengaduanService.updateStatus(id, updateStatusDto);
+  }
+
+  // tambahkan endpoint untuk membuat respon baru pada pengaduan
+  @Post(':id/respon')
+  createRespon(
+    @IntParam('id') id: number,
+    @Body() createResponDto: CreateResponDto,
+  ) {
+    return this.pengaduanService.createRespon(id, createResponDto);
   }
 
   @Delete(':id')
