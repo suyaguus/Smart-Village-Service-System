@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  HttpException,
   HttpStatus,
   Injectable,
   NotFoundException,
@@ -168,12 +169,12 @@ export class PengaduanService {
       const current = await this.prisma.pengaduan.findUnique({ where: { id } });
 
       // jika data pengaduan tidak ditemukan, maka throw exception
-       if (!current) {
+      if (!current) {
         throw new NotFoundException({
           success: false,
           message: 'Pengaduan tidak ditemukan!',
-          metadata: { 
-            status: HttpStatus.NOT_FOUND 
+          metadata: {
+            status: HttpStatus.NOT_FOUND,
           },
         });
       }
@@ -184,17 +185,17 @@ export class PengaduanService {
         throw new BadRequestException({
           success: false,
           message: 'Perubahan status tidak valid!',
-          metadata: { 
-            status: HttpStatus.BAD_REQUEST 
+          metadata: {
+            status: HttpStatus.BAD_REQUEST,
           },
         });
       }
 
       // update status pengaduan di database
-       await this.prisma.pengaduan.update({
+      await this.prisma.pengaduan.update({
         where: { id },
-        data: { 
-          status: updateStatusDto.status 
+        data: {
+          status: updateStatusDto.status,
         },
       });
 
@@ -202,10 +203,13 @@ export class PengaduanService {
       return {
         success: true,
         message: 'Status pengaduan berhasil diupdate.',
-        metadata: { 
-          status: HttpStatus.OK 
+        metadata: {
+          status: HttpStatus.OK,
         },
       };
+    } catch (error) {
+      // jika error yang terjadi adalah NotFoundException atau BadRequestException, maka throw error tersebut
+      if (error instanceof HttpException) throw error;
     }
   }
 
