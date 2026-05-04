@@ -48,6 +48,16 @@ export class PengaduanService {
         },
       });
     }
+
+    // response jika data berhasil ditemukan
+    return {
+      success: true,
+      message: 'Pengaduan berhasil ditemukan.',
+      metadata: {
+        status: HttpStatus.OK,
+        total_data: data.length,
+      },
+    };
   }
 
   findOne(id: number) {
