@@ -210,6 +210,15 @@ export class PengaduanService {
     } catch (error) {
       // jika error yang terjadi adalah NotFoundException atau BadRequestException, maka throw error tersebut
       if (error instanceof HttpException) throw error;
+
+      // jika error yang terjadi bukan NotFoundException atau BadRequestException, maka throw BadRequestException
+      throw new BadRequestException({
+        success: false,
+        message: 'Request tidak valid!',
+        metadata: {
+          status: HttpStatus.BAD_REQUEST,
+        },
+      });
     }
   }
 
