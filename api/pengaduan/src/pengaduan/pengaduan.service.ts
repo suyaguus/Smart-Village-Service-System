@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePengaduanDto } from './dto/create-pengaduan.dto';
 import { PrismaService } from 'src/prisma.service';
 
@@ -36,6 +36,18 @@ export class PengaduanService {
         created_at: 'desc',
       },
     });
+
+    // jika pengajuan surat tidak ditemukan, maka throw exception
+    if (data.length === 0) {
+      throw new NotFoundException({
+        success: false,
+        message: 'Pengaduan tidak ditemukan!',
+        metadata: {
+          status: HttpStatus.NOT_FOUND,
+          total_data: 0,
+        },
+      });
+    }
   }
 
   findOne(id: number) {
