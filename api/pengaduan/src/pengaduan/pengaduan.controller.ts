@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { PengaduanService } from './pengaduan.service';
 import { CreatePengaduanDto } from './dto/create-pengaduan.dto';
-import { UpdatePengaduanDto } from './dto/update-pengaduan.dto';
+import { UpdateStatusDto } from './dto/update-pengaduan.dto';
 
 // membuat custom ParseIntPipe untuk override pesan error default
 const IntParam = (property: string) =>
@@ -58,12 +58,13 @@ export class PengaduanController {
     return this.pengaduanService.findOne(id);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updatePengaduanDto: UpdatePengaduanDto,
+  // tambahkan endpoint untuk update status pengaduan
+  @Patch(':id/status')
+  updateStatus(
+    @IntParam('id') id: number,
+    @Body() updateStatusDto: UpdateStatusDto,
   ) {
-    return this.pengaduanService.update(+id, updatePengaduanDto);
+    return this.pengaduanService.updateStatus(id, updateStatusDto);
   }
 
   @Delete(':id')
