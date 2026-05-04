@@ -8,6 +8,7 @@ import {
 import { CreatePengajuanSuratDto } from './dto/create-pengajuan-surat.dto';
 import { UpdateStatusDto } from './dto/update-pengajuan-surat.dto';
 import { PrismaService } from 'src/prisma.service';
+import { PENGAJUAN_SURAT_LIST_SELECT } from 'src/common/constants/select';
 
 @Injectable()
 export class PengajuanSuratService {
@@ -52,6 +53,7 @@ export class PengajuanSuratService {
 
     // ambil semua data pengajuan surat dari database
     const data = await this.prisma.pengajuanSurat.findMany({
+      select: PENGAJUAN_SURAT_LIST_SELECT,
       orderBy: {
         created_at: 'desc',
       },
