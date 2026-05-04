@@ -9,6 +9,7 @@ import { CreatePengajuanSuratDto } from './dto/create-pengajuan-surat.dto';
 import { UpdateStatusDto } from './dto/update-pengajuan-surat.dto';
 import { PrismaService } from 'src/prisma.service';
 import { PENGAJUAN_SURAT_LIST_SELECT } from 'src/common/constants/select';
+import { notExistPengajuan } from 'src/common/utils/not-exist.util';
 
 @Injectable()
 export class PengajuanSuratService {
@@ -127,6 +128,13 @@ export class PengajuanSuratService {
 
     // menggunakan try catch
     try {
+      // refactor: menggunakan fungsi notExistPengajuan untuk mengecek apakah data pengajuan surat dengan id tersebut ada atau tidak
+      await notExistPengajuan(
+        id,
+        this.prisma.pengajuanSurat,
+        process.env.NOT_FOUND_MESSAGE ?? '',
+      );
+
       // ambil data pengajuan surat berdasarkan id dari database
       const data = await this.prisma.pengajuanSurat.findUnique({
         where: { id },
@@ -142,15 +150,15 @@ export class PengajuanSuratService {
       });
 
       // jika data pengajuan surat tidak ditemukan, maka throw exception
-      if (!data) {
-        throw new NotFoundException({
-          success: false,
-          message: 'Pengajuan surat tidak ditemukan!',
-          metadata: {
-            status: HttpStatus.NOT_FOUND,
-          },
-        });
-      }
+      // if (!data) {
+      //   throw new NotFoundException({
+      //     success: false,
+      //     message: 'Pengajuan surat tidak ditemukan!',
+      //     metadata: {
+      //       status: HttpStatus.NOT_FOUND,
+      //     },
+      //   });
+      // }
 
       // jika data ditemukan, maka tampilkan respon dan data pengajuan surat
       return {
