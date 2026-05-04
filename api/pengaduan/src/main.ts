@@ -13,6 +13,9 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(process.env.PORT ?? 3000);
+  // menambahkan prefix global
+  app.setGlobalPrefix('api');
+
+  await app.listen(process.env.PORT ?? 3005);
 }
 void bootstrap();
