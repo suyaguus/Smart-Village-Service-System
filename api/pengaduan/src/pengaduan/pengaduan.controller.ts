@@ -14,6 +14,22 @@ import { PengaduanService } from './pengaduan.service';
 import { CreatePengaduanDto } from './dto/create-pengaduan.dto';
 import { UpdatePengaduanDto } from './dto/update-pengaduan.dto';
 
+// membuat custom ParseIntPipe untuk override pesan error default
+const IntParam = (property: string) =>
+  Param(
+    property,
+    new ParseIntPipe({
+      exceptionFactory: () =>
+        new BadRequestException({
+          success: false,
+          message: process.env.BAD_REQUEST_MESSAGE,
+          metadata: {
+            status: HttpStatus.BAD_REQUEST,
+          },
+        }),
+    }),
+  );
+
 @Controller('pengaduan')
 export class PengaduanController {
   constructor(private readonly pengaduanService: PengaduanService) {}
@@ -29,22 +45,6 @@ export class PengaduanController {
   findAll() {
     return this.pengaduanService.findAll();
   }
-
-  // membuat custom ParseIntPipe untuk override pesan error default
-  IntParam = (property: string) =>
-    Param(
-      property,
-      new ParseIntPipe({
-        exceptionFactory: () =>
-          new BadRequestException({
-            success: false,
-            message: process.env.BAD_REQUEST_MESSAGE,
-            metadata: {
-              status: HttpStatus.BAD_REQUEST,
-            },
-          }),
-      }),
-    );
 
   @Get(':id')
   findOne(@Param('id') id: string) {
