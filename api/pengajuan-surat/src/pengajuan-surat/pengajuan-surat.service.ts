@@ -115,7 +115,10 @@ export class PengajuanSuratService {
         // message: 'Pengajuan surat tidak ditemukan!',
         // refactor message response
         message: process.env.NOT_FOUND_MESSAGE,
-        metadata: { status: HttpStatus.NOT_FOUND, total_data: 0 },
+        metadata: {
+          status: HttpStatus.NOT_FOUND,
+          total_data: 0,
+        },
       });
     }
 
@@ -264,7 +267,9 @@ export class PengajuanSuratService {
         // message: 'Status pengajuan berhasil diupdate.',
         // refactor message response
         message: process.env.SUCCESS_UPDATE_MESSAGE,
-        metadata: { status: HttpStatus.OK },
+        metadata: {
+          status: HttpStatus.OK,
+        },
       };
     } catch (error) {
       // jika terjadi error, maka throw error tersebut
@@ -276,7 +281,9 @@ export class PengajuanSuratService {
         // message: 'Request tidak valid!',
         // refactor message response
         message: process.env.BAD_REQUEST_MESSAGE,
-        metadata: { status: HttpStatus.BAD_REQUEST },
+        metadata: {
+          status: HttpStatus.BAD_REQUEST,
+        },
       });
     }
   }
@@ -319,7 +326,9 @@ export class PengajuanSuratService {
         // message: 'Pengajuan surat berhasil dihapus.',
         // refactor message response
         message: process.env.SUCCESS_DELETE_MESSAGE,
-        metadata: { status: HttpStatus.OK },
+        metadata: {
+          status: HttpStatus.OK,
+        },
       };
     } catch (error) {
       // jika error merupakan NotFoundException, maka throw error tersebut
@@ -331,7 +340,9 @@ export class PengajuanSuratService {
         // message: 'Request tidak valid!',
         // refactor message response
         message: process.env.BAD_REQUEST_MESSAGE,
-        metadata: { status: HttpStatus.BAD_REQUEST },
+        metadata: {
+          status: HttpStatus.BAD_REQUEST,
+        },
       });
     }
   }
