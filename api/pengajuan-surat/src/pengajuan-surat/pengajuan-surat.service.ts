@@ -76,7 +76,9 @@ export class PengajuanSuratService {
     // jika data ditemukan, maka tampilkan respon dan data pengajuan surat
     return {
       success: true,
-      message: 'Pengajuan Surat berhasil ditemukan.',
+      // message: 'Pengajuan Surat berhasil ditemukan.',
+      // refactor message response
+      message: process.env.SUCCESS_FIND_MESSAGE,
       metadata: {
         status: HttpStatus.OK,
         total_data: data.length,
