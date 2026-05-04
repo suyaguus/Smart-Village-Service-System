@@ -316,7 +316,9 @@ export class PengajuanSuratService {
       // response jika data berhasil dihapus
       return {
         success: true,
-        message: 'Pengajuan surat berhasil dihapus.',
+        // message: 'Pengajuan surat berhasil dihapus.',
+        // refactor message response
+        message: process.env.SUCCESS_DELETE_MESSAGE,
         metadata: { status: HttpStatus.OK },
       };
     } catch (error) {
