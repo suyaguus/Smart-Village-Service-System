@@ -261,7 +261,9 @@ export class PengajuanSuratService {
       // response jika data berhasil diupdate
       return {
         success: true,
-        message: 'Status pengajuan berhasil diupdate.',
+        // message: 'Status pengajuan berhasil diupdate.',
+        // refactor message response
+        message: process.env.SUCCESS_UPDATE_MESSAGE,
         metadata: { status: HttpStatus.OK },
       };
     } catch (error) {
