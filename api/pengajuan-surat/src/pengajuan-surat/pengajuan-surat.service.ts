@@ -219,22 +219,24 @@ export class PengajuanSuratService {
       );
 
       // jika data pengajuan surat tidak ditemukan, maka throw exception
-      if (!current) {
-        throw new NotFoundException({
-          success: false,
-          message: 'Pengajuan surat tidak ditemukan!',
-          metadata: {
-            status: HttpStatus.NOT_FOUND,
-          },
-        });
-      }
+      // if (!current) {
+      //   throw new NotFoundException({
+      //     success: false,
+      //     message: 'Pengajuan surat tidak ditemukan!',
+      //     metadata: {
+      //       status: HttpStatus.NOT_FOUND,
+      //     },
+      //   });
+      // }
 
       // ambil status saat ini
       const allowed = STATUS_TRANSITIONS[current.status];
       if (!allowed.includes(updateStatusDto.status)) {
         throw new BadRequestException({
           success: false,
-          message: 'Perubahan status tidak valid!',
+          // message: 'Perubahan status tidak valid!',
+          // refactor message response
+          message: process.env.STATUS_INVALID_MESSAGE,
           metadata: {
             status: HttpStatus.BAD_REQUEST,
           },
