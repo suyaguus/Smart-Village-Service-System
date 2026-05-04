@@ -177,6 +177,16 @@ export class PengaduanService {
           },
         });
       }
+
+      // validasi perubahan status berdasarkan STATUS_TRANSITIONS
+      const allowed = STATUS_TRANSITIONS[current.status];
+      if (!allowed.includes(updateStatusDto.status)) {
+        throw new BadRequestException({
+          success: false,
+          message: 'Perubahan status tidak valid!',
+          metadata: { status: HttpStatus.BAD_REQUEST },
+        });
+      }
     }
   }
 
