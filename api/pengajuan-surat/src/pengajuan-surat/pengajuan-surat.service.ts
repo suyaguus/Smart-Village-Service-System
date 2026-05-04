@@ -14,6 +14,14 @@ import {
 } from 'src/common/constants/select';
 import { notExistPengajuan } from 'src/common/utils/not-exist.util';
 
+// cek apakah status yang akan diupdate valid berdasarkan status saat ini
+const STATUS_TRANSITIONS: Record<string, string[]> = {
+  MENUNGGU: ['DIPROSES'],
+  DIPROSES: ['SELESAI', 'DITOLAK'],
+  DITOLAK: [],
+  SELESAI: [],
+};
+
 @Injectable()
 export class PengajuanSuratService {
   // buat constructor untuk inject PrismaService
@@ -199,9 +207,16 @@ export class PengajuanSuratService {
     // menggunakan try catch
     try {
       // ambil data pengajuan surat berdasarkan id dari database
-      const current = await this.prisma.pengajuanSurat.findUnique({
-        where: { id },
-      });
+      // const current = await this.prisma.pengajuanSurat.findUnique({
+      //   where: { id },
+      // });
+
+      // refactor: menggunakan fungsi notExistPengajuan untuk mengecek apakah data pengajuan surat dengan id tersebut ada atau tidak, sekaligus mengambil data pengajuan surat tersebut
+      const current = await notExistPengajuan(
+        id,
+        this.prisma.pengajuanSurat,
+        process.env.NOT_FOUND_MESSAGE ?? '',
+      );
 
       // jika data pengajuan surat tidak ditemukan, maka throw exception
       if (!current) {
@@ -213,14 +228,6 @@ export class PengajuanSuratService {
           },
         });
       }
-
-      // cek apakah status yang akan diupdate valid berdasarkan status saat ini
-      const STATUS_TRANSITIONS: Record<string, string[]> = {
-        MENUNGGU: ['DIPROSES'],
-        DIPROSES: ['SELESAI', 'DITOLAK'],
-        DITOLAK: [],
-        SELESAI: [],
-      };
 
       // ambil status saat ini
       const allowed = STATUS_TRANSITIONS[current.status];
