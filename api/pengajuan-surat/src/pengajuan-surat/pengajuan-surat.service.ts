@@ -37,7 +37,9 @@ export class PengajuanSuratService {
     // response jika data berhasil disimpan
     return {
       success: true,
-      message: 'Pengajuan Surat berhasil dibuat.',
+      // message: 'Pengajuan Surat berhasil dibuat.',
+      // refactor message response
+      message: process.env.SUCCESS_SAVE_MESSAGE,
       metadata: {
         status: HttpStatus.CREATED,
       },
