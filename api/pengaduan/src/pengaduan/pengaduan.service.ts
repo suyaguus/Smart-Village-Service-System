@@ -6,8 +6,13 @@ import { PrismaService } from 'src/prisma.service';
 export class PengaduanService {
   // buat constructor untuk inject PrismaService
   constructor(private readonly prisma: PrismaService) {}
-  create(createPengaduanDto: CreatePengaduanDto) {
-    return 'This action adds a new pengaduan';
+  async create(createPengaduanDto: CreatePengaduanDto) {
+    // return 'This action adds a new pengaduan';
+
+    // simpan data pengaduan baru ke database
+    await this.prisma.pengaduan.create({
+      data: createPengaduanDto,
+    });
   }
 
   findAll() {
