@@ -60,6 +60,29 @@ export class PengaduanService {
     };
   }
 
+  // method findByUser untuk mencari pengaduan berdasarkan user_id
+  async findByUser(user_id: string) {
+    const data = await this.prisma.pengaduan.findMany({
+      where: { user_id },
+      orderBy: { created_at: 'desc' },
+    });
+
+    if (data.length === 0) {
+      throw new NotFoundException({
+        success: false,
+        message: 'Pengaduan tidak ditemukan!',
+        metadata: { status: HttpStatus.NOT_FOUND, total_data: 0 },
+      });
+    }
+
+    return {
+      success: true,
+      message: 'Pengaduan berhasil ditemukan.',
+      metadata: { status: HttpStatus.OK, total_data: data.length },
+      data,
+    };
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} pengaduan`;
   }
