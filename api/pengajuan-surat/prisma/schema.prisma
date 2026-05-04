@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  // delete folder genereated lalu genereate ulang dan + src/generated/prisma
+
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// enum status pengajuan surat
+enum StatusPengajuan {
+  MENUNGGU
+  DIPROSES
+  DITOLAK
+  SELESAI
+}
+
+// model pengajuan surat
+model PengajuanSurat {
+  id               String          @id @default(uuid())
+  user_id          String
+  jenis_surat_id   String
+  status           StatusPengajuan @default(MENUNGGU)
+  catatan_admin    String?         @db.Text
+  file_surat       String?         @db.VarChar(255)
+  estimasi_selesai DateTime?
+  created_at       DateTime        @default(now())
+  updated_at       DateTime        @updatedAt
+
+  detail     PengajuanDetail[]
+  dokumen    PengajuanDokumen[]
+  status_log StatusLog[]
+
+  @@map("tb_pengajuan_surat")
+}
+
+// model pengajuan detail untuk menyimpan nilai dari field surat yang diisi oleh user saat mengajukan surat, relasi dengan pengajuan surat dan field surat
+model PengajuanDetail {
+  id           String @id @default(uuid())
+  pengajuan_id String
+  field_id     String
+  value        String @db.Text
+
+  pengajuan PengajuanSurat @relation(fields: [pengajuan_id], references: [id], onDelete: Cascade)
+
+  @@map("tb_pengajuan_detail")
+}
+
+// model pengajuan dokumen untuk menyimpan file yang diupload oleh user saat mengajukan surat, relasi dengan pengajuan surat dan field surat
+model PengajuanDokumen {
+  id           String   @id @default(uuid())
+  pengajuan_id String
+  field_id     String
+  file_url     String   @db.VarChar(255)
+  created_at   DateTime @default(now())
+
+  pengajuan PengajuanSurat @relation(fields: [pengajuan_id], references: [id], onDelete: Cascade)
+
+  @@map("tb_pengajuan_dokumen")
+}
+
+// model status log untuk menyimpan riwayat perubahan status pengajuan surat, relasi dengan pengajuan surat
+model StatusLog {
+  id           String   @id @default(uuid())
+  pengajuan_id String
+  status       String   @db.VarChar(50)
+  keterangan   String?  @db.Text
+  created_at   DateTime @default(now())
+
+  pengajuan PengajuanSurat @relation(fields: [pengajuan_id], references: [id], onDelete: Cascade)
+
+  @@map("tb_status_log")
+}
