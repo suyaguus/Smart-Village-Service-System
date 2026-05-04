@@ -62,11 +62,13 @@ export class PengaduanService {
 
   // method findByUser untuk mencari pengaduan berdasarkan user_id
   async findByUser(user_id: string) {
+    // ambil data pengaduan berdasarkan user_id dari database
     const data = await this.prisma.pengaduan.findMany({
       where: { user_id },
       orderBy: { created_at: 'desc' },
     });
 
+    // jika pengaduan tidak ditemukan, maka throw exception
     if (data.length === 0) {
       throw new NotFoundException({
         success: false,
@@ -74,13 +76,6 @@ export class PengaduanService {
         metadata: { status: HttpStatus.NOT_FOUND, total_data: 0 },
       });
     }
-
-    return {
-      success: true,
-      message: 'Pengaduan berhasil ditemukan.',
-      metadata: { status: HttpStatus.OK, total_data: data.length },
-      data,
-    };
   }
 
   findOne(id: number) {
