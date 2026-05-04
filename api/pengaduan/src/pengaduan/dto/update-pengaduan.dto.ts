@@ -1,4 +1,8 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreatePengaduanDto } from './create-pengaduan.dto';
+import { IsEnum, IsNotEmpty } from 'class-validator';
+import { StatusPengaduan } from '../../generated/prisma/client';
 
-export class UpdatePengaduanDto extends PartialType(CreatePengaduanDto) {}
+export class UpdateStatusDto {
+  @IsEnum(StatusPengaduan)
+  @IsNotEmpty()
+  status!: StatusPengaduan;
+}
