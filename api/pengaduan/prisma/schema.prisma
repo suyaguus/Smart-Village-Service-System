@@ -16,27 +16,27 @@ enum StatusPengaduan {
 }
 
 model Pengaduan {
-  id         String          @id @default(uuid())
-  user_id    String
+  id         Int             @id @default(autoincrement())
+  user_id    String          @db.VarChar(50)
   judul      String          @db.VarChar(255)
   deskripsi  String          @db.Text
   status     StatusPengaduan @default(MENUNGGU)
   created_at DateTime        @default(now())
   updated_at DateTime        @updatedAt
 
-  respon PengaduanRespon[]
+  respon     PengaduanRespon[]
 
   @@map("tb_pengaduan")
 }
 
 model PengaduanRespon {
-  id           String   @id @default(uuid())
-  pengaduan_id String
-  admin_id     String
-  text         String   @db.Text
-  created_at   DateTime @default(now())
+  id           Int       @id @default(autoincrement())
+  pengaduan_id Int
+  admin_id     String    @db.VarChar(50)
+  text         String    @db.Text
+  created_at   DateTime  @default(now())
 
-  pengaduan Pengaduan @relation(fields: [pengaduan_id], references: [id], onDelete: Cascade)
+  pengaduan    Pengaduan @relation(fields: [pengaduan_id], references: [id], onDelete: Cascade)
 
   @@map("tb_pengaduan_respon")
 }
