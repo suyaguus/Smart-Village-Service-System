@@ -46,6 +46,12 @@ export class PengaduanController {
     return this.pengaduanService.findAll();
   }
 
+  // tambahkan endpoint untuk mendapatkan pengaduan berdasarkan user_id
+  @Get('user/:user_id')
+  findByUser(@Param('user_id') user_id: string) {
+    return this.pengaduanService.findByUser(user_id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.pengaduanService.findOne(+id);
