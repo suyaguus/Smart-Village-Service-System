@@ -8,6 +8,13 @@ import { CreatePengaduanDto } from './dto/create-pengaduan.dto';
 import { PrismaService } from 'src/prisma.service';
 import { UpdateStatusDto } from './dto/update-pengaduan.dto';
 
+// definisikan status pengaduan
+const STATUS_TRANSITIONS: Record<string, string[]> = {
+  MENUNGGU: ['DIPROSES'],
+  DIPROSES: ['SELESAI'],
+  SELESAI: [],
+};
+
 @Injectable()
 export class PengaduanService {
   // buat constructor untuk inject PrismaService
@@ -151,6 +158,7 @@ export class PengaduanService {
     }
   }
 
+  // method updateStatus untuk update status pengaduan
   async updateStatus(id: number, updateStatusDto: UpdateStatusDto) {
     // return `This action updates a #${id} pengaduan`;
 
@@ -158,6 +166,17 @@ export class PengaduanService {
     try {
       // ambil status pengaduan berdasarkan id dari database
       const current = await this.prisma.pengaduan.findUnique({ where: { id } });
+
+      // jika data pengaduan tidak ditemukan, maka throw exception
+       if (!current) {
+        throw new NotFoundException({
+          success: false,
+          message: 'Pengaduan tidak ditemukan!',
+          metadata: { 
+            status: HttpStatus.NOT_FOUND 
+          },
+        });
+      }
     }
   }
 
