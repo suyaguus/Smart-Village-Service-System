@@ -6,6 +6,8 @@ import { PrismaService } from 'src/prisma.service';
 export class PengaduanService {
   // buat constructor untuk inject PrismaService
   constructor(private readonly prisma: PrismaService) {}
+
+  // method create
   async create(createPengaduanDto: CreatePengaduanDto) {
     // return 'This action adds a new pengaduan';
 
@@ -24,8 +26,16 @@ export class PengaduanService {
     };
   }
 
-  findAll() {
-    return `This action returns all pengaduan`;
+  // method findAll
+  async findAll() {
+    // return `This action returns all pengaduan`;
+
+    // ambil semua data pengaduan dari database
+    const data = await this.prisma.pengaduan.findMany({
+      orderBy: {
+        created_at: 'desc',
+      },
+    });
   }
 
   findOne(id: number) {
