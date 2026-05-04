@@ -239,6 +239,9 @@ export class PengaduanService {
           metadata: { status: HttpStatus.NOT_FOUND },
         });
       }
+
+      // jika data ditemukan, maka hapus data pengaduan berdasarkan id dari database
+       await this.prisma.pengaduan.delete({ where: { id } });
     }
   }
 }
