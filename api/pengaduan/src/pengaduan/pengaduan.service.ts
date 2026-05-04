@@ -230,6 +230,15 @@ export class PengaduanService {
     try {
       // cek apakah data pengaduan dengan id tersebut ada di database
       const data = await this.prisma.pengaduan.findUnique({ where: { id } });
+
+      // jika data pengaduan tidak ditemukan, maka throw exception
+       if (!data) {
+        throw new NotFoundException({
+          success: false,
+          message: 'Pengaduan tidak ditemukan!',
+          metadata: { status: HttpStatus.NOT_FOUND },
+        });
+      }
     }
   }
 }
