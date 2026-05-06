@@ -219,7 +219,7 @@ export class PengaduanService {
           success: false,
           // message: 'Perubahan status tidak valid!',
           // refactor message response
-          message: process.env.INVALID_STATUS_MESSAGE,
+          message: process.env.STATUS_INVALID_MESSAGE,
           metadata: {
             status: HttpStatus.BAD_REQUEST,
           },
