@@ -112,7 +112,9 @@ export class PengaduanService {
     // response jika data berhasil ditemukan
     return {
       success: true,
-      message: 'Pengaduan berhasil ditemukan.',
+      // message: 'Pengaduan berhasil ditemukan.',
+      // refactor message response
+      message: process.env.SUCCESS_FIND_MESSAGE,
       metadata: {
         status: HttpStatus.OK,
         total_data: data.length,
