@@ -32,31 +32,34 @@ const IntParam = (property: string) =>
 export class InformasiController {
   constructor(private readonly informasiService: InformasiService) {}
 
+  // method create
   @Post()
   create(@Body() createInformasiDto: CreateInformasiDto) {
     return this.informasiService.create(createInformasiDto);
   }
 
+  // method findAll
   @Get()
   findAll() {
     return this.informasiService.findAll();
   }
 
+  // method findOne
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.informasiService.findOne(+id);
+  findOne(@IntParam('id') id: number) {
+    return this.informasiService.findOne(id);
   }
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @IntParam('id') id: number,
     @Body() updateInformasiDto: UpdateInformasiDto,
   ) {
-    return this.informasiService.update(+id, updateInformasiDto);
+    return this.informasiService.update(id, updateInformasiDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.informasiService.remove(+id);
+  remove(@IntParam('id') id: number) {
+    return this.informasiService.remove(id);
   }
 }
