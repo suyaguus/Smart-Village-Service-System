@@ -192,18 +192,25 @@ export class PengaduanService {
     // menggunakan try catch
     try {
       // ambil status pengaduan berdasarkan id dari database
-      const current = await this.prisma.pengaduan.findUnique({ where: { id } });
+      // const current = await this.prisma.pengaduan.findUnique({ where: { id } });
+
+      // refactor: menggunakan notExistPengaduan sekaligus ambil data current
+      const current = await notExistPengaduan(
+        id,
+        this.prisma.pengaduan,
+        process.env.NOT_FOUND_MESSAGE ?? '',
+      );
 
       // jika data pengaduan tidak ditemukan, maka throw exception
-      if (!current) {
-        throw new NotFoundException({
-          success: false,
-          message: 'Pengaduan tidak ditemukan!',
-          metadata: {
-            status: HttpStatus.NOT_FOUND,
-          },
-        });
-      }
+      // if (!current) {
+      //   throw new NotFoundException({
+      //     success: false,
+      //     message: 'Pengaduan tidak ditemukan!',
+      //     metadata: {
+      //       status: HttpStatus.NOT_FOUND,
+      //     },
+      //   });
+      // }
 
       // validasi perubahan status berdasarkan STATUS_TRANSITIONS
       const allowed = STATUS_TRANSITIONS[current.status];
