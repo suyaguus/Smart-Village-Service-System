@@ -122,6 +122,12 @@ export class InformasiService {
           }
         })
       }
+
+      // jika data ditemukan, maka update data informasi berdasarkan id
+      await this.prisma.informasi.update({
+        where: {id},
+        data: updateInformasiDto
+      })
     }
   }
 
