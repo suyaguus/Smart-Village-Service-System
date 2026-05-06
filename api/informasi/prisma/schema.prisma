@@ -1,13 +1,23 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  // delete folder genereated lalu genereate ulang dan + src/generated/prisma
+  moduleFormat = "cjs"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+// model informasi
+model Informasi {
+  id         Int      @id @default(autoincrement())
+  admin_id   String   @db.VarChar(50)
+  judul      String   @db.VarChar(255)
+  isi        String   @db.Text
+  foto       String?  @db.VarChar(255)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("tb_informasi")
 }
