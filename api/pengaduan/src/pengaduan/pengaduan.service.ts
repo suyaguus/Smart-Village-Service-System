@@ -72,6 +72,7 @@ export class PengaduanService {
         status: HttpStatus.OK,
         total_data: data.length,
       },
+      data,
     };
   }
 
