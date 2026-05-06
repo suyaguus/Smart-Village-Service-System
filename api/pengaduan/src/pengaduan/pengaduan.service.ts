@@ -217,7 +217,9 @@ export class PengaduanService {
       if (!allowed.includes(updateStatusDto.status)) {
         throw new BadRequestException({
           success: false,
-          message: 'Perubahan status tidak valid!',
+          // message: 'Perubahan status tidak valid!',
+          // refactor message response
+          message: process.env.INVALID_STATUS_MESSAGE,
           metadata: {
             status: HttpStatus.BAD_REQUEST,
           },
