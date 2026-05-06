@@ -128,6 +128,15 @@ export class InformasiService {
         where: {id},
         data: updateInformasiDto
       })
+
+      // jika data berhasil diupdate, maka kirimkan pesan respon
+      return {
+        success: true,
+        message: 'Informasi berhasil diupdate.',
+        metadata: {
+          status: HttpStatus.OK,
+        }
+      }
     }
   }
 
