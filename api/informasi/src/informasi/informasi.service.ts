@@ -8,8 +8,14 @@ export class InformasiService {
   // buat constructor untuk inject PrismaService
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createInformasiDto: CreateInformasiDto) {
-    return 'This action adds a new informasi';
+  // method create
+  async create(createInformasiDto: CreateInformasiDto) {
+    // return 'This action adds a new informasi';
+
+    // simpan data informasi baru ke database
+    await this.prisma.informasi.create({
+      data: createInformasiDto,
+    });
   }
 
   findAll() {
