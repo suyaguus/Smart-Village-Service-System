@@ -178,6 +178,15 @@ export class InformasiService {
       await this.prisma.informasi.delete({ 
         where: { id } 
       });
+
+      // jika data berhasil dihapus, maka kirimkan pesan respon
+      return {
+        success: true,
+        message: 'Informasi berhasil dihapus.',
+        metadata: { 
+          status: HttpStatus.OK 
+        },
+      };
     }
   }
 }
