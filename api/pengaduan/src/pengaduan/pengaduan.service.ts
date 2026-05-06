@@ -326,20 +326,27 @@ export class PengaduanService {
     // menggunakan try catch
     try {
       // cek apakah data pengaduan dengan id tersebut ada di database
-      const pengaduan = await this.prisma.pengaduan.findUnique({
-        where: { id },
-      });
+      // const pengaduan = await this.prisma.pengaduan.findUnique({
+      //   where: { id },
+      // });
+
+      // refactor: menggunakan notExistPengaduan
+      await notExistPengaduan(
+        id,
+        this.prisma.pengaduan,
+        process.env.NOT_FOUND_MESSAGE ?? '',
+      );
 
       // jika data pengaduan tidak ditemukan, maka throw exception
-      if (!pengaduan) {
-        throw new NotFoundException({
-          success: false,
-          message: 'Pengaduan tidak ditemukan!',
-          metadata: {
-            status: HttpStatus.NOT_FOUND,
-          },
-        });
-      }
+      // if (!pengaduan) {
+      //   throw new NotFoundException({
+      //     success: false,
+      //     message: 'Pengaduan tidak ditemukan!',
+      //     metadata: {
+      //       status: HttpStatus.NOT_FOUND,
+      //     },
+      //   });
+      // }
 
       // jika data ditemukan, maka simpan data respon ke database
       await this.prisma.pengaduanRespon.create({
