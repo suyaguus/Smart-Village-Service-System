@@ -190,6 +190,13 @@ export class InformasiService {
     } catch (error) {
       // jika error yang terjadi adalah NotFoundException, maka throw error tersebut
       if (error instanceof NotFoundException) throw error;
+
+      // jika terjadi error, maka kirimkan pesan error
+      throw new BadRequestException({
+        success: false,
+        message: 'Request tidak valid!',
+        metadata: { status: HttpStatus.BAD_REQUEST },
+      });
     }
   }
 }
