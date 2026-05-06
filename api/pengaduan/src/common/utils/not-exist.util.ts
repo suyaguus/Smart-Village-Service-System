@@ -19,4 +19,7 @@ export const notExistPengaduan = async (
       },
     });
   }
+
+  //   jika data ditemukan, maka return data pengaduan
+  return data;
 };
