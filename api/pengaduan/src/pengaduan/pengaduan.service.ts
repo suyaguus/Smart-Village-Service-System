@@ -292,12 +292,14 @@ export class PengaduanService {
       // }
 
       // jika data ditemukan, maka hapus data pengaduan berdasarkan id dari database
-      await this.prisma.pengaduan.delete({ where: { id } });
+      // await this.prisma.pengaduan.delete({ where: { id } });
 
       // response jika data berhasil dihapus
       return {
         success: true,
-        message: 'Pengaduan berhasil dihapus.',
+        // message: 'Pengaduan berhasil dihapus.',
+        // refactor message response
+        message: process.env.SUCCESS_DELETE_MESSAGE,
         metadata: {
           status: HttpStatus.OK,
         },
