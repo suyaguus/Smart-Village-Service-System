@@ -8,3 +8,12 @@ export const INFORMASI_SELECT = {
   created_at: true,
   updated_at: true,
 };
+
+// refactor: update select object for informasi list
+export const INFORMASI_LIST_SELECT = {
+  id: true,
+  admin_id: true,
+  judul: true,
+  foto: true,
+  created_at: true,
+};
