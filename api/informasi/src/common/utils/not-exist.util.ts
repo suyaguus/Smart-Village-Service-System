@@ -21,4 +21,7 @@ export async function notExistInformasi(
       },
     });
   }
+
+  //   jika data berhasil ditemukan kirimkan data
+  return data;
 }
