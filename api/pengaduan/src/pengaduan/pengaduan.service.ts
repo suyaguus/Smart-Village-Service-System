@@ -237,7 +237,9 @@ export class PengaduanService {
       // response jika status berhasil diupdate
       return {
         success: true,
-        message: 'Status pengaduan berhasil diupdate.',
+        // message: 'Status pengaduan berhasil diupdate.',
+        // refactor message response
+        message: process.env.SUCCESS_UPDATE_MESSAGE,
         metadata: {
           status: HttpStatus.OK,
         },
