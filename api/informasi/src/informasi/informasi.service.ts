@@ -1,4 +1,9 @@
-import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateInformasiDto } from './dto/create-informasi.dto';
 import { UpdateInformasiDto } from './dto/update-informasi.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -74,7 +79,7 @@ export class InformasiService {
 
       // jika data ditemukan, maka tampilkan respon dan data informasi
       return {
-        success: false,
+        success: true,
         message: 'Informasi berhasil ditemukan.',
         metadata: {
           status: HttpStatus.OK,
@@ -83,6 +88,15 @@ export class InformasiService {
     } catch (error) {
       // jika error yang terjadi adalah NotFoundException, maka throw error tersebut
       if (error instanceof NotFoundException) throw error;
+
+      // jika terjadi error, maka kirimkan pesan error
+      throw new BadRequestException({
+        success: false,
+        message: 'Request tidak valid.',
+        metadata: {
+          status: HttpStatus.BAD_REQUEST,
+        },
+      });
     }
   }
 
