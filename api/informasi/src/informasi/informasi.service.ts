@@ -100,8 +100,18 @@ export class InformasiService {
     }
   }
 
-  update(id: number, updateInformasiDto: UpdateInformasiDto) {
-    return `This action updates a #${id} informasi`;
+  // method update
+  async update(id: number, updateInformasiDto: UpdateInformasiDto) {
+    // return `This action updates a #${id} informasi`;
+
+    // menggunakan try catch
+    try {
+
+      // cek apakah informasi dengan id tersebut ada di database
+      const data = await this.prisma.informasi.findUnique({
+        where: { id}
+      })
+    }
   }
 
   remove(id: number) {
