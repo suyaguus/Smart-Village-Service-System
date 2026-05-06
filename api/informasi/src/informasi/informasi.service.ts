@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateInformasiDto } from './dto/create-informasi.dto';
 import { UpdateInformasiDto } from './dto/update-informasi.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -37,6 +37,17 @@ export class InformasiService {
         created_at: 'desc',
       },
     });
+
+    // jika data kosong, maka throw exception
+    if (data.length === 0) {
+      throw new NotFoundException({
+        success: false,
+        message: 'Infomasi tidak ditemukan.',
+        metadata: {
+          status: HttpStatus.NOT_FOUND,
+        },
+      });
+    }
   }
 
   findOne(id: number) {
