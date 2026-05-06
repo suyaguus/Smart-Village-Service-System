@@ -56,21 +56,20 @@ export class InformasiService {
 
     // menggunakan try catch
     try {
-
       // cek apakah informasi dengan id tersebut ada di database
       const data = await this.prisma.informasi.findUnique({
-        where: { id}
-      })
+        where: { id },
+      });
 
       // jika data tidak ditemukan, maka throw exception
-      if(!data) {
+      if (!data) {
         throw new NotFoundException({
           success: false,
           message: 'Informasi tidak ditemukan.',
           metadata: {
             status: HttpStatus.NOT_FOUND,
-          }
-        })
+          },
+        });
       }
 
       // jika data ditemukan, maka tampilkan respon dan data informasi
@@ -79,8 +78,11 @@ export class InformasiService {
         message: 'Informasi berhasil ditemukan.',
         metadata: {
           status: HttpStatus.OK,
-        }
-      }
+        },
+      };
+    } catch (error) {
+      // jika error yang terjadi adalah NotFoundException, maka throw error tersebut
+      if (error instanceof NotFoundException) throw error;
     }
   }
 
