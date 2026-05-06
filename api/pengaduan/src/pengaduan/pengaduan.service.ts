@@ -267,19 +267,29 @@ export class PengaduanService {
 
     // menggunakan try catch
     try {
+      // refactor: menggunakan notExistPengaduan
+      await notExistPengaduan(
+        id,
+        this.prisma.pengaduan,
+        process.env.NOT_FOUND_MESSAGE ?? '',
+      );
+
+      // refactor: jika data ditemukan, maka hapus data pengaduan berdasarkan id dari database
+      await this.prisma.pengaduan.delete({ where: { id } });
+
       // cek apakah data pengaduan dengan id tersebut ada di database
-      const data = await this.prisma.pengaduan.findUnique({ where: { id } });
+      // const data = await this.prisma.pengaduan.findUnique({ where: { id } });
 
       // jika data pengaduan tidak ditemukan, maka throw exception
-      if (!data) {
-        throw new NotFoundException({
-          success: false,
-          message: 'Pengaduan tidak ditemukan!',
-          metadata: {
-            status: HttpStatus.NOT_FOUND,
-          },
-        });
-      }
+      // if (!data) {
+      //   throw new NotFoundException({
+      //     success: false,
+      //     message: 'Pengaduan tidak ditemukan!',
+      //     metadata: {
+      //       status: HttpStatus.NOT_FOUND,
+      //     },
+      //   });
+      // }
 
       // jika data ditemukan, maka hapus data pengaduan berdasarkan id dari database
       await this.prisma.pengaduan.delete({ where: { id } });
