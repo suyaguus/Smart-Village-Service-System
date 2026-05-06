@@ -158,6 +158,7 @@ export class InformasiService {
 
     // menggunakan try catch
     try {
+      // cek apakah informasi dengan id tersebut ada di database
       const data = await this.prisma.informasi.findUnique({
         where: { id },
       })
