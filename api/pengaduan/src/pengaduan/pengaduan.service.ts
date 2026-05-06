@@ -8,6 +8,7 @@ import {
 import { CreatePengaduanDto } from './dto/create-pengaduan.dto';
 import { PrismaService } from 'src/prisma.service';
 import { UpdateStatusDto } from './dto/update-pengaduan.dto';
+import { CreateResponDto } from './dto/create-respon.dto';
 
 // definisikan status pengaduan
 const STATUS_TRANSITIONS: Record<string, string[]> = {
@@ -262,6 +263,58 @@ export class PengaduanService {
         success: false,
         message: 'Request tidak valid!',
         metadata: { status: HttpStatus.BAD_REQUEST },
+      });
+    }
+  }
+
+  // method createRespon
+  async createRespon(id: number, createResponDto: CreateResponDto) {
+    // menggunakan try catch
+    try {
+      // cek apakah data pengaduan dengan id tersebut ada di database
+      const pengaduan = await this.prisma.pengaduan.findUnique({
+        where: { id },
+      });
+
+      // jika data pengaduan tidak ditemukan, maka throw exception
+      if (!pengaduan) {
+        throw new NotFoundException({
+          success: false,
+          message: 'Pengaduan tidak ditemukan!',
+          metadata: {
+            status: HttpStatus.NOT_FOUND,
+          },
+        });
+      }
+
+      // jika data ditemukan, maka simpan data respon ke database
+      await this.prisma.pengaduanRespon.create({
+        data: {
+          pengaduan_id: id,
+          admin_id: createResponDto.admin_id,
+          text: createResponDto.text,
+        },
+      });
+
+      // response jika data respon berhasil disimpan
+      return {
+        success: true,
+        message: 'Respon berhasil dikirim.',
+        metadata: {
+          status: HttpStatus.CREATED,
+        },
+      };
+    } catch (error) {
+      // jika error yang terjadi adalah NotFoundException, maka throw error tersebut
+      if (error instanceof HttpException) throw error;
+
+      // jika error yang terjadi bukan NotFoundException, maka throw BadRequestException
+      throw new BadRequestException({
+        success: false,
+        message: 'Request tidak valid!',
+        metadata: {
+          status: HttpStatus.BAD_REQUEST,
+        },
       });
     }
   }
