@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  HttpException,
   HttpStatus,
   Injectable,
   NotFoundException,
@@ -106,11 +107,10 @@ export class InformasiService {
 
     // menggunakan try catch
     try {
-
       // cek apakah informasi dengan id tersebut ada di database
       const data = await this.prisma.informasi.findUnique({
-        where: { id}
-      })
+        where: { id },
+      });
 
       // jika data tidak ditemukan, maka throw exception
       if (!data) {
@@ -119,15 +119,15 @@ export class InformasiService {
           message: 'Informasi tidak ditemukan.',
           metadata: {
             status: HttpStatus.NOT_FOUND,
-          }
-        })
+          },
+        });
       }
 
       // jika data ditemukan, maka update data informasi berdasarkan id
       await this.prisma.informasi.update({
-        where: {id},
-        data: updateInformasiDto
-      })
+        where: { id },
+        data: updateInformasiDto,
+      });
 
       // jika data berhasil diupdate, maka kirimkan pesan respon
       return {
@@ -135,8 +135,11 @@ export class InformasiService {
         message: 'Informasi berhasil diupdate.',
         metadata: {
           status: HttpStatus.OK,
-        }
-      }
+        },
+      };
+    } catch (error) {
+      // jika terjadi error kirimkan http exception
+      if (error instanceof HttpException) throw error;
     }
   }
 
