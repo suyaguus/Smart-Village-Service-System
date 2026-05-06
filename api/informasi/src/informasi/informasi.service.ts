@@ -195,7 +195,9 @@ export class InformasiService {
       throw new BadRequestException({
         success: false,
         message: 'Request tidak valid!',
-        metadata: { status: HttpStatus.BAD_REQUEST },
+        metadata: {
+          status: HttpStatus.BAD_REQUEST,
+        },
       });
     }
   }
