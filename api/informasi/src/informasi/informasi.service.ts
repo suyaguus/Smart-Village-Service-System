@@ -173,6 +173,11 @@ export class InformasiService {
           }
         })
       }
+
+      // jika data ditemukan, maka hapus data informasi berdasarkan id
+      await this.prisma.informasi.delete({ 
+        where: { id } 
+      });
     }
   }
 }
