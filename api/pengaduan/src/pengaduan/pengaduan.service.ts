@@ -9,7 +9,10 @@ import { CreatePengaduanDto } from './dto/create-pengaduan.dto';
 import { PrismaService } from 'src/prisma.service';
 import { UpdateStatusDto } from './dto/update-pengaduan.dto';
 import { CreateResponDto } from './dto/create-respon.dto';
-import { PENGADUAN_LIST_SELECT } from 'src/common/constants/select';
+import {
+  PENGADUAN_LIST_SELECT,
+  PENGADUAN_SELECT,
+} from 'src/common/constants/select';
 import { notExistPengaduan } from 'src/common/utils/not-exist.util';
 
 // definisikan status pengaduan
@@ -140,13 +143,7 @@ export class PengaduanService {
       // ambil data pengaduan berdasarkan id dari database
       const data = await this.prisma.pengaduan.findUnique({
         where: { id },
-        include: {
-          respon: {
-            orderBy: {
-              created_at: 'asc',
-            },
-          },
-        },
+        select: PENGADUAN_SELECT,
       });
 
       // jika data pengaduan tidak ditemukan, maka throw exception
