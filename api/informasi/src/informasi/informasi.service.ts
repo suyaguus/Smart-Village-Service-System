@@ -20,15 +20,23 @@ export class InformasiService {
     // response jika data berhasil disimpan
     return {
       success: true,
-      message: 'INFORMASI berhasil dibuat.',
+      message: 'Informasi berhasil dibuat.',
       metadata: {
         status: HttpStatus.CREATED,
       },
     };
   }
 
-  findAll() {
-    return `This action returns all informasi`;
+  // method findAll
+  async findAll() {
+    // return `This action returns all informasi`;
+
+    // ambil semua data informasi dari database
+    const data = await this.prisma.informasi.findMany({
+      orderBy: {
+        created_at: 'desc',
+      },
+    });
   }
 
   findOne(id: number) {
