@@ -140,6 +140,15 @@ export class InformasiService {
     } catch (error) {
       // jika terjadi error kirimkan http exception
       if (error instanceof HttpException) throw error;
+
+      // jika terjadi error, maka kirimkan pesan error
+      throw new BadRequestException({
+        success: false,
+        message: 'Request tidak valid.',
+        metadata: {
+          status: HttpStatus.BAD_REQUEST,
+        },
+      });
     }
   }
 
