@@ -360,7 +360,9 @@ export class PengaduanService {
       // response jika data respon berhasil disimpan
       return {
         success: true,
-        message: 'Respon berhasil dikirim.',
+        // message: 'Respon berhasil dikirim.',
+        // refactor message response
+        message: process.env.SUCCESS_SAVE_RESPON_MESSAGE,
         metadata: {
           status: HttpStatus.CREATED,
         },
