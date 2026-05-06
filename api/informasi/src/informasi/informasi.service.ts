@@ -72,6 +72,15 @@ export class InformasiService {
           }
         })
       }
+
+      // jika data ditemukan, maka tampilkan respon dan data informasi
+      return {
+        success: false,
+        message: 'Informasi berhasil ditemukan.',
+        metadata: {
+          status: HttpStatus.OK,
+        }
+      }
     }
   }
 
