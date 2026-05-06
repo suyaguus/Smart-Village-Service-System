@@ -152,7 +152,15 @@ export class InformasiService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} informasi`;
+  // method remove
+  async remove(id: number) {
+    // return `This action removes a #${id} informasi`;
+
+    // menggunakan try catch
+    try {
+      const data = await this.prisma.informasi.findUnique({
+        where: { id },
+      })
+    }
   }
 }
