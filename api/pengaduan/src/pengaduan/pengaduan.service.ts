@@ -10,6 +10,7 @@ import { PrismaService } from 'src/prisma.service';
 import { UpdateStatusDto } from './dto/update-pengaduan.dto';
 import { CreateResponDto } from './dto/create-respon.dto';
 import { PENGADUAN_LIST_SELECT } from 'src/common/constants/select';
+import { notExistPengaduan } from 'src/common/utils/not-exist.util';
 
 // definisikan status pengaduan
 const STATUS_TRANSITIONS: Record<string, string[]> = {
@@ -129,6 +130,13 @@ export class PengaduanService {
 
     // menggunakan try catch
     try {
+      // refactor: menggunakan notExistPengaduan
+      await notExistPengaduan(
+        id,
+        this.prisma.pengaduan,
+        process.env.NOT_FOUND_MESSAGE ?? '',
+      );
+
       // ambil data pengaduan berdasarkan id dari database
       const data = await this.prisma.pengaduan.findUnique({
         where: { id },
@@ -142,15 +150,15 @@ export class PengaduanService {
       });
 
       // jika data pengaduan tidak ditemukan, maka throw exception
-      if (!data) {
-        throw new NotFoundException({
-          success: false,
-          message: 'Pengaduan tidak ditemukan!',
-          metadata: {
-            status: HttpStatus.NOT_FOUND,
-          },
-        });
-      }
+      // if (!data) {
+      //   throw new NotFoundException({
+      //     success: false,
+      //     message: 'Pengaduan tidak ditemukan!',
+      //     metadata: {
+      //       status: HttpStatus.NOT_FOUND,
+      //     },
+      //   });
+      // }
 
       // jika data ditemukan, maka tampilkan respon dan data pengaduan
       return {
