@@ -162,6 +162,17 @@ export class InformasiService {
       const data = await this.prisma.informasi.findUnique({
         where: { id },
       })
+
+      // jika data tidak ditemukan, maka throw exception
+      if (!data) {
+        throw new NotFoundException({
+          success: false,
+          message: 'Informasi tidak ditemukan.',
+          metadata: {
+            status: HttpStatus.NOT_FOUND,
+          }
+        })
+      }
     }
   }
 }
