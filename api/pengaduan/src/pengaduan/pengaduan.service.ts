@@ -99,7 +99,9 @@ export class PengaduanService {
     if (data.length === 0) {
       throw new NotFoundException({
         success: false,
-        message: 'Pengaduan tidak ditemukan!',
+        // message: 'Pengaduan tidak ditemukan!',
+        // refactor message response
+        message: process.env.NOT_FOUND_MESSAGE,
         metadata: {
           status: HttpStatus.NOT_FOUND,
           total_data: 0,
