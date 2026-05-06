@@ -54,6 +54,17 @@ export class InformasiService {
         },
       });
     }
+
+    // jika data ditemukan, maka tampilkan respon dan data informasi
+    return {
+      success: true,
+      message: 'Informasi berhasil ditemukan.',
+      metadata: {
+        status: HttpStatus.OK,
+        total_data: data.length,
+      },
+      data,
+    };
   }
 
   // method findOne
