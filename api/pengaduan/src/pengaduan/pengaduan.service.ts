@@ -9,6 +9,7 @@ import { CreatePengaduanDto } from './dto/create-pengaduan.dto';
 import { PrismaService } from 'src/prisma.service';
 import { UpdateStatusDto } from './dto/update-pengaduan.dto';
 import { CreateResponDto } from './dto/create-respon.dto';
+import { PENGADUAN_LIST_SELECT } from 'src/common/constants/select';
 
 // definisikan status pengaduan
 const STATUS_TRANSITIONS: Record<string, string[]> = {
@@ -49,6 +50,8 @@ export class PengaduanService {
 
     // ambil semua data pengaduan dari database
     const data = await this.prisma.pengaduan.findMany({
+      // refactor: menambahkan select field
+      select: PENGADUAN_LIST_SELECT,
       orderBy: {
         created_at: 'desc',
       },
