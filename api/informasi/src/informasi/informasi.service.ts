@@ -50,8 +50,18 @@ export class InformasiService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} informasi`;
+  // method findOne
+  async findOne(id: number) {
+    // return `This action returns a #${id} informasi`;
+
+    // menggunakan try catch
+    try {
+
+      // cek apakah informasi dengan id tersebut ada di database
+      const data = await this.prisma.informasi.findUnique({
+        where: { id}
+      })
+    }
   }
 
   update(id: number, updateInformasiDto: UpdateInformasiDto) {
