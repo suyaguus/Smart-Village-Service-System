@@ -90,6 +90,8 @@ export class PengaduanService {
     // ambil data pengaduan berdasarkan user_id dari database
     const data = await this.prisma.pengaduan.findMany({
       where: { user_id },
+      // refactor: menambahkan select field
+      select: PENGADUAN_LIST_SELECT,
       orderBy: { created_at: 'desc' },
     });
 
