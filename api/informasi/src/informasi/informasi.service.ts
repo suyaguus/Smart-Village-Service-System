@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { CreateInformasiDto } from './dto/create-informasi.dto';
 import { UpdateInformasiDto } from './dto/update-informasi.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -16,6 +16,15 @@ export class InformasiService {
     await this.prisma.informasi.create({
       data: createInformasiDto,
     });
+
+    // response jika data berhasil disimpan
+    return {
+      success: true,
+      message: 'INFORMASI berhasil dibuat.',
+      metadata: {
+        status: HttpStatus.CREATED,
+      },
+    };
   }
 
   findAll() {
