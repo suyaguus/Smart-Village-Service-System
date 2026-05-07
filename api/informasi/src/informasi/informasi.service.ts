@@ -12,6 +12,7 @@ import {
   INFORMASI_LIST_SELECT,
   INFORMASI_SELECT,
 } from 'src/common/constants/select';
+import { notExistInformasi } from 'src/common/utils/not-exist.util';
 
 @Injectable()
 export class InformasiService {
@@ -85,21 +86,24 @@ export class InformasiService {
 
     // menggunakan try catch
     try {
+      // refactor mengecek apakah data dengan id ditemukan
+      await notExistInformasi(id, this.prisma, process.env.NOT_FOUND_MESSAGE);
+
       // cek apakah informasi dengan id tersebut ada di database
       const data = await this.prisma.informasi.findUnique({
         where: { id },
       });
 
       // jika data tidak ditemukan, maka throw exception
-      if (!data) {
-        throw new NotFoundException({
-          success: false,
-          message: 'Informasi tidak ditemukan.',
-          metadata: {
-            status: HttpStatus.NOT_FOUND,
-          },
-        });
-      }
+      // if (!data) {
+      //   throw new NotFoundException({
+      //     success: false,
+      //     message: 'Informasi tidak ditemukan.',
+      //     metadata: {
+      //       status: HttpStatus.NOT_FOUND,
+      //     },
+      //   });
+      // }
 
       // jika data ditemukan, maka tampilkan respon dan data informasi
       return {
