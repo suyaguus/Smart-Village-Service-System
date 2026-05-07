@@ -252,7 +252,9 @@ export class InformasiService {
       // jika terjadi error, maka kirimkan pesan error
       throw new BadRequestException({
         success: false,
-        message: 'Request tidak valid!',
+        // message: 'Request tidak valid.',
+        // refactor message response
+        message: process.env.BAD_REQUEST_MESSAGE,
         metadata: {
           status: HttpStatus.BAD_REQUEST,
         },
