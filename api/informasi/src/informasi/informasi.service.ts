@@ -87,7 +87,11 @@ export class InformasiService {
     // menggunakan try catch
     try {
       // refactor mengecek apakah data dengan id ditemukan
-      await notExistInformasi(id, this.prisma, process.env.NOT_FOUND_MESSAGE);
+      await notExistInformasi(
+        id,
+        this.prisma,
+        process.env.NOT_FOUND_MESSAGE ?? '',
+      );
 
       // cek apakah informasi dengan id tersebut ada di database
       const data = await this.prisma.informasi.findUnique({
@@ -114,6 +118,7 @@ export class InformasiService {
         metadata: {
           status: HttpStatus.OK,
         },
+        data,
       };
     } catch (error) {
       // jika error yang terjadi adalah NotFoundException, maka throw error tersebut
