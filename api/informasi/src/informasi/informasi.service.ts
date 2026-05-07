@@ -8,7 +8,10 @@ import {
 import { CreateInformasiDto } from './dto/create-informasi.dto';
 import { UpdateInformasiDto } from './dto/update-informasi.dto';
 import { PrismaService } from 'src/prisma.service';
-import { INFORMASI_LIST_SELECT, INFORMASI_SELECT } from 'src/common/constants/select';
+import {
+  INFORMASI_LIST_SELECT,
+  INFORMASI_SELECT,
+} from 'src/common/constants/select';
 
 @Injectable()
 export class InformasiService {
@@ -53,7 +56,9 @@ export class InformasiService {
     if (data.length === 0) {
       throw new NotFoundException({
         success: false,
-        message: 'Infomasi tidak ditemukan.',
+        // message: 'Infomasi tidak ditemukan.',
+        // refactor message response
+        message: process.env.NOT_FOUND_MESSAGE,
         metadata: {
           status: HttpStatus.NOT_FOUND,
         },
