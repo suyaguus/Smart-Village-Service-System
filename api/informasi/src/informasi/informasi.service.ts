@@ -208,20 +208,27 @@ export class InformasiService {
     // menggunakan try catch
     try {
       // cek apakah informasi dengan id tersebut ada di database
-      const data = await this.prisma.informasi.findUnique({
-        where: { id },
-      });
+      // const data = await this.prisma.informasi.findUnique({
+      //   where: { id },
+      // });
 
       // jika data tidak ditemukan, maka throw exception
-      if (!data) {
-        throw new NotFoundException({
-          success: false,
-          message: 'Informasi tidak ditemukan.',
-          metadata: {
-            status: HttpStatus.NOT_FOUND,
-          },
-        });
-      }
+      // if (!data) {
+      //   throw new NotFoundException({
+      //     success: false,
+      //     message: 'Informasi tidak ditemukan.',
+      //     metadata: {
+      //       status: HttpStatus.NOT_FOUND,
+      //     },
+      //   });
+      // }
+
+      // refactor menggunakan not exist
+      await notExistInformasi(
+        id,
+        this.prisma,
+        process.env.NOT_FOUND_MESSAGE ?? '',
+      );
 
       // jika data ditemukan, maka hapus data informasi berdasarkan id
       await this.prisma.informasi.delete({
