@@ -177,7 +177,9 @@ export class InformasiService {
       // jika data berhasil diupdate, maka kirimkan pesan respon
       return {
         success: true,
-        message: 'Informasi berhasil diupdate.',
+        // message: 'Informasi berhasil diupdate.',
+        // refactor message response
+        message: process.env.SUCCESS_UPDATE_MESSAGE,
         metadata: {
           status: HttpStatus.OK,
         },
