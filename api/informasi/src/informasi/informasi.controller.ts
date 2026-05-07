@@ -9,10 +9,13 @@ import {
   HttpStatus,
   BadRequestException,
   ParseIntPipe,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { InformasiService } from './informasi.service';
 import { CreateInformasiDto } from './dto/create-informasi.dto';
 import { UpdateInformasiDto } from './dto/update-informasi.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 // membuat custom ParseIntPipe untuk override pesan error default
 const IntParam = (property: string) =>
@@ -34,8 +37,12 @@ export class InformasiController {
 
   // method create
   @Post()
-  create(@Body() createInformasiDto: CreateInformasiDto) {
-    return this.informasiService.create(createInformasiDto);
+  @UseInterceptors(FileInterceptor('foto'))
+  create(
+    @Body() createInformasiDto: CreateInformasiDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.informasiService.create(createInformasiDto, file);
   }
 
   // method findAll
