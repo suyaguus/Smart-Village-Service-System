@@ -148,7 +148,11 @@ export class InformasiService {
   }
 
   // method update
-  async update(id: number, updateInformasiDto: UpdateInformasiDto) {
+  async update(
+    id: number,
+    updateInformasiDto: UpdateInformasiDto,
+    file: Express.Multer.File,
+  ) {
     // return `This action updates a #${id} informasi`;
 
     // menggunakan try catch
@@ -179,7 +183,12 @@ export class InformasiService {
       // jika data ditemukan, maka update data informasi berdasarkan id
       await this.prisma.informasi.update({
         where: { id },
-        data: updateInformasiDto,
+        // data: updateInformasiDto,
+        // menambahkan foto ke data informasi jika ada file yang diupload
+        data: {
+          ...updateInformasiDto,
+          ...(file && { foto: file.filename }),
+        },
       });
 
       // jika data berhasil diupdate, maka kirimkan pesan respon
