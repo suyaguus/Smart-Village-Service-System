@@ -58,11 +58,13 @@ export class InformasiController {
   }
 
   @Patch(':id')
+  @UseInterceptors(FileInterceptor('foto'))
   update(
     @IntParam('id') id: number,
     @Body() updateInformasiDto: UpdateInformasiDto,
+    @UploadedFile() file: Express.Multer.File,
   ) {
-    return this.informasiService.update(id, updateInformasiDto);
+    return this.informasiService.update(id, updateInformasiDto, file);
   }
 
   @Delete(':id')
