@@ -114,7 +114,9 @@ export class InformasiService {
       // jika data ditemukan, maka tampilkan respon dan data informasi
       return {
         success: true,
-        message: 'Informasi berhasil ditemukan.',
+        // message: 'Informasi berhasil ditemukan.',
+        // refactor message response
+        message: process.env.SUCCESS_FIND_MESSAGE,
         metadata: {
           status: HttpStatus.OK,
         },
