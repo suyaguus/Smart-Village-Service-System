@@ -8,6 +8,7 @@ import {
 import { CreateInformasiDto } from './dto/create-informasi.dto';
 import { UpdateInformasiDto } from './dto/update-informasi.dto';
 import { PrismaService } from 'src/prisma.service';
+import { INFORMASI_LIST_SELECT, INFORMASI_SELECT } from 'src/common/constants/select';
 
 @Injectable()
 export class InformasiService {
@@ -44,6 +45,8 @@ export class InformasiService {
       orderBy: {
         created_at: 'desc',
       },
+      // refactor menambahkan select untuk mengambil field tertentu saja
+      select: INFORMASI_LIST_SELECT,
     });
 
     // jika data kosong, maka throw exception
