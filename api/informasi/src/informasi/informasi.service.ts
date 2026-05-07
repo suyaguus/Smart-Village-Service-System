@@ -238,7 +238,9 @@ export class InformasiService {
       // jika data berhasil dihapus, maka kirimkan pesan respon
       return {
         success: true,
-        message: 'Informasi berhasil dihapus.',
+        // message: 'Informasi berhasil dihapus.',
+        // refactor message response
+        message: process.env.SUCCESS_DELETE_MESSAGE,
         metadata: {
           status: HttpStatus.OK,
         },
