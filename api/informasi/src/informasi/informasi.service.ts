@@ -20,12 +20,20 @@ export class InformasiService {
   constructor(private readonly prisma: PrismaService) {}
 
   // method create
-  async create(createInformasiDto: CreateInformasiDto) {
+  async create(
+    createInformasiDto: CreateInformasiDto,
+    file: Express.Multer.File,
+  ) {
     // return 'This action adds a new informasi';
 
     // simpan data informasi baru ke database
     await this.prisma.informasi.create({
-      data: createInformasiDto,
+      // data: createInformasiDto,
+      // menambahkan foto ke data informasi jika ada file yang diupload
+      data: {
+        ...createInformasiDto,
+        foto: file ? file.filename : null,
+      },
     });
 
     // response jika data berhasil disimpan
