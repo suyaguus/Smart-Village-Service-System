@@ -92,6 +92,8 @@ export class InformasiService {
       // cek apakah informasi dengan id tersebut ada di database
       const data = await this.prisma.informasi.findUnique({
         where: { id },
+        // refactor menambahkan select untuk mengambil field tertentu saja
+        select: INFORMASI_SELECT,
       });
 
       // jika data tidak ditemukan, maka throw exception
