@@ -21,6 +21,12 @@ export const INFORMASI_LIST_SELECT = {
   id: true,
   admin_id: true,
   judul: true,
-  foto: true,
   created_at: true,
+  // refactor menambahkan field foto
+  foto: {
+    select: {
+      id: true,
+      filename: true,
+    },
+  },
 };
