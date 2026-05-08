@@ -30,3 +30,11 @@ export const INFORMASI_LIST_SELECT = {
     },
   },
 };
+
+// select object for informasi foto
+export const INFORMASI_FOTO_SELECT = {
+  id: true,
+  informasi_id: true,
+  filename: true,
+  created_at: true,
+};
