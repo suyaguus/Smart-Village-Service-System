@@ -40,9 +40,9 @@ export class InformasiController {
   @UseInterceptors(FileInterceptor('foto'))
   create(
     @Body() createInformasiDto: CreateInformasiDto,
-    @UploadedFile() file: Express.Multer.File,
+    // @UploadedFile() file: Express.Multer.File,
   ) {
-    return this.informasiService.create(createInformasiDto, file);
+    return this.informasiService.create(createInformasiDto);
   }
 
   // method findAll
@@ -62,9 +62,9 @@ export class InformasiController {
   update(
     @IntParam('id') id: number,
     @Body() updateInformasiDto: UpdateInformasiDto,
-    @UploadedFile() file: Express.Multer.File,
+    // @UploadedFile() file: Express.Multer.File,
   ) {
-    return this.informasiService.update(id, updateInformasiDto, file);
+    return this.informasiService.update(id, updateInformasiDto);
   }
 
   @Delete(':id')
