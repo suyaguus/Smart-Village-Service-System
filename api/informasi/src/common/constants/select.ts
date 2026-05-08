@@ -4,9 +4,16 @@ export const INFORMASI_SELECT = {
   admin_id: true,
   judul: true,
   isi: true,
-  foto: true,
   created_at: true,
   updated_at: true,
+  // refactor menambahkan field foto
+  foto: {
+    select: {
+      id: true,
+      filename: true,
+      created_at: true,
+    },
+  },
 };
 
 // refactor: update select object for informasi list
