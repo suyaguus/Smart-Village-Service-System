@@ -81,4 +81,10 @@ export class InformasiController {
   ) {
     return this.informasiService.addFoto(id, file);
   }
+
+  // method removeFoto
+  @Delete(':id/foto/:foto_id')
+  removeFoto(@IntParam('id') id: number, @IntParam('foto_id') foto_id: number) {
+    return this.informasiService.removeFoto(id, foto_id);
+  }
 }
