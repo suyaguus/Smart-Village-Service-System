@@ -1,0 +1,34 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  // delete folder genereated lalu genereate ulang dan + src/generated/prisma
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// model informasi
+model Informasi {
+  id         Int             @id @default(autoincrement())
+  admin_id   String          @db.VarChar(50)
+  judul      String          @db.VarChar(255)
+  isi        String          @db.Text
+  created_at DateTime        @default(now())
+  updated_at DateTime        @updatedAt
+  foto       InformasiFoto[]
+
+  @@map("tb_informasi")
+}
+
+// model foto informasi
+model InformasiFoto {
+  id           Int       @id @default(autoincrement())
+  informasi_id Int
+  filename     String    @db.VarChar(255)
+  created_at   DateTime  @default(now())
+  informasi    Informasi @relation(fields: [informasi_id], references: [id], onDelete: Cascade)
+
+  @@map("tb_informasi_foto")
+}
