@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateInformasiDto {
   @IsString()
@@ -12,8 +12,4 @@ export class CreateInformasiDto {
   @IsString()
   @IsNotEmpty()
   isi!: string;
-
-  @IsString()
-  @IsOptional()
-  foto?: string;
 }
