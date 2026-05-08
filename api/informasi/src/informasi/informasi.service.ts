@@ -22,7 +22,7 @@ export class InformasiService {
   // method create
   async create(
     createInformasiDto: CreateInformasiDto,
-    file: Express.Multer.File,
+    // file: Express.Multer.File,
   ) {
     // return 'This action adds a new informasi';
 
@@ -30,10 +30,11 @@ export class InformasiService {
     await this.prisma.informasi.create({
       // data: createInformasiDto,
       // menambahkan foto ke data informasi jika ada file yang diupload
-      data: {
-        ...createInformasiDto,
-        foto: file ? file.filename : null,
-      },
+      // data: {
+      //   ...createInformasiDto,
+      //   foto: file ? file.filename : null,
+      // },
+      data: createInformasiDto,
     });
 
     // response jika data berhasil disimpan
