@@ -37,7 +37,7 @@ export default function DashboardPage() {
                 ))}
             </section>
 
-             <Card className="overflow-hidden" aria-label="Tabel Pengajuan Terbaru">
+            <Card className="overflow-hidden" aria-label="Tabel Pengajuan Terbaru">
                 <header className="bg-white border-b border-[#D6E6F2] p-5 flex items-center justify-between">
                     <h3 className="text-lg font-semibold text-slate-800">Pengajuan Surat Terbaru</h3>
                     <button className="text-sm font-medium text-[#769FCD] hover:underline">Lihat Semua</button>
@@ -54,10 +54,23 @@ export default function DashboardPage() {
                                 <th scope="col" className="h-12 px-6 font-medium text-right">Aksi</th>
                             </tr>
                         </thead>
+                        <tbody className="divide-y divide-[#D6E6F2]">
+                            {mockPengajuan.map((item) => (
+                                <tr key={item.id} className="hover:bg-[#F7FBFC]/50 transition-colors bg-white">
+                                    <td className="p-4 px-6 text-slate-600">{item.id}</td>
+                                    <td className="p-4 px-6 font-bold text-slate-800">{item.user}</td>
+                                    <td className="p-4 px-6 text-slate-600">{item.jenisSurat}</td>
+                                    <td className="p-4 px-6 text-slate-500"><time dateTime={item.tanggal}>{item.tanggal}</time></td>
+                                    <td className="p-4 px-6"><Badge>{item.status}</Badge></td>
+                                    <td className="p-4 px-6 text-right">
+                                        <button aria-label="Opsi lainnya" className="p-2 text-slate-400 hover:text-[#769FCD] hover:bg-[#D6E6F2] rounded-md transition-colors"><MoreHorizontal className="w-4 h-4" /></button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
                 </div>
-             </Card>
+            </Card>
         </section>
-
     );
 }
