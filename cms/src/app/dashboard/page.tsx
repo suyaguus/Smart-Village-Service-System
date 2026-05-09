@@ -36,6 +36,27 @@ export default function DashboardPage() {
                     </Card>
                 ))}
             </section>
+
+             <Card className="overflow-hidden" aria-label="Tabel Pengajuan Terbaru">
+                <header className="bg-white border-b border-[#D6E6F2] p-5 flex items-center justify-between">
+                    <h3 className="text-lg font-semibold text-slate-800">Pengajuan Surat Terbaru</h3>
+                    <button className="text-sm font-medium text-[#769FCD] hover:underline">Lihat Semua</button>
+                </header>
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left text-sm">
+                        <thead className="bg-[#F7FBFC] text-slate-600 border-b border-[#D6E6F2]">
+                            <tr>
+                                <th scope="col" className="h-12 px-6 font-medium">ID Pengajuan</th>
+                                <th scope="col" className="h-12 px-6 font-medium">Pemohon</th>
+                                <th scope="col" className="h-12 px-6 font-medium">Jenis Surat</th>
+                                <th scope="col" className="h-12 px-6 font-medium">Tanggal</th>
+                                <th scope="col" className="h-12 px-6 font-medium">Status</th>
+                                <th scope="col" className="h-12 px-6 font-medium text-right">Aksi</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+             </Card>
         </section>
 
     );
