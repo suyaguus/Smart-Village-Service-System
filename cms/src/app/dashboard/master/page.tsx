@@ -19,5 +19,17 @@ export default function MasterFormPage() {
     }
   };
 
-  
+  return (
+    <section className="space-y-6 max-w-7xl mx-auto" aria-label="Master Form Builder">
+       <header className="flex justify-between items-center">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-800">Master Jenis Surat</h1>
+          <p className="text-sm text-slate-500 mt-1">Kelola formulir dinamis (Dynamic Form).</p>
+        </div>
+        <button className="bg-[#769FCD] text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-[#6086b3] transition-colors">
+          <Plus className="w-4 h-4" aria-hidden="true" /> Tambah Surat
+        </button>
+      </header>
+    </section>
+  );
 }
