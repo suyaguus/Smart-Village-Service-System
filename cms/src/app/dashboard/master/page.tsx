@@ -52,6 +52,20 @@ export default function MasterFormPage() {
             </div>
           </Card>
         </aside>
+
+        <section className="w-full lg:w-2/3" aria-label="Konfigurasi Form Layout">
+            <Card className="flex flex-col h-full min-h-[500px]">
+                <header className="flex justify-between items-center mb-4">
+                <h3 className="font-bold text-slate-700 text-sm uppercase">Konfigurasi Field Form</h3>
+                {!isAddingField && (
+                  <button onClick={() => setIsAddingField(true)} className="text-xs font-semibold text-[#769FCD] bg-white border border-[#B9D7EA] px-3 py-1.5 rounded-lg flex items-center gap-1 hover:bg-[#D6E6F2]">
+                    <Plus className="w-3.5 h-3.5" aria-hidden="true" /> Tambah Field
+                  </button>
+                )}
+              </header>
+              
+            </Card>
+        </section>
       </div>
     </section>
   );
