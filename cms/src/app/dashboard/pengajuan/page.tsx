@@ -162,40 +162,64 @@ export default function PengajuanPage() {
         );
     }
 
-     // VIEW 2: DAFTAR PENGAJUAN (TABEL)
-  return (
-    <section className="space-y-6 max-w-7xl mx-auto" aria-label="Halaman Pengajuan Surat">
-      <header className="flex justify-between items-center">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-800">Daftar Pengajuan Surat</h1>
-          <p className="text-sm text-slate-500 mt-1">Verifikasi dan proses permintaan surat dari warga.</p>
-        </div>
-        <div className="flex gap-2">
-          <select aria-label="Filter status pengajuan" className="border border-[#B9D7EA] bg-white text-sm text-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-[#769FCD]">
-            <option value="all">Semua Status</option>
-            <option value="MENUNGGU">Menunggu</option>
-            <option value="DIPROSES">Diproses</option>
-            <option value="SELESAI">Selesai</option>
-          </select>
-        </div>
-      </header>
+    // VIEW 2: DAFTAR PENGAJUAN (TABEL)
+    return (
+        <section className="space-y-6 max-w-7xl mx-auto" aria-label="Halaman Pengajuan Surat">
+            <header className="flex justify-between items-center">
+                <div>
+                    <h1 className="text-2xl font-bold text-slate-800">Daftar Pengajuan Surat</h1>
+                    <p className="text-sm text-slate-500 mt-1">Verifikasi dan proses permintaan surat dari warga.</p>
+                </div>
+                <div className="flex gap-2">
+                    <select aria-label="Filter status pengajuan" className="border border-[#B9D7EA] bg-white text-sm text-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-[#769FCD]">
+                        <option value="all">Semua Status</option>
+                        <option value="MENUNGGU">Menunggu</option>
+                        <option value="DIPROSES">Diproses</option>
+                        <option value="SELESAI">Selesai</option>
+                    </select>
+                </div>
+            </header>
 
-      <Card className="overflow-hidden">
-        <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-                <thead className="bg-[#D6E6F2]/50 text-slate-700 border-b border-[#D6E6F2]">
-              <tr>
-                <th scope="col" className="h-12 px-6 font-semibold">ID Pengajuan</th>
-                <th scope="col" className="h-12 px-6 font-semibold">Tanggal</th>
-                <th scope="col" className="h-12 px-6 font-semibold">Pemohon</th>
-                <th scope="col" className="h-12 px-6 font-semibold">Jenis Surat</th>
-                <th scope="col" className="h-12 px-6 font-semibold">Status</th>
-                <th scope="col" className="h-12 px-6 font-semibold text-center">Aksi</th>
-              </tr>
-            </thead>
-            </table>
-        </div>
-      </Card>
-    </section>
-  );
+            <Card className="overflow-hidden">
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left text-sm">
+                        <thead className="bg-[#D6E6F2]/50 text-slate-700 border-b border-[#D6E6F2]">
+                            <tr>
+                                <th scope="col" className="h-12 px-6 font-semibold">ID Pengajuan</th>
+                                <th scope="col" className="h-12 px-6 font-semibold">Tanggal</th>
+                                <th scope="col" className="h-12 px-6 font-semibold">Pemohon</th>
+                                <th scope="col" className="h-12 px-6 font-semibold">Jenis Surat</th>
+                                <th scope="col" className="h-12 px-6 font-semibold">Status</th>
+                                <th scope="col" className="h-12 px-6 font-semibold text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-[#D6E6F2]">
+                            {mockPengajuan.map((item) => (
+                                <tr key={item.id} className="hover:bg-[#F7FBFC] transition-colors bg-white">
+                                    <td className="p-4 px-6 font-medium text-slate-600">{item.id}</td>
+                                    <td className="p-4 px-6 text-slate-500"><time dateTime={item.tanggal}>{item.tanggal}</time></td>
+                                    <td className="p-4 px-6 font-bold text-slate-800">{item.user}</td>
+                                    <td className="p-4 px-6 text-slate-600">{item.jenisSurat}</td>
+                                    <td className="p-4 px-6">
+                                        <Badge className={getBadgeStyle(item.status)} variant="outline">
+                                            {item.status}
+                                        </Badge>
+                                    </td>
+                                    <td className="p-4 px-6 text-center">
+                                        <button
+                                            onClick={() => setSelectedPengajuan(item)}
+                                            aria-label={`Lihat detail pengajuan ${item.id}`}
+                                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-[#769FCD] border border-[#B9D7EA] rounded-md hover:bg-[#769FCD] hover:text-white transition-colors text-xs font-semibold shadow-sm"
+                                        >
+                                            <Eye className="w-3.5 h-3.5" aria-hidden="true" /> Detail
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </Card>
+        </section>
+    );
 }
