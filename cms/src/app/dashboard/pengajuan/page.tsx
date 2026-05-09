@@ -144,6 +144,15 @@ export default function PengajuanPage() {
                                             </button>
                                         </div>
                                     )}
+                                    {data.status === 'SELESAI' && (
+                                        <div className="text-center py-6">
+                                            <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-500 mb-4">
+                                                <CheckCircle className="w-8 h-8" aria-hidden="true" />
+                                            </div>
+                                            <h3 className="text-lg font-bold text-slate-800 mb-1">Selesai</h3>
+                                            <button className="mt-6 px-4 py-2 bg-white border border-[#D6E6F2] text-slate-600 text-sm font-medium rounded-lg hover:bg-[#F7FBFC] transition-colors">Lihat File Hasil</button>
+                                        </div>
+                                    )}
                                 </div>
                             </Card>
                         </div>
