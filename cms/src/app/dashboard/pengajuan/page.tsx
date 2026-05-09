@@ -104,6 +104,15 @@ export default function PengajuanPage() {
                             </div>
                         </Card>
                     </div>
+                    <aside className="w-full lg:w-1/3" aria-label="Panel Aksi Verifikasi">
+                        <div className="sticky top-6">
+                            <Card className="border-[#769FCD] shadow-md overflow-hidden">
+                                <header className="p-5 border-b border-[#D6E6F2] bg-[#769FCD] text-white">
+                                    <h2 className="font-bold text-lg">Panel Verifikasi</h2>
+                                </header>
+                            </Card>
+                        </div>
+                    </aside>
                 </div>
             </article>
         );
