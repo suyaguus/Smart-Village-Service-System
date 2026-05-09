@@ -26,3 +26,23 @@ const getBadgeStyle = (status: string) => {
     default: return 'bg-slate-100 text-slate-800';
   }
 };
+
+export default function PengajuanPage() {
+  const [selectedPengajuan, setSelectedPengajuan] = useState<Pengajuan | null>(null);
+
+  // VIEW 1: DETAIL VERIFIKASI (SPLIT SCREEN)
+
+  if (selectedPengajuan) {
+    const data = selectedPengajuan;
+    return (
+      <article className="space-y-6 max-w-7xl mx-auto" aria-label="Detail Verifikasi Pengajuan">
+       <nav aria-label="Navigasi kembali">
+          <button onClick={() => setSelectedPengajuan(null)} className="flex items-center text-sm font-medium text-slate-500 hover:text-[#769FCD] transition-colors w-fit">
+            <ArrowLeft className="w-4 h-4 mr-2" aria-hidden="true" /> Kembali ke Daftar Pengajuan
+          </button>
+        </nav>
+      </article>
+    );
+  }
+
+}
