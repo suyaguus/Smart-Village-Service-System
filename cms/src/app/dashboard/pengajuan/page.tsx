@@ -54,6 +54,31 @@ export default function PengajuanPage() {
             <Badge className={getBadgeStyle(data.status)} variant="outline">{data.status}</Badge>
           </div>
         </header>
+
+         <div className="flex flex-col lg:flex-row gap-6">
+            <div className="w-full lg:w-2/3 space-y-6">
+                 {/* KARTU DATA FORMULIR */}
+            <Card aria-label="Data Formulir Warga" className="overflow-hidden">
+              <header className="p-5 border-b border-[#D6E6F2] bg-[#F7FBFC]">
+                <h2 className="font-bold text-slate-800 flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-[#769FCD]" aria-hidden="true" /> Data Formulir (Dynamic Form)
+                </h2>
+              </header>
+              <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="col-span-1 md:col-span-2">
+                  <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Jenis Surat</h3>
+                  <p className="text-sm font-bold text-slate-800">{data.jenisSurat}</p>
+                </div>
+                {data.details && data.details.map((detail, idx) => (
+                  <div key={idx} className={detail.value.length > 30 ? "col-span-1 md:col-span-2" : ""}>
+                    <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">{detail.label}</h3>
+                    <p className="p-3 bg-[#F7FBFC] border border-[#D6E6F2] rounded-lg text-sm text-slate-700">{detail.value}</p>
+                  </div>
+                ))}
+              </div>
+            </Card>
+            </div>
+         </div>
       </article>
     );
   }
