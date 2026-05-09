@@ -30,6 +30,29 @@ export default function MasterFormPage() {
           <Plus className="w-4 h-4" aria-hidden="true" /> Tambah Surat
         </button>
       </header>
+
+      <div className="flex flex-col lg:flex-row gap-6">
+        <aside className="w-full lg:w-1/3" aria-label="Daftar Layanan Surat">
+          <Card className="overflow-hidden">
+            <header className="px-4 py-3 bg-[#D6E6F2]/30 border-b border-[#D6E6F2]">
+              <h2 className="font-semibold text-slate-700 text-sm">Daftar Layanan Surat</h2>
+            </header>
+            <div className="divide-y divide-[#D6E6F2]">
+              {mockJenisSurat.map(surat => (
+                <button 
+                  key={surat.id} 
+                  aria-pressed={activeSurat.id === surat.id}
+                  onClick={() => { setActiveSurat(surat); setIsAddingField(false); }}
+                  className={`w-full text-left p-4 transition-colors ${activeSurat.id === surat.id ? 'bg-[#F7FBFC] border-l-4 border-l-[#769FCD]' : 'hover:bg-[#F7FBFC]'}`}
+                >
+                  <h3 className={`font-semibold text-sm ${activeSurat.id === surat.id ? 'text-[#769FCD]' : 'text-slate-700'}`}>{surat.nama_surat}</h3>
+                  <p className="text-xs text-slate-500 mt-1">Kode: {surat.kode_surat} • {surat.fields.length} Field</p>
+                </button>
+              ))}
+            </div>
+          </Card>
+        </aside>
+      </div>
     </section>
   );
 }
