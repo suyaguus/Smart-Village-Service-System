@@ -110,6 +110,27 @@ export default function PengajuanPage() {
                                 <header className="p-5 border-b border-[#D6E6F2] bg-[#769FCD] text-white">
                                     <h2 className="font-bold text-lg">Panel Verifikasi</h2>
                                 </header>
+                                <div className="p-6">
+                                    {data.status === 'MENUNGGU' && (
+                                        <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+                                            <div className="p-3 bg-blue-50 border border-blue-100 rounded-lg text-xs text-blue-800 leading-relaxed" role="alert">
+                                                Mohon periksa kesesuaian <b>Data Formulir</b> dengan <b>Dokumen Persyaratan</b> sebelum memproses surat.
+                                            </div>
+                                            <div>
+                                                <label htmlFor="catatanAdmin" className="block text-xs font-semibold text-slate-600 mb-2">Catatan Admin</label>
+                                                <textarea id="catatanAdmin" className="w-full p-3 border border-[#B9D7EA] rounded-lg focus:ring-2 focus:ring-[#769FCD] focus:outline-none bg-[#F7FBFC] text-sm" rows={3}></textarea>
+                                            </div>
+                                            <div className="flex gap-3 pt-2">
+                                                <button type="button" className="flex-1 py-2.5 bg-white text-red-600 border border-red-200 rounded-lg text-sm font-bold flex items-center justify-center gap-2 hover:bg-red-50 transition-colors">
+                                                    <XCircle className="w-4 h-4" aria-hidden="true" /> Tolak
+                                                </button>
+                                                <button type="button" className="flex-1 py-2.5 bg-[#769FCD] text-white rounded-lg text-sm font-bold flex items-center justify-center gap-2 hover:bg-[#6086b3] transition-colors">
+                                                    <CheckCircle className="w-4 h-4" aria-hidden="true" /> Proses Surat
+                                                </button>
+                                            </div>
+                                        </form>
+                                    )}
+                                </div>
                             </Card>
                         </div>
                     </aside>
