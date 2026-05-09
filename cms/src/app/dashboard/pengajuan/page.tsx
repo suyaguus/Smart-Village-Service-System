@@ -180,6 +180,22 @@ export default function PengajuanPage() {
         </div>
       </header>
 
+      <Card className="overflow-hidden">
+        <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm">
+                <thead className="bg-[#D6E6F2]/50 text-slate-700 border-b border-[#D6E6F2]">
+              <tr>
+                <th scope="col" className="h-12 px-6 font-semibold">ID Pengajuan</th>
+                <th scope="col" className="h-12 px-6 font-semibold">Tanggal</th>
+                <th scope="col" className="h-12 px-6 font-semibold">Pemohon</th>
+                <th scope="col" className="h-12 px-6 font-semibold">Jenis Surat</th>
+                <th scope="col" className="h-12 px-6 font-semibold">Status</th>
+                <th scope="col" className="h-12 px-6 font-semibold text-center">Aksi</th>
+              </tr>
+            </thead>
+            </table>
+        </div>
+      </Card>
     </section>
   );
 }
