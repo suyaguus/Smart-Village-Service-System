@@ -130,6 +130,20 @@ export default function PengajuanPage() {
                                             </div>
                                         </form>
                                     )}
+                                    {data.status === 'DIPROSES' && (
+                                        <div className="space-y-5">
+                                            <label htmlFor="file-upload" className="border-2 border-dashed border-[#B9D7EA] rounded-xl p-6 flex flex-col items-center justify-center hover:bg-[#F7FBFC] transition-colors cursor-pointer group">
+                                                <div className="p-3 bg-[#D6E6F2] rounded-full text-[#769FCD] group-hover:scale-110 transition-transform mb-3">
+                                                    <UploadCloud className="w-6 h-6" aria-hidden="true" />
+                                                </div>
+                                                <span className="text-sm font-semibold text-slate-700">Upload Hasil Surat (PDF)</span>
+                                                <input id="file-upload" type="file" className="hidden" accept=".pdf" />
+                                            </label>
+                                            <button className="w-full py-2.5 bg-green-500 text-white rounded-lg text-sm font-bold flex items-center justify-center gap-2 hover:bg-green-600 transition-colors">
+                                                <CheckCircle className="w-4 h-4" aria-hidden="true" /> Selesaikan Pengajuan
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                             </Card>
                         </div>
@@ -138,5 +152,4 @@ export default function PengajuanPage() {
             </article>
         );
     }
-
 }
