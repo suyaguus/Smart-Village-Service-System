@@ -41,6 +41,19 @@ export default function PengajuanPage() {
             <ArrowLeft className="w-4 h-4 mr-2" aria-hidden="true" /> Kembali ke Daftar Pengajuan
           </button>
         </nav>
+
+         <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-[#D6E6F2] pb-4">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-800">Verifikasi: {data.id}</h1>
+            <p className="text-slate-500 mt-1">
+              Diajukan pada <time dateTime={data.tanggal}>{data.tanggal}</time> oleh <span className="font-semibold text-slate-700">{data.user}</span>
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-sm font-medium text-slate-500">Status saat ini:</span>
+            <Badge className={getBadgeStyle(data.status)} variant="outline">{data.status}</Badge>
+          </div>
+        </header>
       </article>
     );
   }
