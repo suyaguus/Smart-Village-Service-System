@@ -1,94 +1,27 @@
-"use client";
+import React from 'react';
+import { Search, Bell } from 'lucide-react';
 
-import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Bell, LogOut, User } from "lucide-react";
-
-const pageTitles: Record<string, string> = {
-  "/dashboard": "Dashboard",
-  "/dashboard/users": "Manajemen Pengguna",
-  "/dashboard/jenis-surat": "Jenis Surat",
-  "/dashboard/pengajuan": "Pengajuan Surat",
-  "/dashboard/pengaduan": "Pengaduan",
-  "/dashboard/informasi": "Informasi Desa",
-};
-
-export default function Header() {
-  const pathname = usePathname();
-
-  const title =
-    Object.entries(pageTitles).find(
-      ([key]) => pathname === key || pathname.startsWith(key + "/"),
-    )?.[1] ?? "Dashboard";
-
-  function handleLogout() {
-    document.cookie = "token; Max-Age=0; path=/";
-    window.location.href = "/login";
-  }
-
+export const Header = () => {
   return (
-    <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6">
-      <h1 className="text-lg font-semibold text-slate-800">{title}</h1>
-
-      <nav className="flex items-center gap-2">
-        {/* Notification Bell */}
-        <Button
-          variant="ghost"
-          size="icon"
-          aria-label="Notifikasi"
-          className="relative"
-        >
-          <Bell className="w-5 h-5 text-slate-500" />
-        </Button>
-
-        {/* user menu */}
-        <DropdownMenu>
-          {/* DropdownMenuTrigger */}
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className="flex items-center gap-2 px-2"
-              aria-label="User menu"
-            >
-              <Avatar className="w-8 h-8">
-                <AvatarFallback className="bg-slate-800 text-white text-xs">
-                  AD
-                </AvatarFallback>
-              </Avatar>
-              <span className="text-sm font-medium text-slate-700 hidden sm:inline">
-                Admin
-              </span>
-            </Button>
-          </DropdownMenuTrigger>
-
-          {/* DropdownMenuContent */}
-          <DropdownMenuContent align="end" className="w-48">
-            <DropdownMenuLabel>Akun Saya</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <User className="w-4 h-4 mr-2" />
-              Profil
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={handleLogout}
-              className="text-red-600 focus:text-red-600 focus:bg-red-50"
-            >
-              <LogOut className="w-4 h-4 mr-2" />
-              Keluar
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+    <header className="h-16 bg-white border-b border-[#D6E6F2] flex items-center justify-between px-8 shadow-sm shrink-0 z-10" aria-label="Header Global">
+      <div className="relative w-96 hidden md:block">
+        <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" aria-hidden="true" />
+        <input type="search" aria-label="Pencarian Global" placeholder="Cari NIK, Nama, atau ID Pengajuan..." className="w-full pl-10 pr-4 py-2 bg-[#F7FBFC] border border-[#D6E6F2] rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#769FCD]" />
+      </div>
+      <nav className="flex items-center space-x-5" aria-label="Menu Pengguna">
+        <button aria-label="Notifikasi" className="relative p-2 text-slate-400 hover:text-[#769FCD] rounded-full hover:bg-[#F7FBFC] transition-colors">
+          <Bell className="w-5 h-5" aria-hidden="true" />
+          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+        </button>
+        <div className="h-6 w-px bg-[#D6E6F2]" aria-hidden="true"></div>
+        <button className="flex items-center space-x-3 cursor-pointer text-left hover:opacity-80 transition-opacity" aria-label="Profil Pengguna">
+          <div className="hidden sm:block">
+            <p className="text-sm font-bold text-slate-700 leading-none">Admin Desa</p>
+            <p className="text-[11px] text-slate-500 mt-1 font-medium">Administrator</p>
+          </div>
+          <div className="w-9 h-9 rounded-full bg-[#B9D7EA] border-2 border-white shadow-sm flex items-center justify-center font-bold text-white text-xs" aria-hidden="true">AD</div>
+        </button>
       </nav>
     </header>
   );
-}
+};
