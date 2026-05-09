@@ -161,4 +161,25 @@ export default function PengajuanPage() {
             </article>
         );
     }
+
+     // VIEW 2: DAFTAR PENGAJUAN (TABEL)
+  return (
+    <section className="space-y-6 max-w-7xl mx-auto" aria-label="Halaman Pengajuan Surat">
+      <header className="flex justify-between items-center">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-800">Daftar Pengajuan Surat</h1>
+          <p className="text-sm text-slate-500 mt-1">Verifikasi dan proses permintaan surat dari warga.</p>
+        </div>
+        <div className="flex gap-2">
+          <select aria-label="Filter status pengajuan" className="border border-[#B9D7EA] bg-white text-sm text-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-[#769FCD]">
+            <option value="all">Semua Status</option>
+            <option value="MENUNGGU">Menunggu</option>
+            <option value="DIPROSES">Diproses</option>
+            <option value="SELESAI">Selesai</option>
+          </select>
+        </div>
+      </header>
+
+    </section>
+  );
 }
