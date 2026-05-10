@@ -3,21 +3,20 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors } from '@/constants/theme';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faHouse } from '@fortawesome/free-solid-svg-icons';
-
+import { faCommentDots } from '@fortawesome/free-solid-svg-icons';
 
 /**
- * app/(tabs)/index.tsx — Tab: Beranda
+ * app/(tabs)/layanan.tsx — Tab: Layanan
  */
-export default function BerandaScreen() {
+export default function LayananScreen() {
   const scheme = (useColorScheme() ?? 'light') as 'light' | 'dark';
   const c = Colors[scheme];
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: c.background }]}>
-      <FontAwesomeIcon icon={faHouse} size={24} color={c.text} />
-      <Text style={[styles.title, { color: c.text }]}>Beranda</Text>
-      <Text style={[styles.sub, { color: c.textSecondary }]}>Dalam pengerjaan — Fase 3</Text>
+      <FontAwesomeIcon icon={faCommentDots} size={24} color={c.text} />
+      <Text style={[styles.title, { color: c.text }]}>Layanan</Text>
+      <Text style={[styles.sub, { color: c.textSecondary }]}>Dalam pengerjaan — Fase 4</Text>
     </SafeAreaView>
   );
 }
