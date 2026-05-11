@@ -207,13 +207,13 @@ export default function LoginScreen() {
               <Text style={[styles.registerText, { color: c.textSecondary }]}>
                 Belum punya akun?{" "}
               </Text>
-              <Link href="/(auth)/register" asChild>
+              {/* <Link href="/(auth)/register" asChild>
                 <TouchableOpacity activeOpacity={0.7}>
                   <Text style={[styles.registerLink, { color: c.primary }]}>
                     Daftar sekarang
                   </Text>
                 </TouchableOpacity>
-              </Link>
+              </Link> */}
             </View>
           </View>
         </ScrollView>
