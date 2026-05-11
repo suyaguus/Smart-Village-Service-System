@@ -28,8 +28,8 @@ export default function HomeScreen() {
       >
         {/*Blue Header Zone*/}
         <View style={[styles.headerZone, { backgroundColor: c.primary }]}>
-          <HomeHeader hasUnreadNotif />
-          <SearchBar />
+          {/* <HomeHeader hasUnreadNotif />
+          <SearchBar /> */}
 
           {/* Extra padding bawah supaya card bisa overlap */}
           <View style={{ height: Spacing.xl }} />
@@ -38,11 +38,11 @@ export default function HomeScreen() {
         {/*Body Zone*/}
         <View style={styles.body}>
           {/* Stats card overlap ke header biru */}
-          <StatsSummaryCard diproses={2} menunggu={1} selesai={5} />
+          {/* <StatsSummaryCard diproses={2} menunggu={1} selesai={5} />
 
           <LayananCepat />
 
-          <PengajuanTerbaru />
+          <PengajuanTerbaru /> */}
         </View>
       </ScrollView>
     </SafeAreaView>

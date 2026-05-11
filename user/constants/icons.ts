@@ -6,6 +6,9 @@ import {
   faLock,
   faUser,
   faPhone,
+  faHouse,
+  faList,
+  faSagittarius,
 } from '@fortawesome/free-solid-svg-icons';
 import { Colors } from './theme';
 
@@ -17,6 +20,9 @@ export const Icons = {
   lock: faLock,
   user: faUser,
   phone: faPhone,
+  home: faHouse,
+  service: faList,
+  status: faSagittarius,
 };
 
 export const IconColors = {
@@ -27,6 +33,9 @@ export const IconColors = {
   lock: { light: Colors.light.primary, dark: Colors.dark.primary },
   user: { light: Colors.light.primary, dark: Colors.dark.primary },
   phone: { light: Colors.light.primary, dark: Colors.dark.primary },
+  home: { light: Colors.light.primary, dark: Colors.dark.primary },
+  service: { light: Colors.light.primary, dark: Colors.dark.primary },
+  status: { light: Colors.light.primary, dark: Colors.dark.primary },
 };
 
 export function getIconColor(

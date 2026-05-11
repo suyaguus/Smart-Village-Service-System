@@ -2,11 +2,13 @@ import { Tabs } from 'expo-router';
 import { Platform, View, Text, StyleSheet } from 'react-native';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors, Radius, Shadow } from '@/constants/theme';
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { Icons } from "@/constants/icons";
 
 // Tab Icon Component ────────────────────────────────────────────
 
 interface TabIconProps {
-  icon: string;
+  icon: any;
   label: string;
   focused: boolean;
   color: string;
@@ -15,7 +17,7 @@ interface TabIconProps {
 function TabIcon({ icon, label, focused, color }: TabIconProps) {
   return (
     <View style={[styles.tabItem, focused && styles.tabItemFocused]}>
-      <Text style={[styles.icon, focused && { opacity: 1 }]}>{icon}</Text>
+      <FontAwesomeIcon icon={icon} size={20} color={color} />
       <Text style={[styles.label, { color }]}>{label}</Text>
     </View>
   );
@@ -41,7 +43,7 @@ export default function TabsLayout() {
   const colorScheme = (useColorScheme() ?? 'light') as 'light' | 'dark';
   const c = Colors[colorScheme];
 
-  const tabScreenOptions = (icon: string, label: string) => ({
+  const tabScreenOptions = (icon: any, label: string) => ({
     tabBarLabel: () => null, // label dirender manual di tabBarIcon
     tabBarIcon: ({ focused, color }: { focused: boolean; color: string }) => (
       <TabIcon icon={icon} label={label} focused={focused} color={color} />
@@ -66,19 +68,19 @@ export default function TabsLayout() {
     >
       <Tabs.Screen
         name="index"
-        options={tabScreenOptions('🏠', 'Beranda')}
+        options={tabScreenOptions(Icons.addressCard, 'Beranda')}
       />
       <Tabs.Screen
         name="layanan"
-        options={tabScreenOptions('📋', 'Layanan')}
+        options={tabScreenOptions(Icons.service, 'Layanan')}
       />
       <Tabs.Screen
         name="status"
-        options={tabScreenOptions('🕐', 'Status')}
+        options={tabScreenOptions(Icons.status, 'Status')}
       />
       <Tabs.Screen
         name="profil"
-        options={tabScreenOptions('👤', 'Profil')}
+        options={tabScreenOptions(Icons.user, 'Profil')}
       />
     </Tabs>
   );
