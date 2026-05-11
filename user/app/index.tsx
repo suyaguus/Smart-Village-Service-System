@@ -8,10 +8,12 @@ import { useAuth } from '@/hooks/use-auth';
  */
 export default function Index() {
   const { isLoggedIn } = useAuth();
+  // DEVELOPMENT: Untuk skip login
 
   if (isLoggedIn) {
     return <Redirect href="/(tabs)" />;
   }
 
-  return <Redirect href="/(auth)/login" />;
+  return <Redirect href="/(tabs)" />;
+  // return <Redirect href="/(auth)/login" />;
 }

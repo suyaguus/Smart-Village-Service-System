@@ -76,6 +76,9 @@ export default function LoginScreen() {
                 ]}
               >
                 <FontAwesomeIcon icon={Icons.triangleExclamation} color={getIconColor('triangleExclamation', scheme)} />
+                <Text style={[styles.errorBannerText, { color: c.ditolakText }]}>
+                  {errors.general}
+                </Text>
               </View>
             )}
 
@@ -255,6 +258,9 @@ const styles = StyleSheet.create({
   },
   formSub: { fontSize: FontSize.sm, marginBottom: Spacing.lg },
   errorBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
     borderRadius: Radius.sm,
     padding: Spacing.md,
     marginBottom: Spacing.base,
