@@ -16,13 +16,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { useLoginForm } from "@/hooks/use-login-form";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import {
-  faAddressCard,
-  faTriangleExclamation,
-  faEyeSlash,
-  faEye,
-  faLock,
-} from "@fortawesome/free-solid-svg-icons";
+import { Icons } from "@/constants/icons";
 import {
   Colors,
   FontSize,
@@ -81,7 +75,7 @@ export default function LoginScreen() {
                   { backgroundColor: c.ditolakLight },
                 ]}
               >
-                <FontAwesomeIcon icon={faTriangleExclamation} />
+                <FontAwesomeIcon icon={Icons.triangleExclamation.icon} color={scheme === 'dark' ? Icons.triangleExclamation.colorDark : Icons.triangleExclamation.color} />
               </View>
             )}
 
@@ -99,7 +93,7 @@ export default function LoginScreen() {
                   },
                 ]}
               >
-                <FontAwesomeIcon icon={faAddressCard} />
+                <FontAwesomeIcon icon={Icons.addressCard.icon} color={scheme === 'dark' ? Icons.addressCard.colorDark : Icons.addressCard.color} />
                 <TextInput
                   style={[styles.input, { color: c.text }]}
                   placeholder="Masukkan 16 digit NIK"
@@ -135,7 +129,7 @@ export default function LoginScreen() {
                   },
                 ]}
               >
-                <FontAwesomeIcon icon={faLock} />
+                <FontAwesomeIcon icon={Icons.lock.icon} color={scheme === 'dark' ? Icons.lock.colorDark : Icons.lock.color} />
                 <TextInput
                   style={[styles.input, { color: c.text }]}
                   placeholder="Masukkan kata sandi"
@@ -154,7 +148,7 @@ export default function LoginScreen() {
                   hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
                 >
                   <Text style={styles.eyeIcon}>
-                    {showPassword ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
+                    {showPassword ? <FontAwesomeIcon icon={Icons.eyeSlash.icon} color={scheme === 'dark' ? Icons.eyeSlash.colorDark : Icons.eyeSlash.color} /> : <FontAwesomeIcon icon={Icons.eye.icon} color={scheme === 'dark' ? Icons.eye.colorDark : Icons.eye.color} />}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -207,13 +201,13 @@ export default function LoginScreen() {
               <Text style={[styles.registerText, { color: c.textSecondary }]}>
                 Belum punya akun?{" "}
               </Text>
-              {/* <Link href="/(auth)/register" asChild>
+              <Link href="/(auth)/register" asChild>
                 <TouchableOpacity activeOpacity={0.7}>
                   <Text style={[styles.registerLink, { color: c.primary }]}>
                     Daftar sekarang
                   </Text>
                 </TouchableOpacity>
-              </Link> */}
+              </Link>
             </View>
           </View>
         </ScrollView>

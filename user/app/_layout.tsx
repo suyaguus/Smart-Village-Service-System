@@ -3,6 +3,7 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { AuthProvider } from '@/hooks/use-auth';
 import { Colors } from '@/constants/theme';
 
 // Extend tema bawaan React Navigation dengan warna Smart Village
@@ -41,14 +42,15 @@ export default function RootLayout() {
   if (!loaded) return null;
 
   return (
-    <ThemeProvider
-      value={
-        colorScheme === 'dark'
-          ? SmartVillageDarkTheme
-          : SmartVillageLightTheme
-      }
-    >
-      <Stack screenOptions={{ headerShown: false }}>
+    <AuthProvider>
+      <ThemeProvider
+        value={
+          colorScheme === 'dark'
+            ? SmartVillageDarkTheme
+            : SmartVillageLightTheme
+        }
+      >
+        <Stack screenOptions={{ headerShown: false }}>
         {/* Main app dengan bottom tab */}
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
@@ -94,6 +96,7 @@ export default function RootLayout() {
         />
       </Stack>
       <StatusBar style="auto" />
-    </ThemeProvider>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
