@@ -14,7 +14,7 @@ interface FormErrors {
 }
 
 export function useLoginForm() {
-  const { login } = useAuth() as any;
+  const { login } = useAuth();
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 

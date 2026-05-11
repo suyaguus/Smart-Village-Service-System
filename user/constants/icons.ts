@@ -10,11 +10,28 @@ import {
 import { Colors } from './theme';
 
 export const Icons = {
-  addressCard: { icon: faAddressCard, color: Colors.light.primary, colorDark: Colors.dark.primary },
-  triangleExclamation: { icon: faTriangleExclamation, color: Colors.light.ditolak, colorDark: Colors.dark.ditolak },
-  eyeSlash: { icon: faEyeSlash, color: Colors.light.textSecondary, colorDark: Colors.dark.textSecondary },
-  eye: { icon: faEye, color: Colors.light.textSecondary, colorDark: Colors.dark.textSecondary },
-  lock: { icon: faLock, color: Colors.light.primary, colorDark: Colors.dark.primary },
-  user: { icon: faUser, color: Colors.light.primary, colorDark: Colors.dark.primary },
-  phone: { icon: faPhone, color: Colors.light.primary, colorDark: Colors.dark.primary },
+  addressCard: faAddressCard,
+  triangleExclamation: faTriangleExclamation,
+  eyeSlash: faEyeSlash,
+  eye: faEye,
+  lock: faLock,
+  user: faUser,
+  phone: faPhone,
 };
+
+export const IconColors = {
+  addressCard: { light: Colors.light.primary, dark: Colors.dark.primary },
+  triangleExclamation: { light: Colors.light.ditolak, dark: Colors.dark.ditolak },
+  eyeSlash: { light: Colors.light.textSecondary, dark: Colors.dark.textSecondary },
+  eye: { light: Colors.light.textSecondary, dark: Colors.dark.textSecondary },
+  lock: { light: Colors.light.primary, dark: Colors.dark.primary },
+  user: { light: Colors.light.primary, dark: Colors.dark.primary },
+  phone: { light: Colors.light.primary, dark: Colors.dark.primary },
+};
+
+export function getIconColor(
+  iconKey: keyof typeof Icons,
+  scheme: 'light' | 'dark'
+): string {
+  return IconColors[iconKey][scheme];
+}

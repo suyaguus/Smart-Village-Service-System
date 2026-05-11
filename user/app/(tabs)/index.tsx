@@ -4,11 +4,11 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors, Spacing } from '@/constants/theme';
 
 // Components
-import { HomeHeader } from '@/components/home/home-header';
-import { SearchBar } from '@/components/home/search-bar';
-import { StatsSummaryCard } from '@/components/home/stats-summary-card';
-import { LayananCepat } from '@/components/home/layanan-cepat';
-import { PengajuanTerbaru } from '@/components/home/pengajuan-terbaru';
+// import { HomeHeader } from '@/components/home/home-header';
+// import { SearchBar } from '@/components/home/search-bar';
+// import { StatsSummaryCard } from '@/components/home/stats-summary-card';
+// import { LayananCepat } from '@/components/home/layanan-cepat';
+// import { PengajuanTerbaru } from '@/components/home/pengajuan-terbaru';
 
 export default function HomeScreen() {
   const scheme = (useColorScheme() ?? 'light') as 'light' | 'dark';

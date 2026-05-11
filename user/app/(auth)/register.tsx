@@ -15,7 +15,7 @@ import { Link, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { Icons } from "@/constants/icons";
+import { Icons, getIconColor } from "@/constants/icons";
 import {
   Colors,
   FontSize,
@@ -112,7 +112,7 @@ export default function RegisterScreen() {
   // ── Reusable Field ────────────────────────────────────────────────
   const renderField = (
     label: string,
-    icon: React.ReactNode,
+    iconKey: keyof typeof Icons,
     field: keyof RegisterForm,
     props: Partial<React.ComponentProps<typeof TextInput>> = {},
     isPassword = false,
@@ -130,7 +130,7 @@ export default function RegisterScreen() {
           },
         ]}
       >
-        <View style={styles.inputIcon as any}>{icon}</View>
+        <View style={styles.inputIcon as any}><FontAwesomeIcon icon={Icons[iconKey]} color={getIconColor(iconKey, scheme)} /></View>
         <TextInput
           style={[styles.input, { color: c.text }]}
           placeholderTextColor={c.textTertiary}
@@ -144,7 +144,7 @@ export default function RegisterScreen() {
             onPress={toggleShow}
             hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
           >
-            <Text style={styles.eyeIcon}>{showState ? <FontAwesomeIcon icon={Icons.eyeSlash} /> : <FontAwesomeIcon icon={Icons.eye} />}</Text>
+            <Text style={styles.eyeIcon}>{showState ? <FontAwesomeIcon icon={Icons.eyeSlash} color={getIconColor('eyeSlash', scheme)} /> : <FontAwesomeIcon icon={Icons.eye} color={getIconColor('eye', scheme)} />}</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -196,25 +196,25 @@ export default function RegisterScreen() {
                 <Text
                   style={[styles.errorBannerText, { color: c.ditolakText }]}
                 >
-                  <FontAwesomeIcon icon={Icons.triangleExclamation} /> {errors.general}
+                  <FontAwesomeIcon icon={Icons.triangleExclamation} color={getIconColor('triangleExclamation', scheme)} /> {errors.general}
                 </Text>
               </View>
             )}
 
-            {renderField("NIK (16 digit)", <FontAwesomeIcon icon={Icons.addressCard} />, "nik", {
+            {renderField("NIK (16 digit)", "addressCard", "nik", {
               placeholder: "Masukkan 16 digit NIK",
               keyboardType: "numeric",
               maxLength: 16,
               returnKeyType: "next",
             })}
 
-            {renderField("Nama Lengkap", <FontAwesomeIcon icon={Icons.user} />, "namaLengkap", {
+            {renderField("Nama Lengkap", "user", "namaLengkap", {
               placeholder: "Sesuai KTP",
               autoCapitalize: "words",
               returnKeyType: "next",
             })}
 
-            {renderField("Nomor Telepon", <FontAwesomeIcon icon={Icons.phone} />, "noTelepon", {
+            {renderField("Nomor Telepon", "phone", "noTelepon", {
               placeholder: "08xxxxxxxxxx",
               keyboardType: "phone-pad",
               returnKeyType: "next",
@@ -222,7 +222,7 @@ export default function RegisterScreen() {
 
             {renderField(
               "Kata Sandi",
-              <FontAwesomeIcon icon={Icons.lock} />,
+              "lock",
               "password",
               {
                 placeholder: "Minimal 6 karakter",
@@ -235,7 +235,7 @@ export default function RegisterScreen() {
 
             {renderField(
               "Konfirmasi Kata Sandi",
-              <FontAwesomeIcon icon={Icons.lock} />,
+              "lock",
               "konfirmasiPassword",
               {
                 placeholder: "Ulangi kata sandi",

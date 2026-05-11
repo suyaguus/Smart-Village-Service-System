@@ -16,7 +16,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { useLoginForm } from "@/hooks/use-login-form";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { Icons } from "@/constants/icons";
+import { Icons, getIconColor } from "@/constants/icons";
 import {
   Colors,
   FontSize,
@@ -75,7 +75,7 @@ export default function LoginScreen() {
                   { backgroundColor: c.ditolakLight },
                 ]}
               >
-                <FontAwesomeIcon icon={Icons.triangleExclamation.icon} color={scheme === 'dark' ? Icons.triangleExclamation.colorDark : Icons.triangleExclamation.color} />
+                <FontAwesomeIcon icon={Icons.triangleExclamation} color={getIconColor('triangleExclamation', scheme)} />
               </View>
             )}
 
@@ -93,7 +93,7 @@ export default function LoginScreen() {
                   },
                 ]}
               >
-                <FontAwesomeIcon icon={Icons.addressCard.icon} color={scheme === 'dark' ? Icons.addressCard.colorDark : Icons.addressCard.color} />
+                <FontAwesomeIcon icon={Icons.addressCard} color={getIconColor('addressCard', scheme)} />
                 <TextInput
                   style={[styles.input, { color: c.text }]}
                   placeholder="Masukkan 16 digit NIK"
@@ -129,7 +129,7 @@ export default function LoginScreen() {
                   },
                 ]}
               >
-                <FontAwesomeIcon icon={Icons.lock.icon} color={scheme === 'dark' ? Icons.lock.colorDark : Icons.lock.color} />
+                <FontAwesomeIcon icon={Icons.lock} color={getIconColor('lock', scheme)} />
                 <TextInput
                   style={[styles.input, { color: c.text }]}
                   placeholder="Masukkan kata sandi"
@@ -148,7 +148,7 @@ export default function LoginScreen() {
                   hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
                 >
                   <Text style={styles.eyeIcon}>
-                    {showPassword ? <FontAwesomeIcon icon={Icons.eyeSlash.icon} color={scheme === 'dark' ? Icons.eyeSlash.colorDark : Icons.eyeSlash.color} /> : <FontAwesomeIcon icon={Icons.eye.icon} color={scheme === 'dark' ? Icons.eye.colorDark : Icons.eye.color} />}
+                    {showPassword ? <FontAwesomeIcon icon={Icons.eyeSlash} color={getIconColor('eyeSlash', scheme)} /> : <FontAwesomeIcon icon={Icons.eye} color={getIconColor('eye', scheme)} />}
                   </Text>
                 </TouchableOpacity>
               </View>
