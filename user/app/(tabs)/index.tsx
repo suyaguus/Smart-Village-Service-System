@@ -1,30 +1,70 @@
-import { Text, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { Colors } from '@/constants/theme';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faHouse } from '@fortawesome/free-solid-svg-icons';
+import { Colors, Spacing } from '@/constants/theme';
 
+// Components
+import { HomeHeader } from '@/components/home/home-header';
+import { SearchBar } from '@/components/home/search-bar';
+import { StatsSummaryCard } from '@/components/home/stats-summary-card';
+import { LayananCepat } from '@/components/home/layanan-cepat';
+import { PengajuanTerbaru } from '@/components/home/pengajuan-terbaru';
 
-/**
- * app/(tabs)/index.tsx — Tab: Beranda
- */
-export default function BerandaScreen() {
+export default function HomeScreen() {
   const scheme = (useColorScheme() ?? 'light') as 'light' | 'dark';
   const c = Colors[scheme];
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: c.background }]}>
-      <FontAwesomeIcon icon={faHouse} size={24} color={c.text} />
-      <Text style={[styles.title, { color: c.text }]}>Beranda</Text>
-      <Text style={[styles.sub, { color: c.textSecondary }]}>Dalam pengerjaan — Fase 3</Text>
+    <SafeAreaView
+      style={[styles.safe, { backgroundColor: c.primary }]}
+      edges={['top']}
+    >
+      <StatusBar barStyle="light-content" backgroundColor={c.primary} />
+
+      <ScrollView
+        style={[styles.scroll, { backgroundColor: c.background }]}
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
+        {/*Blue Header Zone*/}
+        <View style={[styles.headerZone, { backgroundColor: c.primary }]}>
+          <HomeHeader hasUnreadNotif />
+          <SearchBar />
+
+          {/* Extra padding bawah supaya card bisa overlap */}
+          <View style={{ height: Spacing.xl }} />
+        </View>
+
+        {/*Body Zone*/}
+        <View style={styles.body}>
+          {/* Stats card overlap ke header biru */}
+          <StatsSummaryCard diproses={2} menunggu={1} selesai={5} />
+
+          <LayananCepat />
+
+          <PengajuanTerbaru />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 8 },
-  emoji: { fontSize: 40 },
-  title: { fontSize: 18, fontWeight: '700' },
-  sub: { fontSize: 13 },
+  safe: {
+    flex: 1,
+  },
+  scroll: {
+    flex: 1,
+  },
+  content: {
+    flexGrow: 1,
+    paddingBottom: 32,
+  },
+  headerZone: {
+    // Background biru
+  },
+  body: {
+    flex: 1,
+    paddingTop: 0,
+  },
 });
