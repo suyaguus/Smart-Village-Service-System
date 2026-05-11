@@ -16,7 +16,7 @@ export default function StatusScreen() {
     <SafeAreaView style={[styles.container, { backgroundColor: c.background }]}>
       <FontAwesomeIcon icon={faClock} size={24} color={c.text} />
       <Text style={[styles.title, { color: c.text }]}>Status</Text>
-      <Text style={[styles.sub, { color: c.textSecondary }]}>Dalam pengerjaan — Fase 5</Text>
+      <Text style={[styles.sub, { color: c.textSecondary }]}>Dalam pengerjaan</Text>
     </SafeAreaView>
   );
 }

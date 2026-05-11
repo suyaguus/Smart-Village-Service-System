@@ -16,7 +16,7 @@ export default function LayananScreen() {
     <SafeAreaView style={[styles.container, { backgroundColor: c.background }]}>
       <FontAwesomeIcon icon={faCommentDots} size={24} color={c.text} />
       <Text style={[styles.title, { color: c.text }]}>Layanan</Text>
-      <Text style={[styles.sub, { color: c.textSecondary }]}>Dalam pengerjaan — Fase 4</Text>
+      <Text style={[styles.sub, { color: c.textSecondary }]}>Dalam pengembangan</Text>
     </SafeAreaView>
   );
 }

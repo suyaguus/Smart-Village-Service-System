@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { Platform, View, Text, StyleSheet } from 'react-native';
+import { Platform, View, StyleSheet, useWindowDimensions } from 'react-native';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors, Radius, Shadow } from '@/constants/theme';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -9,16 +9,27 @@ import { Icons } from "@/constants/icons";
 
 interface TabIconProps {
   icon: any;
-  label: string;
-  focused: boolean;
   color: string;
 }
 
-function TabIcon({ icon, label, focused, color }: TabIconProps) {
+function TabIcon({ icon, color }: TabIconProps) {
+  const { width } = useWindowDimensions();
+  
+  // Responsive settings based on screen width
+  const isSmallScreen = width < 360;
+  const isMediumScreen = width < 400;
+  
+  let iconSize = 22;
+  
+  if (isSmallScreen) {
+    iconSize = 20;
+  } else if (isMediumScreen) {
+    iconSize = 21;
+  }
+
   return (
-    <View style={[styles.tabItem, focused && styles.tabItemFocused]}>
-      <FontAwesomeIcon icon={icon} size={20} color={color} />
-      <Text style={[styles.label, { color }]}>{label}</Text>
+    <View style={styles.tabItem}>
+      <FontAwesomeIcon icon={icon} size={iconSize} color={color} />
     </View>
   );
 }
@@ -44,9 +55,9 @@ export default function TabsLayout() {
   const c = Colors[colorScheme];
 
   const tabScreenOptions = (icon: any, label: string) => ({
-    tabBarLabel: () => null, // label dirender manual di tabBarIcon
+    tabBarLabel: label,
     tabBarIcon: ({ focused, color }: { focused: boolean; color: string }) => (
-      <TabIcon icon={icon} label={label} focused={focused} color={color} />
+      <TabIcon icon={icon} color={color} />
     ),
   });
 
@@ -60,15 +71,24 @@ export default function TabsLayout() {
         tabBarStyle: {
           ...Shadow.sm,
           borderTopWidth: 0,        // handled by TabBarBackground
-          height: Platform.OS === 'ios' ? 80 : 64,
-          paddingBottom: Platform.OS === 'ios' ? 20 : 8,
-          paddingTop: 8,
+          height: Platform.OS === 'ios' ? 90 : 75,
+          paddingBottom: Platform.OS === 'ios' ? 20 : 10,
+          paddingTop: 10,
+        },
+        tabBarLabelStyle: {
+          fontSize: 9,
+          fontWeight: '500',
+          textAlign: 'center',
+        },
+        tabBarItemStyle: {
+          minWidth: 0,
+          paddingHorizontal: 2,
         },
       }}
     >
       <Tabs.Screen
         name="index"
-        options={tabScreenOptions(Icons.addressCard, 'Beranda')}
+        options={tabScreenOptions(Icons.home, 'Beranda')}
       />
       <Tabs.Screen
         name="layanan"
@@ -89,11 +109,13 @@ export default function TabsLayout() {
 const styles = StyleSheet.create({
   tabItem: {
     alignItems: 'center',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
+    justifyContent: 'center',
+    paddingHorizontal: 2,
+    paddingVertical: 2,
     borderRadius: Radius.md,
-    gap: 2,
-    opacity: 1,
+    gap: 0,
+    flex: 1,
+    minWidth: 0,
   },
   tabItemFocused: {
     // subtle highlight — bisa ditambahkan background jika perlu
@@ -101,10 +123,5 @@ const styles = StyleSheet.create({
   icon: {
     fontSize: 20,
     opacity: 0.45,
-  },
-  label: {
-    fontSize: 10,
-    fontWeight: '500',
-    marginTop: 1,
   },
 });

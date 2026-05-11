@@ -16,7 +16,7 @@ export default function ProfilScreen() {
     <SafeAreaView style={[styles.container, { backgroundColor: c.background }]}>
       <FontAwesomeIcon icon={faUser} size={24} color={c.text} />
       <Text style={[styles.title, { color: c.text }]}>Profil</Text>
-      <Text style={[styles.sub, { color: c.textSecondary }]}>Dalam pengerjaan — Fase 8</Text>
+      <Text style={[styles.sub, { color: c.textSecondary }]}>Dalam </Text>
     </SafeAreaView>
   );
 }
