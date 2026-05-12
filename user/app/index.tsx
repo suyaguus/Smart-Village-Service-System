@@ -1,5 +1,5 @@
-import { Redirect } from 'expo-router';
-import { useAuth } from '@/hooks/use-auth';
+import { Redirect } from "expo-router";
+import { useAuth } from "@/hooks/use-auth";
 
 /**
  * Entry point — redirect berdasarkan status login.

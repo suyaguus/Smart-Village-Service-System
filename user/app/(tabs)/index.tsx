@@ -1,23 +1,16 @@
-import { View, ScrollView, StyleSheet, StatusBar } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-import { Colors, Spacing } from '@/constants/theme';
-
-// Components
-// import { HomeHeader } from '@/components/home/home-header';
-// import { SearchBar } from '@/components/home/search-bar';
-// import { StatsSummaryCard } from '@/components/home/stats-summary-card';
-// import { LayananCepat } from '@/components/home/layanan-cepat';
-// import { PengajuanTerbaru } from '@/components/home/pengajuan-terbaru';
+import { View, ScrollView, StyleSheet, StatusBar } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useColorScheme } from "@/hooks/use-color-scheme";
+import { Colors, Spacing } from "@/constants/theme";
 
 export default function HomeScreen() {
-  const scheme = (useColorScheme() ?? 'light') as 'light' | 'dark';
+  const scheme = (useColorScheme() ?? "light") as "light" | "dark";
   const c = Colors[scheme];
 
   return (
     <SafeAreaView
       style={[styles.safe, { backgroundColor: c.primary }]}
-      edges={['top']}
+      edges={["top"]}
     >
       <StatusBar barStyle="light-content" backgroundColor={c.primary} />
 

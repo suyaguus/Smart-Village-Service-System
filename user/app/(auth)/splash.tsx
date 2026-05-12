@@ -4,10 +4,6 @@ import { router } from 'expo-router';
 import { Colors, FontSize, FontWeight } from '@/constants/theme';
 import { useAuth } from '@/hooks/use-auth';
 
-/**
- * app/(auth)/splash.tsx
- * Layar awal — tampil 2 detik, lalu redirect sesuai status login.
- */
 export default function SplashScreen() {
   const { isLoggedIn, isLoading } = useAuth();
 

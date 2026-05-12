@@ -9,8 +9,8 @@ import {
   faHouse,
   faList,
   faSagittarius,
-} from '@fortawesome/free-solid-svg-icons';
-import { Colors } from './theme';
+} from "@fortawesome/free-solid-svg-icons";
+import { Colors } from "./theme";
 
 export const Icons = {
   addressCard: faAddressCard,
@@ -27,8 +27,14 @@ export const Icons = {
 
 export const IconColors = {
   addressCard: { light: Colors.light.primary, dark: Colors.dark.primary },
-  triangleExclamation: { light: Colors.light.ditolak, dark: Colors.dark.ditolak },
-  eyeSlash: { light: Colors.light.textSecondary, dark: Colors.dark.textSecondary },
+  triangleExclamation: {
+    light: Colors.light.ditolak,
+    dark: Colors.dark.ditolak,
+  },
+  eyeSlash: {
+    light: Colors.light.textSecondary,
+    dark: Colors.dark.textSecondary,
+  },
   eye: { light: Colors.light.textSecondary, dark: Colors.dark.textSecondary },
   lock: { light: Colors.light.primary, dark: Colors.dark.primary },
   user: { light: Colors.light.primary, dark: Colors.dark.primary },
@@ -40,7 +46,7 @@ export const IconColors = {
 
 export function getIconColor(
   iconKey: keyof typeof Icons,
-  scheme: 'light' | 'dark'
+  scheme: "light" | "dark",
 ): string {
   return IconColors[iconKey][scheme];
 }

@@ -1,8 +1,5 @@
 import { Stack } from 'expo-router';
 
-/**
- * app/(auth)/_layout.tsx
- */
 export default function AuthLayout() {
   return (
     <Stack screenOptions={{ headerShown: false }}>

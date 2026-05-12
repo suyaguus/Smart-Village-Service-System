@@ -1,7 +1,14 @@
-import { createContext, useContext, useState, useEffect, ReactNode, createElement } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+  createElement,
+} from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const AUTH_KEY = 'smart_village_auth';
+const AUTH_KEY = "smart_village_auth";
 
 // Types
 
@@ -31,7 +38,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Restore sesi dari AsyncStorage saat app dibuka
   useEffect(() => {
     AsyncStorage.getItem(AUTH_KEY)
-      .then((raw) => { if (raw) setUser(JSON.parse(raw)); })
+      .then((raw) => {
+        if (raw) setUser(JSON.parse(raw));
+      })
       .catch(() => {})
       .finally(() => setIsLoading(false));
   }, []);
@@ -49,7 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   return createElement(
     AuthContext.Provider,
     { value: { user, isLoggedIn: !!user, isLoading, login, logout } },
-    children
+    children,
   );
 }
 
@@ -57,6 +66,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 export function useAuth(): AuthContextValue {
   const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth harus digunakan di dalam <AuthProvider>');
+  if (!ctx) throw new Error("useAuth harus digunakan di dalam <AuthProvider>");
   return ctx;
 }

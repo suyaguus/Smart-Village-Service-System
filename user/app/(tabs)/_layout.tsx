@@ -1,11 +1,9 @@
-import { Tabs } from 'expo-router';
-import { Platform, View, StyleSheet, useWindowDimensions } from 'react-native';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-import { Colors, Radius, Shadow } from '@/constants/theme';
+import { Tabs } from "expo-router";
+import { Platform, View, StyleSheet, useWindowDimensions } from "react-native";
+import { useColorScheme } from "@/hooks/use-color-scheme";
+import { Colors, Radius, Shadow } from "@/constants/theme";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { Icons } from "@/constants/icons";
-
-// Tab Icon Component ────────────────────────────────────────────
 
 interface TabIconProps {
   icon: any;
@@ -14,13 +12,13 @@ interface TabIconProps {
 
 function TabIcon({ icon, color }: TabIconProps) {
   const { width } = useWindowDimensions();
-  
+
   // Responsive settings based on screen width
   const isSmallScreen = width < 360;
   const isMediumScreen = width < 400;
-  
+
   let iconSize = 22;
-  
+
   if (isSmallScreen) {
     iconSize = 20;
   } else if (isMediumScreen) {
@@ -36,13 +34,17 @@ function TabIcon({ icon, color }: TabIconProps) {
 
 // Tab Bar Background
 
-function TabBarBackground({ scheme }: { scheme: 'light' | 'dark' }) {
+function TabBarBackground({ scheme }: { scheme: "light" | "dark" }) {
   const c = Colors[scheme];
   return (
     <View
       style={[
         StyleSheet.absoluteFill,
-        { backgroundColor: c.tabBar, borderTopWidth: 1, borderTopColor: c.tabBarBorder },
+        {
+          backgroundColor: c.tabBar,
+          borderTopWidth: 1,
+          borderTopColor: c.tabBarBorder,
+        },
       ]}
     />
   );
@@ -51,7 +53,7 @@ function TabBarBackground({ scheme }: { scheme: 'light' | 'dark' }) {
 // Layout
 
 export default function TabsLayout() {
-  const colorScheme = (useColorScheme() ?? 'light') as 'light' | 'dark';
+  const colorScheme = (useColorScheme() ?? "light") as "light" | "dark";
   const c = Colors[colorScheme];
 
   const tabScreenOptions = (icon: any, label: string) => ({
@@ -70,15 +72,15 @@ export default function TabsLayout() {
         tabBarBackground: () => <TabBarBackground scheme={colorScheme} />,
         tabBarStyle: {
           ...Shadow.sm,
-          borderTopWidth: 0,        // handled by TabBarBackground
-          height: Platform.OS === 'ios' ? 90 : 75,
-          paddingBottom: Platform.OS === 'ios' ? 20 : 10,
+          borderTopWidth: 0, // handled by TabBarBackground
+          height: Platform.OS === "ios" ? 90 : 75,
+          paddingBottom: Platform.OS === "ios" ? 20 : 10,
           paddingTop: 10,
         },
         tabBarLabelStyle: {
           fontSize: 9,
-          fontWeight: '500',
-          textAlign: 'center',
+          fontWeight: "500",
+          textAlign: "center",
         },
         tabBarItemStyle: {
           minWidth: 0,
@@ -88,19 +90,19 @@ export default function TabsLayout() {
     >
       <Tabs.Screen
         name="index"
-        options={tabScreenOptions(Icons.home, 'Beranda')}
+        options={tabScreenOptions(Icons.home, "Beranda")}
       />
       <Tabs.Screen
         name="layanan"
-        options={tabScreenOptions(Icons.service, 'Layanan')}
+        options={tabScreenOptions(Icons.service, "Layanan")}
       />
       <Tabs.Screen
         name="status"
-        options={tabScreenOptions(Icons.status, 'Status')}
+        options={tabScreenOptions(Icons.status, "Status")}
       />
       <Tabs.Screen
         name="profil"
-        options={tabScreenOptions(Icons.user, 'Profil')}
+        options={tabScreenOptions(Icons.user, "Profil")}
       />
     </Tabs>
   );
@@ -108,8 +110,8 @@ export default function TabsLayout() {
 
 const styles = StyleSheet.create({
   tabItem: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: 2,
     paddingVertical: 2,
     borderRadius: Radius.md,
@@ -118,7 +120,7 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
   tabItemFocused: {
-    // subtle highlight — bisa ditambahkan background jika perlu
+    // subtle highlight
   },
   icon: {
     fontSize: 20,
