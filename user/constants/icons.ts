@@ -9,6 +9,12 @@ import {
   faHouse,
   faList,
   faSagittarius,
+  faMagnifyingGlass,
+  faFlag,
+  faNoteSticky,
+  faCircleInfo,
+  faBell,
+  faFaceSmileBeam,
 } from "@fortawesome/free-solid-svg-icons";
 import { Colors } from "./theme";
 
@@ -23,6 +29,12 @@ export const Icons = {
   home: faHouse,
   service: faList,
   status: faSagittarius,
+  magnifyingGlass: faMagnifyingGlass,
+  flag: faFlag,
+  note: faNoteSticky,
+  info: faCircleInfo,
+  bell: faBell,
+  smile: faFaceSmileBeam,
 };
 
 export const IconColors = {
@@ -42,6 +54,12 @@ export const IconColors = {
   home: { light: Colors.light.primary, dark: Colors.dark.primary },
   service: { light: Colors.light.primary, dark: Colors.dark.primary },
   status: { light: Colors.light.primary, dark: Colors.dark.primary },
+  magnifyingGlass: { light: Colors.light.primary, dark: Colors.dark.primary },
+  flag: { light: Colors.light.primary, dark: Colors.dark.primary },
+  note: { light: Colors.light.primary, dark: Colors.dark.primary },
+  info: { light: Colors.light.primary, dark: Colors.dark.primary },
+  bell: { light: Colors.light.primary, dark: Colors.dark.primary },
+  face: { light: Colors.light.primary, dark: Colors.dark.primary },
 };
 
 export function getIconColor(
