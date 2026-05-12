@@ -38,11 +38,6 @@ const SmartVillageDarkTheme = {
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
-  // const [loaded] = useFonts({
-  // });
-
-  if (!loaded) return null;
-
   return (
     <AuthProvider>
       <ThemeProvider
