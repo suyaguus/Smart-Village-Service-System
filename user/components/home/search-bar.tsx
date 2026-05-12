@@ -3,6 +3,8 @@ import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { Colors, FontSize, Spacing, Radius, Shadow } from "@/constants/theme";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { Icons } from "@/constants/icons";
 
 interface SearchBarProps {
   onSearch?: (query: string) => void;
@@ -28,7 +30,7 @@ export function SearchBar({
   return (
     <View style={[styles.container, { backgroundColor: c.surface }, Shadow.md]}>
       {/* Search Icon */}
-      <ThemedText style={styles.searchIcon}>🔍</ThemedText>
+      <FontAwesomeIcon icon={Icons.magnifyingGlass} size={18} color={c.textTertiary} />
 
       {/* Input */}
       <TextInput

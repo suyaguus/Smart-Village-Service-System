@@ -2,6 +2,8 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { router } from "expo-router";
 import { useAuth } from "@/hooks/use-auth";
 import { Colors, FontSize, FontWeight, Spacing } from "@/constants/theme";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { Icons } from "@/constants/icons";
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -28,7 +30,12 @@ export function HomeHeader({ hasUnreadNotif = true }: HomeHeaderProps) {
           <Text style={styles.name} numberOfLines={1}>
             {user?.nama ?? "Warga"}
           </Text>
-          <Text style={styles.wave}> 👋</Text>
+          <FontAwesomeIcon
+            icon={Icons.smile}
+            size={24}
+            color={c.textInverse}
+            style={styles.nameIcon}
+          />
         </View>
       </View>
 
@@ -39,7 +46,7 @@ export function HomeHeader({ hasUnreadNotif = true }: HomeHeaderProps) {
         activeOpacity={0.75}
         hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
       >
-        <Text style={styles.bellIcon}>🔔</Text>
+        <FontAwesomeIcon icon={Icons.bell} size={18} color="#F4C542" />
         {hasUnreadNotif && <View style={styles.badge} />}
       </TouchableOpacity>
     </View>
@@ -68,6 +75,9 @@ const styles = StyleSheet.create({
   nameRow: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  nameIcon: {
+    marginLeft: Spacing.sm,
   },
   name: {
     fontSize: FontSize.xxl,

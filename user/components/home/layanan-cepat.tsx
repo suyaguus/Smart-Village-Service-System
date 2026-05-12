@@ -14,18 +14,15 @@ import {
   Spacing,
   Radius,
 } from "@/constants/theme";
-
-/**
- * components/home/layanan-cepat.tsx
- * 4 ikon layanan cepat horizontal scrollable.
- * Tap → navigasi ke route yang sesuai.
- */
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { Icons } from "@/constants/icons";
 
 interface LayananItem {
   id: string;
   label: string;
-  icon: string;
+  icon: string | any;
   bgColor: keyof typeof Colors.light;
+  iconColor: keyof typeof Colors.light;
   route: string;
 }
 
@@ -33,29 +30,33 @@ const LAYANAN_ITEMS: LayananItem[] = [
   {
     id: "buat-surat",
     label: "Buat\nSurat",
-    icon: "📄",
+    icon: Icons.note,
     bgColor: "iconBuatSurat",
+    iconColor: "primaryDark",
     route: "/layanan/buat-surat",
   },
   {
     id: "pengaduan",
     label: "Pengaduan",
-    icon: "🚩",
+    icon: Icons.flag,
     bgColor: "iconPengaduan",
+    iconColor: "menungguText",
     route: "/pengaduan/buat",
   },
   {
     id: "status",
     label: "Status",
-    icon: "🕐",
+    icon: Icons.magnifyingGlass,
     bgColor: "iconStatus",
+    iconColor: "selesaiText",
     route: "/(tabs)/status",
   },
   {
     id: "informasi",
     label: "Informasi",
-    icon: "ℹ️",
+    icon: Icons.info,
     bgColor: "iconInformasi",
+    iconColor: "textSecondary",
     route: "/(tabs)/informasi",
   },
 ];
@@ -68,6 +69,7 @@ function LayananItemCard({ item }: LayananItemCardProps) {
   const scheme = (useColorScheme() ?? "light") as "light" | "dark";
   const c = Colors[scheme];
   const bgColor = c[item.bgColor] as string;
+  const isEmojiIcon = typeof item.icon === "string";
 
   return (
     <TouchableOpacity
@@ -76,7 +78,11 @@ function LayananItemCard({ item }: LayananItemCardProps) {
       activeOpacity={0.75}
     >
       <View style={[styles.iconBox, { backgroundColor: bgColor }]}>
-        <Text style={styles.icon}>{item.icon}</Text>
+        {isEmojiIcon ? (
+          <Text style={styles.icon}>{item.icon}</Text>
+        ) : (
+          <FontAwesomeIcon icon={item.icon} size={26} color={c[item.iconColor]} />
+        )}
       </View>
       <Text style={[styles.itemLabel, { color: c.text }]} numberOfLines={2}>
         {item.label}

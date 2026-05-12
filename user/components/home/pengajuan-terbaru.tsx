@@ -10,7 +10,9 @@ import {
   Shadow,
 } from "@/constants/theme";
 import { StatusBadge } from "@/components/common/status-badge";
+import { Icons } from "@/constants/icons";
 import type { Pengajuan } from "@/types";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
 const DUMMY_PENGAJUAN: Pengajuan[] = [
   {
@@ -39,7 +41,7 @@ const DUMMY_PENGAJUAN: Pengajuan[] = [
   },
 ];
 
-// ── Item Row ──────────────────────────────────────────────────────
+// Item Row
 
 interface PengajuanItemProps {
   item: Pengajuan;
@@ -49,6 +51,7 @@ interface PengajuanItemProps {
 function PengajuanItem({ item, isLast }: PengajuanItemProps) {
   const scheme = (useColorScheme() ?? "light") as "light" | "dark";
   const c = Colors[scheme];
+  const noteColor = scheme === "dark" ? c.primaryLight : c.primaryDark;
 
   return (
     <>
@@ -59,7 +62,7 @@ function PengajuanItem({ item, isLast }: PengajuanItemProps) {
       >
         {/* File Icon */}
         <View style={[styles.fileIcon, { backgroundColor: c.primaryBg }]}>
-          <Text style={styles.fileEmoji}>📋</Text>
+          <FontAwesomeIcon icon={Icons.note} size={20} color={noteColor} />
         </View>
 
         {/* Info */}
@@ -97,7 +100,7 @@ function PengajuanItem({ item, isLast }: PengajuanItemProps) {
   );
 }
 
-// ── Main Component ────────────────────────────────────────────────
+// Main Component
 
 interface PengajuanTerbaruProps {
   data?: Pengajuan[];
