@@ -3,6 +3,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { Colors, Spacing } from "@/constants/theme";
 
+// Components
+import { HomeHeader } from "@/components/home/home-header";
+import { SearchBar } from "@/components/home/search-bar";
+import { StatsSummaryCard } from "@/components/home/stats-summary-card";
+import { LayananCepat } from "@/components/home/layanan-cepat";
+import { PengajuanTerbaru } from "@/components/home/pengajuan-terbaru";
+
 export default function HomeScreen() {
   const scheme = (useColorScheme() ?? "light") as "light" | "dark";
   const c = Colors[scheme];
@@ -19,23 +26,23 @@ export default function HomeScreen() {
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        {/*Blue Header Zone*/}
+        {/* ── Blue Header Zone ── */}
         <View style={[styles.headerZone, { backgroundColor: c.primary }]}>
-          {/* <HomeHeader hasUnreadNotif />
-          <SearchBar /> */}
+          <HomeHeader hasUnreadNotif />
+          <SearchBar />
 
           {/* Extra padding bawah supaya card bisa overlap */}
           <View style={{ height: Spacing.xl }} />
         </View>
 
-        {/*Body Zone*/}
+        {/* ── Body Zone ── */}
         <View style={styles.body}>
           {/* Stats card overlap ke header biru */}
-          {/* <StatsSummaryCard diproses={2} menunggu={1} selesai={5} />
+          <StatsSummaryCard diproses={2} menunggu={1} selesai={5} />
 
           <LayananCepat />
 
-          <PengajuanTerbaru /> */}
+          <PengajuanTerbaru />
         </View>
       </ScrollView>
     </SafeAreaView>
