@@ -46,12 +46,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (userData: AuthUser) => {
-    await AsyncStorage.setItem(AUTH_KEY, JSON.stringify(userData));
+    try {
+      await AsyncStorage.setItem(AUTH_KEY, JSON.stringify(userData));
+    } catch {
+      // For development flow, still allow navigation even if persistence fails.
+    }
     setUser(userData);
   };
 
   const logout = async () => {
-    await AsyncStorage.removeItem(AUTH_KEY);
+    try {
+      await AsyncStorage.removeItem(AUTH_KEY);
+    } catch {
+      // Ignore storage failures during development.
+    }
     setUser(null);
   };
 

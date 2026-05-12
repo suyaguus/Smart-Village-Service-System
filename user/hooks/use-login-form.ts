@@ -13,6 +13,12 @@ interface FormErrors {
   general?: string;
 }
 
+export const MOCK_ACCOUNT = {
+  nik: "1212121212121212",
+  password: "11111111",
+  nama: "Budi Santoso",
+};
+
 export function useLoginForm() {
   const { login } = useAuth();
   const [errors, setErrors] = useState<FormErrors>({});
@@ -40,11 +46,18 @@ export function useLoginForm() {
     setIsSubmitting(true);
 
     try {
-      // TODO: Ganti dengan API call ke backend
       await new Promise((res) => setTimeout(res, 1000));
 
+      if (
+        values.nik !== MOCK_ACCOUNT.nik ||
+        values.password !== MOCK_ACCOUNT.password
+      ) {
+        setErrors({ general: "NIK atau kata sandi salah." });
+        return;
+      }
+
       // Simpan user via AuthContext (yang handle AsyncStorage)
-      await login({ nik: values.nik, nama: "Budi Santoso" });
+      await login({ nik: MOCK_ACCOUNT.nik, nama: MOCK_ACCOUNT.nama });
 
       router.replace("/(tabs)");
     } catch {

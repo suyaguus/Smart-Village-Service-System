@@ -14,7 +14,7 @@ import {
 import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useColorScheme } from "@/hooks/use-color-scheme";
-import { useLoginForm } from "@/hooks/use-login-form";
+import { MOCK_ACCOUNT, useLoginForm } from "@/hooks/use-login-form";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { Icons, getIconColor } from "@/constants/icons";
 import {
@@ -30,8 +30,8 @@ export default function LoginScreen() {
   const scheme = (useColorScheme() ?? "light") as "light" | "dark";
   const c = Colors[scheme];
 
-  const [nik, setNik] = useState("");
-  const [password, setPassword] = useState("");
+  const [nik, setNik] = useState(MOCK_ACCOUNT.nik);
+  const [password, setPassword] = useState(MOCK_ACCOUNT.password);
   const [showPassword, setShowPassword] = useState(false);
   const { errors, isSubmitting, handleSubmit, clearError } = useLoginForm();
 
