@@ -20,3 +20,5 @@ npm i -g @nestjs/cli
 ├── ubah gitignore menjadi /src/generated/prisma
 ├── npx prisma db push
 ├── pnpm dlx @nestjs/cli generate resource (NAMA-SERVICE) (REST API / CRUD[YES])
+
+testing
