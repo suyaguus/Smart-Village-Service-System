@@ -21,6 +21,13 @@ export default function PengaduanPage() {
           ))}
         </div>
        </aside>
+
+       <article className="w-2/3 flex flex-col" aria-label="Detail Percakapan Pengaduan">
+       <header className="p-6 border-b border-[#D6E6F2] bg-[#F7FBFC]">
+          <h3 className="text-xl font-bold text-slate-800">{selected.judul}</h3>
+          <p className="text-sm text-slate-500">Oleh: {selected.user} • <time dateTime={selected.tanggal}>{selected.tanggal}</time></p>
+        </header>
+       </article>
     </section>
   );
 }
