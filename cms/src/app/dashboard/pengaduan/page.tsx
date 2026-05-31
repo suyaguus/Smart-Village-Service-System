@@ -34,7 +34,12 @@ export default function PengaduanPage() {
             <div className="bg-white border border-[#D6E6F2] p-4 rounded-xl rounded-tl-none max-w-md"><p className="text-sm">{selected.deskripsi}</p></div>
           </div>
         </section>
-        
+
+        <footer className="p-4 border-t border-[#D6E6F2] bg-white flex gap-2">
+          <button aria-label="Lampirkan File" className="p-2 text-slate-400 hover:text-[#769FCD] transition-colors"><Paperclip className="w-5 h-5" /></button>
+          <input type="text" aria-label="Ketikan pesan balasan" placeholder="Balas pengaduan..." className="flex-1 border border-[#B9D7EA] rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-[#769FCD]" />
+          <button className="px-4 py-2 bg-[#769FCD] text-white rounded-lg flex items-center gap-2 hover:bg-[#6086b3] transition-colors"><Send className="w-4 h-4" aria-hidden="true" /> Kirim</button>
+        </footer>
        </article>
     </section>
   );
