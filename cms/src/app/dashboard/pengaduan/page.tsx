@@ -27,6 +27,14 @@ export default function PengaduanPage() {
           <h3 className="text-xl font-bold text-slate-800">{selected.judul}</h3>
           <p className="text-sm text-slate-500">Oleh: {selected.user} • <time dateTime={selected.tanggal}>{selected.tanggal}</time></p>
         </header>
+
+         <section className="flex-1 p-6 overflow-y-auto bg-slate-50" aria-label="Isi Pesan">
+          <div className="flex gap-3">
+            <div className="w-8 h-8 rounded-full bg-slate-200" aria-hidden="true"></div>
+            <div className="bg-white border border-[#D6E6F2] p-4 rounded-xl rounded-tl-none max-w-md"><p className="text-sm">{selected.deskripsi}</p></div>
+          </div>
+        </section>
+        
        </article>
     </section>
   );
