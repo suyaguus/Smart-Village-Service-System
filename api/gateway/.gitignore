@@ -53,3 +53,5 @@ Thumbs.db
 pnpm-debug.log
 
 /src/generated/prisma
+
+/generated/prisma
