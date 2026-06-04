@@ -26,5 +26,8 @@ export class AuthService {
         },
       });
     }
+
+    // membuat payload untuk token JWT
+    const payload: JwtPayload = { username: dto.username };
   }
 }
