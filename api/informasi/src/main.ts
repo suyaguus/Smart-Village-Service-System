@@ -26,6 +26,7 @@ async function bootstrap() {
     prefix: '/uploads',
   });
 
-  await app.listen(process.env.PORT ?? 3006);
+  // menambahkan ip address untuk listen
+  await app.listen(process.env.PORT!, 'localhost');
 }
 void bootstrap();
