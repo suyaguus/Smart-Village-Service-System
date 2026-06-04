@@ -29,5 +29,24 @@ export class AuthService {
 
     // membuat payload untuk token JWT
     const payload: JwtPayload = { username: dto.username };
+
+    // kirimkan response dengan token JWT yang sudah dibuat
+    return {
+      success: true,
+      message: 'Login berhasil.',
+      metadata: {
+        status: HttpStatus.CREATED,
+      },
+      data: {
+        access_token: this.jwtService.sign(payload, {
+          secret: process.env.JWT_ACCESS_SECRET,
+        }),
+        refresh_token: this.jwtService.sign(payload, {
+          secret: process.env.JWT_REFRESH_SECRET,
+          expiresIn: '7d',
+        }),
+        type: 'Bearer',
+      },
+    };
   }
 }
