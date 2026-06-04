@@ -49,4 +49,10 @@ export class AuthService {
       },
     };
   }
+
+  //   refresh
+  refresh(user: JwtPayload) {
+    // membuat payload untuk token JWT
+    const payload: JwtPayload = { username: user.username };
+  }
 }
