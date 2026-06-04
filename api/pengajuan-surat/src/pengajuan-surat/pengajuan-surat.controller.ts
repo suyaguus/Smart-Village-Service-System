@@ -9,12 +9,16 @@ import {
   ParseUUIDPipe,
   BadRequestException,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { PengajuanSuratService } from './pengajuan-surat.service';
 import { CreatePengajuanSuratDto } from './dto/create-pengajuan-surat.dto';
 import { UpdateStatusDto } from './dto/update-pengajuan-surat.dto';
+import { InternalGuard } from 'src/internal.guard';
 
 @Controller('pengajuan-surat')
+// oleh service lain dengan secret tertentu
+@UseGuards(InternalGuard)
 export class PengajuanSuratController {
   constructor(private readonly pengajuanSuratService: PengajuanSuratService) {}
 
