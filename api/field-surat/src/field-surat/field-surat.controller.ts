@@ -9,10 +9,12 @@ import {
   HttpStatus,
   BadRequestException,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { FieldSuratService } from './field-surat.service';
 import { CreateFieldSuratDto } from './dto/create-field-surat.dto';
 import { UpdateFieldSuratDto } from './dto/update-field-surat.dto';
+import { InternalGuard } from 'src/internal.guard';
 
 // custom ParseIntPipe untuk override pesan error default
 const IntParam = new ParseIntPipe({
@@ -26,6 +28,9 @@ const IntParam = new ParseIntPipe({
 });
 
 @Controller('field-surat')
+// menambahkan guard internal untuk mengamankan endpoint ini agar hanya bisa diakses
+// oleh service lain dengan secret tertentu
+@UseGuards(InternalGuard)
 export class FieldSuratController {
   constructor(private readonly fieldSuratService: FieldSuratService) {}
 
