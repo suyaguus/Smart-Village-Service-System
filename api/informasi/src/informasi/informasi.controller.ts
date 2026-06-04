@@ -11,11 +11,13 @@ import {
   ParseIntPipe,
   UploadedFile,
   UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { InformasiService } from './informasi.service';
 import { CreateInformasiDto } from './dto/create-informasi.dto';
 import { UpdateInformasiDto } from './dto/update-informasi.dto';
+import { InternalGuard } from 'src/internal.guard';
 
 // membuat custom ParseIntPipe untuk override pesan error default
 const IntParam = (property: string) =>
@@ -32,6 +34,9 @@ const IntParam = (property: string) =>
   );
 
 @Controller('informasi')
+// menambahkan guard internal untuk mengamankan endpoint ini agar hanya bisa diakses
+// oleh service lain dengan secret tertentu
+@UseGuards(InternalGuard)
 export class InformasiController {
   constructor(private readonly informasiService: InformasiService) {}
 
