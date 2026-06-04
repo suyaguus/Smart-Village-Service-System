@@ -40,6 +40,7 @@ export class AuthService {
       data: {
         access_token: this.jwtService.sign(payload, {
           secret: process.env.JWT_ACCESS_SECRET,
+          expiresIn: '1m',
         }),
         refresh_token: this.jwtService.sign(payload, {
           secret: process.env.JWT_REFRESH_SECRET,
@@ -65,7 +66,7 @@ export class AuthService {
       data: {
         access_token: this.jwtService.sign(payload, {
           secret: process.env.JWT_ACCESS_SECRET,
-          expiresIn: '15m',
+          expiresIn: '1m',
         }),
       },
     };
