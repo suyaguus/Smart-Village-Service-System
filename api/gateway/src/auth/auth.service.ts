@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthDto } from './dto/auth.dto';
 
@@ -14,8 +14,17 @@ export class AuthService {
   login(dto: AuthDto) {
     // validasi username dan password
     if (
-        dto.username !== process.env.ADMIN_USERNAME ||
-        dto.password !== process.env.ADMIN_PASSWORD
-    )
+      dto.username !== process.env.ADMIN_USERNAME ||
+      dto.password !== process.env.ADMIN_PASSWORD
+    ) {
+      // jika username atau password salah, lempar exception dengan pesan error yang sesuai
+      throw new BadRequestException({
+        success: false,
+        message: 'Username atau password salah.',
+        metadata: {
+          status: HttpStatus.BAD_REQUEST,
+        },
+      });
+    }
   }
 }
