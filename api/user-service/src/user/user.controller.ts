@@ -9,10 +9,12 @@ import {
   Delete,
   ParseIntPipe,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { InternalGuard } from 'src/internal.guard';
 
 // custom ParseIntPipe untuk override pesan error default
 const IntParam = new ParseIntPipe({
@@ -26,6 +28,9 @@ const IntParam = new ParseIntPipe({
 });
 
 @Controller('user')
+// menambahkan guard internal untuk mengamankan endpoint ini agar hanya bisa diakses
+// oleh service lain dengan secret tertentu
+@UseGuards(InternalGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
