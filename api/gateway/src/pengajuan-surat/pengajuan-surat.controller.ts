@@ -1,9 +1,15 @@
-import { Controller, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
-import { FieldSuratService } from 'src/field-surat/field-surat.service';
+import { PengajuanSuratService } from './pengajuan-surat.service';
 
 @Controller('pengajuan-surat')
 @UseGuards(JwtAccessGuard)
 export class PengajuanSuratController {
-  constructor(private readonly fieldSuratService: FieldSuratService) {}
+  constructor(private readonly pengajuanSuratService: PengajuanSuratService) {}
+
+  //   method post
+  @Post()
+  create(@Body() body: unknown) {
+    return this.pengajuanSuratService.create(body);
+  }
 }
