@@ -38,4 +38,10 @@ export class FieldSuratService {
     );
     return response.data;
   }
+
+  //   method remove
+  async remove(id: number): Promise<ServiceResponse> {
+    const response = await field_surat_api.delete<ServiceResponse>(`/${id}`);
+    return response.data;
+  }
 }
