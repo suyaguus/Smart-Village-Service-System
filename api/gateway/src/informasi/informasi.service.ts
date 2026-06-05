@@ -33,4 +33,25 @@ export class InformasiService {
     const response = await informasi_api.delete<ServiceResponse>(`/${id}`);
     return response.data;
   }
+
+  //   method add foto
+  async addFoto(
+    id: number,
+    file: Express.Multer.File,
+  ): Promise<ServiceResponse> {
+    const form = new FormData();
+    form.append('foto', file.buffer, {
+      filename: file.originalname,
+      contentType: file.mimetype,
+    });
+
+    const response = await informasi_api.post<ServiceResponse>(
+      `/${id}/foto`,
+      form,
+      {
+        headers: form.getHeaders(),
+      },
+    );
+    return response.data;
+  }
 }
