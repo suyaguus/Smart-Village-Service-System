@@ -54,4 +54,12 @@ export class InformasiService {
     );
     return response.data;
   }
+
+  //   method remove foto
+  async removeFoto(id: number, foto_id: number): Promise<ServiceResponse> {
+    const response = await informasi_api.delete<ServiceResponse>(
+      `/${id}/foto/${foto_id}`,
+    );
+    return response.data;
+  }
 }
