@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
 import { JenisSuratService } from './jenis-surat.service';
 
@@ -11,5 +11,11 @@ export class JenisSuratController {
   @Post()
   create(@Body() body: unknown) {
     return this.jenisSuratService.create(body);
+  }
+
+  //   method get
+  @Get()
+  findAll() {
+    return this.jenisSuratService.findAll();
   }
 }
