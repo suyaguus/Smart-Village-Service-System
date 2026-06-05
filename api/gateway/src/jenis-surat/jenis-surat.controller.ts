@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -31,5 +32,11 @@ export class JenisSuratController {
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.jenisSuratService.findOne(id);
+  }
+
+  //   method patch
+  @Patch(':id')
+  update(@Param('id', ParseIntPipe) id: number, @Body() body: unknown) {
+    return this.jenisSuratService.update(id, body);
   }
 }
