@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
 import { InformasiService } from './informasi.service';
 
@@ -7,9 +7,15 @@ import { InformasiService } from './informasi.service';
 export class InformasiController {
   constructor(private readonly informasiService: InformasiService) {}
 
-  //   method get
+  //   method post
   @Post()
   create(@Body() body: unknown) {
     return this.informasiService.create(body);
+  }
+
+  //   method get
+  @Get()
+  findAll() {
+    return this.informasiService.findAll();
   }
 }
