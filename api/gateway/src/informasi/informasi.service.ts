@@ -15,4 +15,10 @@ export class InformasiService {
     const response = await informasi_api.get<ServiceResponse>('/');
     return response.data;
   }
+
+  //   method findOne
+  async findOne(id: number): Promise<ServiceResponse> {
+    const response = await informasi_api.get<ServiceResponse>(`/${id}`);
+    return response.data;
+  }
 }
