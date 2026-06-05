@@ -40,6 +40,12 @@ export class UserController {
   }
 
   @UseGuards(InternalGuard)
+  @Post('find-by-email')
+  findByEmail(@Body('email') email: string) {
+    return this.userService.findByEmail(email);
+  }
+
+  @UseGuards(InternalGuard)
   @Get()
   findAll() {
     return this.userService.findAll();
