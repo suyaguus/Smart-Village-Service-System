@@ -13,7 +13,6 @@ import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
 import { UserService } from './user.service';
 
 @Controller('user')
-@UseGuards(JwtAccessGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -24,24 +23,28 @@ export class UserController {
   }
 
   //   method get
+  @UseGuards(JwtAccessGuard)
   @Get()
   findAll() {
     return this.userService.findAll();
   }
 
   //   method get by id
+  @UseGuards(JwtAccessGuard)
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.userService.findOne(id);
   }
 
   //   method patch
+  @UseGuards(JwtAccessGuard)
   @Patch(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() body: unknown) {
     return this.userService.update(id, body);
   }
 
   //   method delete
+  @UseGuards(JwtAccessGuard)
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.userService.remove(id);
