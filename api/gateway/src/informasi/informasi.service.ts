@@ -9,4 +9,10 @@ export class InformasiService {
     const response = await informasi_api.post<ServiceResponse>('/', body);
     return response.data;
   }
+
+  //   method findAll
+  async findAll(): Promise<ServiceResponse> {
+    const response = await informasi_api.get<ServiceResponse>('/');
+    return response.data;
+  }
 }
