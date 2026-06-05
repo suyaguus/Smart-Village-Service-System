@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   ParseUUIDPipe,
+  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -37,5 +38,11 @@ export class PengajuanSuratController {
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.pengajuanSuratService.findOne(id);
+  }
+
+  //   method update status pengajuan surat
+  @Patch(':id/status')
+  updateStatus(@Param('id', ParseUUIDPipe) id: string, @Body() body: unknown) {
+    return this.pengajuanSuratService.updateStatus(id, body);
   }
 }
