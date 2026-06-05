@@ -29,4 +29,13 @@ export class PengajuanSuratService {
     const response = await pengajuan_surat_api.get<ServiceResponse>(`/${id}`);
     return response.data;
   }
+
+  //   method update status pengajuan surat
+  async updateStatus(id: string, body: unknown): Promise<ServiceResponse> {
+    const response = await pengajuan_surat_api.patch<ServiceResponse>(
+      `/${id}/status`,
+      body,
+    );
+    return response.data;
+  }
 }
