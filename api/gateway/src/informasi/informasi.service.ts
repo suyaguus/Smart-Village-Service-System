@@ -27,4 +27,10 @@ export class InformasiService {
     const response = await informasi_api.patch<ServiceResponse>(`/${id}`, body);
     return response.data;
   }
+
+  //   method remove
+  async remove(id: number): Promise<ServiceResponse> {
+    const response = await informasi_api.delete<ServiceResponse>(`/${id}`);
+    return response.data;
+  }
 }
