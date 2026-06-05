@@ -38,4 +38,13 @@ export class PengaduanService {
     );
     return response.data;
   }
+
+  //   method create respon feedback
+  async createRespon(id: number, body: unknown): Promise<ServiceResponse> {
+    const response = await pengaduan_api.post<ServiceResponse>(
+      `/${id}/respon`,
+      body,
+    );
+    return response.data;
+  }
 }
