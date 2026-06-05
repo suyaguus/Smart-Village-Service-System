@@ -1,16 +1,20 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
-  Param,
-  ParseIntPipe,
-  Patch,
   Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
   UseGuards,
+  ParseIntPipe,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
-import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
 import { InformasiService } from './informasi.service';
+import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
 
 @Controller('informasi')
 @UseGuards(JwtAccessGuard)
@@ -45,5 +49,15 @@ export class InformasiController {
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.informasiService.remove(id);
+  }
+
+  //   method add foto
+  @Post(':id/foto')
+  @UseInterceptors(FileInterceptor('foto', { storage: memoryStorage() }))
+  addFoto(
+    @Param('id', ParseIntPipe) id: number,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.informasiService.addFoto(id, file);
   }
 }
