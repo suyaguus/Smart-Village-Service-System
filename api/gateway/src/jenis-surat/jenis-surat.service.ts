@@ -9,4 +9,10 @@ export class JenisSuratService {
     const response = await jenis_surat_api.post<ServiceResponse>('/', body);
     return response.data;
   }
+
+  //   method findAll
+  async findAll(): Promise<ServiceResponse> {
+    const response = await jenis_surat_api.get<ServiceResponse>('/');
+    return response.data;
+  }
 }
