@@ -20,4 +20,10 @@ export class UserService {
     const response = await user_api.get(`/${id}`);
     return response.data;
   }
+
+  //   buat fungsi update
+  async update(id: number, body: unknown) {
+    const response = await user_api.patch(`/${id}`, body);
+    return response.data;
+  }
 }
