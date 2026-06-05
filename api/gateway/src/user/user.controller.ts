@@ -40,4 +40,10 @@ export class UserController {
   update(@Param('id', ParseIntPipe) id: number, @Body() body: unknown) {
     return this.userService.update(id, body);
   }
+
+  //   method delete
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.userService.remove(id);
+  }
 }
