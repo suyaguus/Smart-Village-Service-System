@@ -15,4 +15,12 @@ export class PengaduanService {
     const response = await pengaduan_api.get<ServiceResponse>('/');
     return response.data;
   }
+
+  //   method find by user
+  async findByUser(user_id: string): Promise<ServiceResponse> {
+    const response = await pengaduan_api.get<ServiceResponse>(
+      `/user/${user_id}`,
+    );
+    return response.data;
+  }
 }
