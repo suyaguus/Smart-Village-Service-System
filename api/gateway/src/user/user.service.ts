@@ -14,4 +14,10 @@ export class UserService {
     const response = await user_api.get('/');
     return response.data;
   }
+
+  // buat fungsi findOne
+  async findOne(id: number) {
+    const response = await user_api.get(`/${id}`);
+    return response.data;
+  }
 }
