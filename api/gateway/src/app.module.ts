@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module';
 import { JenisSuratModule } from './jenis-surat/jenis-surat.module';
 import { FieldSuratModule } from './field-surat/field-surat.module';
 import { PengajuanSuratModule } from './pengajuan-surat/pengajuan-surat.module';
+import { PengaduanModule } from './pengaduan/pengaduan.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { PengajuanSuratModule } from './pengajuan-surat/pengajuan-surat.module';
     JenisSuratModule,
     FieldSuratModule,
     PengajuanSuratModule,
+    PengaduanModule,
   ],
   controllers: [AppController],
   providers: [AppService],
