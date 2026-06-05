@@ -15,4 +15,10 @@ export class JenisSuratService {
     const response = await jenis_surat_api.get<ServiceResponse>('/');
     return response.data;
   }
+
+  //   method findOne
+  async findOne(id: number): Promise<ServiceResponse> {
+    const response = await jenis_surat_api.get<ServiceResponse>(`/${id}`);
+    return response.data;
+  }
 }
