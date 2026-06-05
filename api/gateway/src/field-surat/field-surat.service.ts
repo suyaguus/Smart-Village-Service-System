@@ -29,4 +29,13 @@ export class FieldSuratService {
     const response = await field_surat_api.get<ServiceResponse>(`/${id}`);
     return response.data;
   }
+
+  //   method update
+  async update(id: number, body: unknown): Promise<ServiceResponse> {
+    const response = await field_surat_api.patch<ServiceResponse>(
+      `/${id}`,
+      body,
+    );
+    return response.data;
+  }
 }
