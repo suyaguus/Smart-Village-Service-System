@@ -5,9 +5,16 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { JenisSuratModule } from './jenis-surat/jenis-surat.module';
 import { FieldSuratModule } from './field-surat/field-surat.module';
+import { PengajuanSuratModule } from './pengajuan-surat/pengajuan-surat.module';
 
 @Module({
-  imports: [AuthModule, UserModule, JenisSuratModule, FieldSuratModule],
+  imports: [
+    AuthModule,
+    UserModule,
+    JenisSuratModule,
+    FieldSuratModule,
+    PengajuanSuratModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
