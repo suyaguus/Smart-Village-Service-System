@@ -15,4 +15,12 @@ export class FieldSuratService {
     const response = await field_surat_api.get<ServiceResponse>('/');
     return response.data;
   }
+
+  //   method find by jenis-surat
+  async findByJenisSurat(jenis_surat_id: number): Promise<ServiceResponse> {
+    const response = await field_surat_api.get<ServiceResponse>(
+      `/jenis-surat/${jenis_surat_id}`,
+    );
+    return response.data;
+  }
 }
