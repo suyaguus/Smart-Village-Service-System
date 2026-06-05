@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
 import { PengajuanSuratService } from './pengajuan-surat.service';
 
@@ -17,5 +17,11 @@ export class PengajuanSuratController {
   @Get()
   findAll() {
     return this.pengajuanSuratService.findAll();
+  }
+
+  //   method get by user_id
+  @Get('user/:user_id')
+  findByUser(@Param('user_id') user_id: string) {
+    return this.pengajuanSuratService.findByUser(user_id);
   }
 }
