@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
 import { PengaduanService } from './pengaduan.service';
 
@@ -23,5 +31,11 @@ export class PengaduanController {
   @Get('user/:user_id')
   findByUser(@Param('user_id') user_id: string) {
     return this.pengaduanService.findByUser(user_id);
+  }
+
+  //   method get by id
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.pengaduanService.findOne(id);
   }
 }
