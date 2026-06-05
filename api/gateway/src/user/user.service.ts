@@ -1,13 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { user_api } from 'src/common/axios/user.axios';
-
-// interface response dari user-service
-interface ServiceResponse {
-  success: boolean;
-  message: string;
-  metadata: { status: number; total_data?: number };
-  data?: unknown;
-}
+import { ServiceResponse } from 'src/common/interfaces/service-response.interface';
 
 @Injectable()
 export class UserService {
