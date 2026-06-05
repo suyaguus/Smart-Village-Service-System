@@ -9,4 +9,10 @@ export class FieldSuratService {
     const response = await field_surat_api.post<ServiceResponse>('/', body);
     return response.data;
   }
+
+  //   method findAll
+  async findAll(): Promise<ServiceResponse> {
+    const response = await field_surat_api.get<ServiceResponse>('/');
+    return response.data;
+  }
 }
