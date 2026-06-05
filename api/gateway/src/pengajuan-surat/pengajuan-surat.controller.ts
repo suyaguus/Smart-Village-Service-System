@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseUUIDPipe,
@@ -44,5 +45,11 @@ export class PengajuanSuratController {
   @Patch(':id/status')
   updateStatus(@Param('id', ParseUUIDPipe) id: string, @Body() body: unknown) {
     return this.pengajuanSuratService.updateStatus(id, body);
+  }
+
+  //   method delete
+  @Delete(':id')
+  remove(@Param('id', ParseUUIDPipe) id: string) {
+    return this.pengajuanSuratService.remove(id);
   }
 }
