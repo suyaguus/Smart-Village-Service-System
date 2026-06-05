@@ -29,4 +29,13 @@ export class PengaduanService {
     const response = await pengaduan_api.get<ServiceResponse>(`/${id}`);
     return response.data;
   }
+
+  //   method update status
+  async updateStatus(id: number, body: unknown): Promise<ServiceResponse> {
+    const response = await pengaduan_api.patch<ServiceResponse>(
+      `/${id}/status`,
+      body,
+    );
+    return response.data;
+  }
 }
