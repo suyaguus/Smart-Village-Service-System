@@ -4,9 +4,10 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { JenisSuratModule } from './jenis-surat/jenis-surat.module';
+import { FieldSuratModule } from './field-surat/field-surat.module';
 
 @Module({
-  imports: [AuthModule, UserModule, JenisSuratModule],
+  imports: [AuthModule, UserModule, JenisSuratModule, FieldSuratModule],
   controllers: [AppController],
   providers: [AppService],
 })
