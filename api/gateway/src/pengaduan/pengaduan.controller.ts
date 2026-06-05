@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -37,5 +38,11 @@ export class PengaduanController {
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.pengaduanService.findOne(id);
+  }
+
+  //   method update status
+  @Patch(':id/status')
+  updateStatus(@Param('id', ParseIntPipe) id: number, @Body() body: unknown) {
+    return this.pengaduanService.updateStatus(id, body);
   }
 }
