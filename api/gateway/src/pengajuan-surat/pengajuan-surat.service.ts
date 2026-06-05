@@ -23,4 +23,10 @@ export class PengajuanSuratService {
     );
     return response.data;
   }
+
+  //   method findOne
+  async findOne(id: string): Promise<ServiceResponse> {
+    const response = await pengajuan_surat_api.get<ServiceResponse>(`/${id}`);
+    return response.data;
+  }
 }
