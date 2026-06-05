@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
 import { InformasiService } from './informasi.service';
 
@@ -17,5 +25,11 @@ export class InformasiController {
   @Get()
   findAll() {
     return this.informasiService.findAll();
+  }
+
+  //   method get by id
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.informasiService.findOne(id);
   }
 }
