@@ -57,7 +57,7 @@ export class FieldSuratController {
   }
 
   // menambahkan IntParam, mengganti string > number
-  @Patch(':id/status')
+  @Patch(':id')
   update(
     @Param('id', IntParam) id: number,
     @Body() updateFieldSuratDto: UpdateFieldSuratDto,
