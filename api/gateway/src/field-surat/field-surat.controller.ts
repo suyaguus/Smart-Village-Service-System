@@ -34,4 +34,10 @@ export class FieldSuratController {
   ) {
     return this.fieldSuratService.findByJenisSurat(jenis_surat_id);
   }
+
+  //   method get by id
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.fieldSuratService.findOne(id);
+  }
 }
