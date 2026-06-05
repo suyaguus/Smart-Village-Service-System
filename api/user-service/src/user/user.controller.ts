@@ -39,16 +39,19 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+  @UseGuards(InternalGuard)
   @Get()
   findAll() {
     return this.userService.findAll();
   }
 
+  @UseGuards(InternalGuard)
   @Get(':id')
   findOne(@Param('id', IntParam) id: number) {
     return this.userService.findOne(id);
   }
 
+  @UseGuards(InternalGuard)
   @Patch(':id')
   update(
     @Param('id', IntParam) id: number,
@@ -57,6 +60,7 @@ export class UserController {
     return this.userService.update(id, updateUserDto);
   }
 
+  @UseGuards(InternalGuard)
   @Delete(':id')
   remove(@Param('id', IntParam) id: number) {
     return this.userService.remove(id);
