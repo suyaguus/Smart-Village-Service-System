@@ -60,4 +60,13 @@ export class InformasiController {
   ) {
     return this.informasiService.addFoto(id, file);
   }
+
+  //   method remove foto
+  @Delete(':id/foto/:foto_id')
+  removeFoto(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('foto_id', ParseIntPipe) foto_id: number,
+  ) {
+    return this.informasiService.removeFoto(id, foto_id);
+  }
 }
