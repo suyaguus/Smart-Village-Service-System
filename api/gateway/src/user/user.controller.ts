@@ -34,4 +34,10 @@ export class UserController {
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.userService.findOne(id);
   }
+
+  //   method patch
+  @Patch(':id')
+  update(@Param('id', ParseIntPipe) id: number, @Body() body: unknown) {
+    return this.userService.update(id, body);
+  }
 }
