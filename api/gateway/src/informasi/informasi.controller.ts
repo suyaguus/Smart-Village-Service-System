@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -38,5 +39,11 @@ export class InformasiController {
   @Patch(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() body: unknown) {
     return this.informasiService.update(id, body);
+  }
+
+  //   method delete
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.informasiService.remove(id);
   }
 }
