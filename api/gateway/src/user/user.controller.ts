@@ -1,4 +1,4 @@
-import { Controller, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards } from '@nestjs/common';
 import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
 import { UserService } from './user.service';
 
@@ -6,4 +6,10 @@ import { UserService } from './user.service';
 @UseGuards(JwtAccessGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  //   method post
+  @Post()
+  create(@Body() body: unknown) {
+    return this.userService.create(body);
+  }
 }
