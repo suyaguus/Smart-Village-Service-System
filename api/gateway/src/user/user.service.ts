@@ -26,4 +26,10 @@ export class UserService {
     const response = await user_api.patch(`/${id}`, body);
     return response.data;
   }
+
+  //   buat fungsi remove
+  async remove(id: number) {
+    const response = await user_api.delete(`/${id}`);
+    return response.data;
+  }
 }
