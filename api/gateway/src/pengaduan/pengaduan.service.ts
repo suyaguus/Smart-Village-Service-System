@@ -47,4 +47,10 @@ export class PengaduanService {
     );
     return response.data;
   }
+
+  //   method remove
+  async remove(id: number): Promise<ServiceResponse> {
+    const response = await pengaduan_api.delete<ServiceResponse>(`/${id}`);
+    return response.data;
+  }
 }
