@@ -30,4 +30,10 @@ export class JenisSuratService {
     );
     return response.data;
   }
+
+  //   method remove
+  async remove(id: number): Promise<ServiceResponse> {
+    const response = await jenis_surat_api.delete<ServiceResponse>(`/${id}`);
+    return response.data;
+  }
 }
