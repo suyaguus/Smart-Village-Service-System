@@ -38,4 +38,12 @@ export class PengajuanSuratService {
     );
     return response.data;
   }
+
+  //   method remove
+  async remove(id: string): Promise<ServiceResponse> {
+    const response = await pengajuan_surat_api.delete<ServiceResponse>(
+      `/${id}`,
+    );
+    return response.data;
+  }
 }
