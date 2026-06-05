@@ -23,4 +23,10 @@ export class PengaduanService {
     );
     return response.data;
   }
+
+  //   method findOne
+  async findOne(id: number): Promise<ServiceResponse> {
+    const response = await pengaduan_api.get<ServiceResponse>(`/${id}`);
+    return response.data;
+  }
 }
