@@ -45,4 +45,10 @@ export class PengaduanController {
   updateStatus(@Param('id', ParseIntPipe) id: number, @Body() body: unknown) {
     return this.pengaduanService.updateStatus(id, body);
   }
+
+  //   method create respon feedback
+  @Post(':id/respon')
+  createRespon(@Param('id', ParseIntPipe) id: number, @Body() body: unknown) {
+    return this.pengaduanService.createRespon(id, body);
+  }
 }
