@@ -21,4 +21,10 @@ export class InformasiService {
     const response = await informasi_api.get<ServiceResponse>(`/${id}`);
     return response.data;
   }
+
+  //   method update
+  async update(id: number, body: unknown): Promise<ServiceResponse> {
+    const response = await informasi_api.patch<ServiceResponse>(`/${id}`, body);
+    return response.data;
+  }
 }
