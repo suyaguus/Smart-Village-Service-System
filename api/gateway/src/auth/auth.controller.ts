@@ -4,7 +4,7 @@ import { AuthDto } from './dto/auth.dto';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 
 interface RequestWithUser extends Request {
-  user: { username: string };
+  user: { sub: number | null; email: string; role: string };
 }
 
 @Controller('auth')
