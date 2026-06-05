@@ -1,4 +1,5 @@
-import axios, { InternalAxiosRequestConfig } from 'axios';
+import { HttpException } from '@nestjs/common';
+import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 export const informasi_api = axios.create({
   baseURL: 'http://localhost:3006/api/informasi',
@@ -13,4 +14,25 @@ informasi_api.interceptors.request.use(
   },
   (error) =>
     Promise.reject(error instanceof Error ? error : new Error(String(error))),
+);
+
+// buat interceptor untuk informasi_api
+informasi_api.interceptors.response.use(
+  (response) => response,
+  (error: AxiosError) => {
+    // buat variable untuk response
+    const status = error.response?.status;
+
+    // pesan
+    // const message = error.response?.data?.message;
+    const message = error.response?.data;
+
+    // jika status error (terdfinisi)
+    if (status && message) {
+      throw new HttpException(message, status);
+    }
+
+    // jika status tidak terdefinisi
+    throw new HttpException('Informasi Service Error', 500);
+  },
 );
