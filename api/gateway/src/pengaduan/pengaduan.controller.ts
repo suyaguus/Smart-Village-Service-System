@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -50,5 +51,11 @@ export class PengaduanController {
   @Post(':id/respon')
   createRespon(@Param('id', ParseIntPipe) id: number, @Body() body: unknown) {
     return this.pengaduanService.createRespon(id, body);
+  }
+
+  //   method delete
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.pengaduanService.remove(id);
   }
 }
