@@ -1,4 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { pengajuan_surat_api } from 'src/common/axios/pengajuan-surat.axios';
+import { ServiceResponse } from 'src/common/interfaces/service-response.interface';
 
 @Injectable()
-export class PengajuanSuratService {}
+export class PengajuanSuratService {
+  // method create
+  async create(body: unknown): Promise<ServiceResponse> {
+    const response = await pengajuan_surat_api.post<ServiceResponse>('/', body);
+    return response.data;
+  }
+}
