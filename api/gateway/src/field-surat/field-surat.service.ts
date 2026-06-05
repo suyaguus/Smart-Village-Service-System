@@ -23,4 +23,10 @@ export class FieldSuratService {
     );
     return response.data;
   }
+
+  //   method findOne
+  async findOne(id: number): Promise<ServiceResponse> {
+    const response = await field_surat_api.get<ServiceResponse>(`/${id}`);
+    return response.data;
+  }
 }
