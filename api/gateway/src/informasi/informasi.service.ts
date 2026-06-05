@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { informasi_api } from 'src/common/axios/informasi.axios';
 import { ServiceResponse } from 'src/common/interfaces/service-response.interface';
+// import FormData using require-style to match declaration (export = FormData)
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+import FormData = require('form-data');
 
 @Injectable()
 export class InformasiService {
