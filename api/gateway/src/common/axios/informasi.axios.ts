@@ -2,7 +2,7 @@ import { HttpException } from '@nestjs/common';
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 export const informasi_api = axios.create({
-  baseURL: 'http://localhost:3006/api/informasi',
+  baseURL: process.env.INFORMASI_SERVICE_URL!,
   timeout: 5000,
 });
 
