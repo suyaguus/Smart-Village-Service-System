@@ -4,14 +4,12 @@ import { HttpException } from '@nestjs/common';
 import { user_api } from 'src/common/axios/user.axios';
 import { pengaduan_api } from 'src/common/axios/pengaduan.axios';
 import { ServiceResponse } from 'src/common/interfaces/service-response.interface';
+import { CreatePengaduanDto } from './dto/create-pengaduan.dto';
 
 @Injectable()
 export class PengaduanService {
   // method create
-  async create(body: {
-    user_id?: string | number;
-    [key: string]: unknown;
-  }): Promise<ServiceResponse> {
+  async create(body: CreatePengaduanDto): Promise<ServiceResponse> {
     const maybe = body.user_id;
     if (maybe === undefined || maybe === null || maybe === '')
       throw new BadRequestException('user_id is required');
@@ -36,10 +34,7 @@ export class PengaduanService {
       throw err;
     }
 
-    const response = await pengaduan_api.post<ServiceResponse>(
-      '/',
-      body as any,
-    );
+    const response = await pengaduan_api.post<ServiceResponse>('/', body);
     return response.data;
   }
 
