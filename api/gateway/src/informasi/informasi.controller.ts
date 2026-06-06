@@ -23,7 +23,7 @@ export class InformasiController {
 
   //   method post
   @Post()
-  create(@Body() body: unknown) {
+  create(@Body() body: { admin_id?: string | number; [key: string]: unknown }) {
     return this.informasiService.create(body);
   }
 

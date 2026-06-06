@@ -1,5 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import axios from 'axios';
+import { HttpException } from '@nestjs/common';
 import { user_api } from 'src/common/axios/user.axios';
 import { pengaduan_api } from 'src/common/axios/pengaduan.axios';
 import { ServiceResponse } from 'src/common/interfaces/service-response.interface';
@@ -8,22 +9,30 @@ import { ServiceResponse } from 'src/common/interfaces/service-response.interfac
 export class PengaduanService {
   // method create
   async create(body: {
-    user_id?: string;
+    user_id?: string | number;
     [key: string]: unknown;
   }): Promise<ServiceResponse> {
     const maybe = body.user_id;
-    if (!maybe || typeof maybe !== 'string')
-      throw new BadRequestException('ID User Tidak Ditemukan!');
+    if (maybe === undefined || maybe === null || maybe === '')
+      throw new BadRequestException('user_id is required');
+    const userId = String(maybe);
 
     try {
-      await user_api.get(`/${maybe}`);
+      await user_api.get(`/${userId}`);
     } catch (err: unknown) {
-      // narrow unknown to AxiosError safely
       if (axios.isAxiosError(err)) {
         if (err.response?.status === 404) {
           throw new BadRequestException('ID User Tidak Ditemukan!');
         }
       }
+
+      if (err instanceof HttpException) {
+        const status = err.getStatus();
+        if (status === 404)
+          throw new BadRequestException('ID User Tidak Ditemukan!');
+        throw err;
+      }
+
       throw err;
     }
 

@@ -1,4 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
+import axios from 'axios';
+import { HttpException } from '@nestjs/common';
+import { user_api } from 'src/common/axios/user.axios';
 import { informasi_api } from 'src/common/axios/informasi.axios';
 import { ServiceResponse } from 'src/common/interfaces/service-response.interface';
 // import FormData using require-style to match declaration (export = FormData)
@@ -8,8 +11,42 @@ import FormData = require('form-data');
 @Injectable()
 export class InformasiService {
   // method create
-  async create(body: unknown): Promise<ServiceResponse> {
-    const response = await informasi_api.post<ServiceResponse>('/', body);
+  async create(
+    body:
+      | {
+          admin_id?: string | number;
+          [key: string]: unknown;
+        }
+      | undefined,
+  ): Promise<ServiceResponse> {
+    if (!body)
+      throw new BadRequestException('Request body tidak boleh kosong!');
+    const maybe = body.admin_id;
+    if (maybe === undefined || maybe === null || maybe === '')
+      throw new BadRequestException('admin_id is required');
+    const userId = String(maybe);
+
+    try {
+      await user_api.get(`/${userId}`);
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err) && err.response?.status === 404) {
+        throw new BadRequestException('ID User Tidak Ditemukan!');
+      }
+
+      if (err instanceof HttpException) {
+        const status = err.getStatus();
+        if (status === 404)
+          throw new BadRequestException('ID User Tidak Ditemukan!');
+        throw err;
+      }
+
+      throw err;
+    }
+
+    const response = await informasi_api.post<ServiceResponse>(
+      '/',
+      body as any,
+    );
     return response.data;
   }
 
