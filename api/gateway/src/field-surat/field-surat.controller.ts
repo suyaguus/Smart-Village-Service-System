@@ -11,6 +11,8 @@ import {
 } from '@nestjs/common';
 import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
 import { FieldSuratService } from './field-surat.service';
+import { CreateFieldSuratDto } from './dto/create-field-surat.dto';
+import { UpdateFieldSuratDto } from './dto/update-field-surat.dto';
 
 @Controller('field-surat')
 @UseGuards(JwtAccessGuard)
@@ -19,7 +21,7 @@ export class FieldSuratController {
 
   //   method post
   @Post()
-  create(@Body() body: unknown) {
+  create(@Body() body: CreateFieldSuratDto) {
     return this.fieldSuratService.create(body);
   }
 
@@ -45,7 +47,10 @@ export class FieldSuratController {
 
   //   method patch
   @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() body: unknown) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: UpdateFieldSuratDto,
+  ) {
     return this.fieldSuratService.update(id, body);
   }
 
