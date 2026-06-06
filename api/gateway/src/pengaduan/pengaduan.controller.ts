@@ -11,6 +11,9 @@ import {
 } from '@nestjs/common';
 import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
 import { PengaduanService } from './pengaduan.service';
+import { CreatePengaduanDto } from './dto/create-pengaduan.dto';
+import { UpdateStatusPengaduanDto } from './dto/update-status-pengaduan.dto';
+import { CreateResponPengaduanDto } from './dto/create-respon-pengaduan.dto';
 
 @Controller('pengaduan')
 @UseGuards(JwtAccessGuard)
@@ -19,7 +22,7 @@ export class PengaduanController {
 
   //   method post
   @Post()
-  create(@Body() body: { user_id?: string | number; [key: string]: unknown }) {
+  create(@Body() body: CreatePengaduanDto) {
     return this.pengaduanService.create(body);
   }
 
@@ -43,13 +46,19 @@ export class PengaduanController {
 
   //   method update status
   @Patch(':id/status')
-  updateStatus(@Param('id', ParseIntPipe) id: number, @Body() body: unknown) {
+  updateStatus(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: UpdateStatusPengaduanDto,
+  ) {
     return this.pengaduanService.updateStatus(id, body);
   }
 
   //   method create respon feedback
   @Post(':id/respon')
-  createRespon(@Param('id', ParseIntPipe) id: number, @Body() body: unknown) {
+  createRespon(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: CreateResponPengaduanDto,
+  ) {
     return this.pengaduanService.createRespon(id, body);
   }
 
