@@ -15,6 +15,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import { InformasiService } from './informasi.service';
 import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
+import { CreateInformasiDto } from './dto/create-informasi.dto';
+import { UpdateInformasiDto } from './dto/update-informasi.dto';
 
 @Controller('informasi')
 @UseGuards(JwtAccessGuard)
@@ -23,7 +25,7 @@ export class InformasiController {
 
   //   method post
   @Post()
-  create(@Body() body: { admin_id?: string | number; [key: string]: unknown }) {
+  create(@Body() body: CreateInformasiDto) {
     return this.informasiService.create(body);
   }
 
@@ -41,7 +43,10 @@ export class InformasiController {
 
   //   method update
   @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() body: unknown) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: UpdateInformasiDto,
+  ) {
     return this.informasiService.update(id, body);
   }
 
