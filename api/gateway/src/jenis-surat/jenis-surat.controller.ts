@@ -11,6 +11,8 @@ import {
 } from '@nestjs/common';
 import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
 import { JenisSuratService } from './jenis-surat.service';
+import { CreateJenisSuratDto } from './dto/create-jenis-surat.dto';
+import { UpdateJenisSuratDto } from './dto/update-jenis-surat.dto';
 
 @Controller('jenis-surat')
 @UseGuards(JwtAccessGuard)
@@ -19,7 +21,7 @@ export class JenisSuratController {
 
   //   method post
   @Post()
-  create(@Body() body: unknown) {
+  create(@Body() body: CreateJenisSuratDto) {
     return this.jenisSuratService.create(body);
   }
 
@@ -37,7 +39,10 @@ export class JenisSuratController {
 
   //   method patch
   @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() body: unknown) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: UpdateJenisSuratDto,
+  ) {
     return this.jenisSuratService.update(id, body);
   }
 
