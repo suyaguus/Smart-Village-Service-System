@@ -3,7 +3,7 @@ import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 export const jenis_surat_api = axios.create({
-  baseURL: 'http://localhost:3002/api/jenis-surat',
+  baseURL: process.env.JENIS_SURAT_SERVICE_URL!,
   timeout: 5000,
 });
 
