@@ -64,7 +64,8 @@ export class AuthService {
         role: string;
       }>('/find-by-email', { email: dto.email });
       dbUser = response.data;
-    } catch {
+    } catch (err) {
+      console.error('Error dari user-service:', err);
       // user tidak ditemukan atau service error → lanjut ke pesan error bawah
     }
 
