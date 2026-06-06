@@ -4,7 +4,7 @@ import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 export const user_api = axios.create({
-  baseURL: 'http://localhost:3001/api/user',
+  baseURL: process.env.USER_SERVICE_URL!,
   timeout: 5000,
 });
 
