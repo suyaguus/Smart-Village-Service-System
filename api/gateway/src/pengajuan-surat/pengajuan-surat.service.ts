@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { pengajuan_surat_api } from 'src/common/axios/pengajuan-surat.axios';
 import { ServiceResponse } from 'src/common/interfaces/service-response.interface';
+import { CreatePengajuanSuratDto } from './dto/create-pengajuan-surat.dto';
+import { UpdateStatusPengajuanSuratDto } from './dto/update-status-pengajuan-surat.dto';
 
 @Injectable()
 export class PengajuanSuratService {
   // method create
-  async create(body: unknown): Promise<ServiceResponse> {
+  async create(body: CreatePengajuanSuratDto): Promise<ServiceResponse> {
     const response = await pengajuan_surat_api.post<ServiceResponse>('/', body);
     return response.data;
   }
@@ -31,7 +33,10 @@ export class PengajuanSuratService {
   }
 
   //   method update status pengajuan surat
-  async updateStatus(id: string, body: unknown): Promise<ServiceResponse> {
+  async updateStatus(
+    id: string,
+    body: UpdateStatusPengajuanSuratDto,
+  ): Promise<ServiceResponse> {
     const response = await pengajuan_surat_api.patch<ServiceResponse>(
       `/${id}`,
       body,
