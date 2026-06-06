@@ -5,11 +5,10 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import * as fs from 'fs';
-import * as path from 'path';
 import { CreateInformasiDto } from './dto/create-informasi.dto';
 import { UpdateInformasiDto } from './dto/update-informasi.dto';
 import { PrismaService } from 'src/prisma.service';
+import { CloudinaryService } from 'src/common/cloudinary/cloudinary.service';
 import {
   INFORMASI_FOTO_SELECT,
   INFORMASI_LIST_SELECT,
@@ -19,8 +18,11 @@ import { notExistInformasi } from 'src/common/utils/not-exist.util';
 
 @Injectable()
 export class InformasiService {
-  // buat constructor untuk inject PrismaService
-  constructor(private readonly prisma: PrismaService) {}
+  // buat constructor untuk inject PrismaService dan CloudinaryService
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly cloudinary: CloudinaryService,
+  ) {}
 
   // method create
   async create(
@@ -233,19 +235,17 @@ export class InformasiService {
         process.env.NOT_FOUND_MESSAGE ?? '',
       );
 
-      // hapus semua foto dari disk jika ada (via onDelete: Cascade, db otomatis hapus)
+      // hapus semua foto dari Cloudinary sebelum hapus data informasi
       const fotos = await this.prisma.informasiFoto.findMany({
         where: { informasi_id: id },
       });
 
       for (const foto of fotos) {
-        const fotoPath = path.join('uploads', foto.filename);
-        if (fs.existsSync(fotoPath)) {
-          fs.unlinkSync(fotoPath);
-        }
+        // hapus dari Cloudinary menggunakan public_id
+        await this.cloudinary.deleteImage(foto.public_id);
       }
 
-      // hapus data informasi
+      // hapus data informasi (foto di db akan terhapus via onDelete: Cascade)
       await this.prisma.informasi.delete({ where: { id } });
 
       return {
@@ -278,11 +278,18 @@ export class InformasiService {
         process.env.NOT_FOUND_MESSAGE ?? '',
       );
 
-      // simpan foto ke database
+      // upload foto ke Cloudinary menggunakan buffer dari memoryStorage
+      const { url, public_id } = await this.cloudinary.uploadImage(
+        file.buffer,
+        file.mimetype,
+      );
+
+      // simpan url dan public_id ke database
       const data = await this.prisma.informasiFoto.create({
         data: {
           informasi_id: id,
-          filename: file.filename,
+          url,
+          public_id,
         },
         select: INFORMASI_FOTO_SELECT,
       });
@@ -333,11 +340,8 @@ export class InformasiService {
         });
       }
 
-      // hapus file dari disk
-      const fotoPath = path.join('uploads', foto.filename);
-      if (fs.existsSync(fotoPath)) {
-        fs.unlinkSync(fotoPath);
-      }
+      // hapus foto dari Cloudinary menggunakan public_id
+      await this.cloudinary.deleteImage(foto.public_id);
 
       // hapus foto dari database
       await this.prisma.informasiFoto.delete({ where: { id: foto_id } });

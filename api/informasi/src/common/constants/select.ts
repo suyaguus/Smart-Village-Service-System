@@ -10,7 +10,8 @@ export const INFORMASI_SELECT = {
   foto: {
     select: {
       id: true,
-      filename: true,
+      url: true,
+      public_id: true,
       created_at: true,
     },
   },
@@ -26,7 +27,7 @@ export const INFORMASI_LIST_SELECT = {
   foto: {
     select: {
       id: true,
-      filename: true,
+      url: true,
     },
   },
 };
@@ -35,6 +36,7 @@ export const INFORMASI_LIST_SELECT = {
 export const INFORMASI_FOTO_SELECT = {
   id: true,
   informasi_id: true,
-  filename: true,
+  url: true,
+  public_id: true,
   created_at: true,
 };

@@ -1,4 +1,7 @@
 import { HttpException } from '@nestjs/common';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 export const pengaduan_api = axios.create({

@@ -18,7 +18,7 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload, {
         secret: process.env.JWT_ACCESS_SECRET,
-        expiresIn: '5m',
+        expiresIn: '15m',
       }),
       refresh_token: this.jwtService.sign(payload, {
         secret: process.env.JWT_REFRESH_SECRET,
@@ -64,7 +64,8 @@ export class AuthService {
         role: string;
       }>('/find-by-email', { email: dto.email });
       dbUser = response.data;
-    } catch {
+    } catch (err) {
+      console.error('Error dari user-service:', err);
       // user tidak ditemukan atau service error → lanjut ke pesan error bawah
     }
 
@@ -114,7 +115,7 @@ export class AuthService {
       data: {
         access_token: this.jwtService.sign(payload, {
           secret: process.env.JWT_ACCESS_SECRET,
-          expiresIn: '5m',
+          expiresIn: '15m',
         }),
       },
     };

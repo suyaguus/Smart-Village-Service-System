@@ -1,9 +1,12 @@
 import { HttpException } from '@nestjs/common';
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 export const informasi_api = axios.create({
   baseURL: process.env.INFORMASI_SERVICE_URL!,
-  timeout: 5000,
+  timeout: 30000, // dinaikkan ke 30 detik untuk mengakomodasi upload Cloudinary
 });
 
 // buat interceptor untuk request
