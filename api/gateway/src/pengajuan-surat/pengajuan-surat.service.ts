@@ -33,7 +33,7 @@ export class PengajuanSuratService {
   //   method update status pengajuan surat
   async updateStatus(id: string, body: unknown): Promise<ServiceResponse> {
     const response = await pengajuan_surat_api.patch<ServiceResponse>(
-      `/${id}/status`,
+      `/${id}`,
       body,
     );
     return response.data;

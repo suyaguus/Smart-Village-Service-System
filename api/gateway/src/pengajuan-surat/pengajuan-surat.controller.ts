@@ -42,7 +42,7 @@ export class PengajuanSuratController {
   }
 
   //   method update status pengajuan surat
-  @Patch(':id/status')
+  @Patch(':id')
   updateStatus(@Param('id', ParseUUIDPipe) id: string, @Body() body: unknown) {
     return this.pengajuanSuratService.updateStatus(id, body);
   }
