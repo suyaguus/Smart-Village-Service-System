@@ -11,6 +11,8 @@ import {
 } from '@nestjs/common';
 import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
 import { PengajuanSuratService } from './pengajuan-surat.service';
+import { CreatePengajuanSuratDto } from './dto/create-pengajuan-surat.dto';
+import { UpdateStatusPengajuanSuratDto } from './dto/update-status-pengajuan-surat.dto';
 
 @Controller('pengajuan-surat')
 @UseGuards(JwtAccessGuard)
@@ -19,7 +21,7 @@ export class PengajuanSuratController {
 
   //   method post
   @Post()
-  create(@Body() body: unknown) {
+  create(@Body() body: CreatePengajuanSuratDto) {
     return this.pengajuanSuratService.create(body);
   }
 
@@ -43,7 +45,10 @@ export class PengajuanSuratController {
 
   //   method update status pengajuan surat
   @Patch(':id')
-  updateStatus(@Param('id', ParseUUIDPipe) id: string, @Body() body: unknown) {
+  updateStatus(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() body: UpdateStatusPengajuanSuratDto,
+  ) {
     return this.pengajuanSuratService.updateStatus(id, body);
   }
 
