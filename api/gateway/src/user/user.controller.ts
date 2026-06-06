@@ -11,6 +11,8 @@ import {
 } from '@nestjs/common';
 import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
 import { UserService } from './user.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -18,7 +20,7 @@ export class UserController {
 
   //   method post
   @Post()
-  create(@Body() body: unknown) {
+  create(@Body() body: CreateUserDto) {
     return this.userService.create(body);
   }
 
@@ -39,7 +41,7 @@ export class UserController {
   //   method patch
   @UseGuards(JwtAccessGuard)
   @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() body: unknown) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateUserDto) {
     return this.userService.update(id, body);
   }
 
