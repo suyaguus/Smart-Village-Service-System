@@ -2,7 +2,7 @@ import { HttpException } from '@nestjs/common';
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 export const pengajuan_surat_api = axios.create({
-  baseURL: 'http://localhost:3004/api/pengajuan-surat',
+  baseURL: process.env.PENGAJUAN_SURAT_SERVICE_URL!,
   timeout: 5000,
 });
 
