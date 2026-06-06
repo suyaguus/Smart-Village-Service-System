@@ -1,12 +1,36 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
+import axios from 'axios';
+import { user_api } from 'src/common/axios/user.axios';
 import { pengaduan_api } from 'src/common/axios/pengaduan.axios';
 import { ServiceResponse } from 'src/common/interfaces/service-response.interface';
 
 @Injectable()
 export class PengaduanService {
   // method create
-  async create(body: unknown): Promise<ServiceResponse> {
-    const response = await pengaduan_api.post<ServiceResponse>('/', body);
+  async create(body: {
+    user_id?: string;
+    [key: string]: unknown;
+  }): Promise<ServiceResponse> {
+    const maybe = body.user_id;
+    if (!maybe || typeof maybe !== 'string')
+      throw new BadRequestException('ID User Tidak Ditemukan!');
+
+    try {
+      await user_api.get(`/${maybe}`);
+    } catch (err: unknown) {
+      // narrow unknown to AxiosError safely
+      if (axios.isAxiosError(err)) {
+        if (err.response?.status === 404) {
+          throw new BadRequestException('ID User Tidak Ditemukan!');
+        }
+      }
+      throw err;
+    }
+
+    const response = await pengaduan_api.post<ServiceResponse>(
+      '/',
+      body as any,
+    );
     return response.data;
   }
 

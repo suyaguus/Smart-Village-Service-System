@@ -19,7 +19,7 @@ export class PengaduanController {
 
   //   method post
   @Post()
-  create(@Body() body: unknown) {
+  create(@Body() body: { user_id?: string; [key: string]: unknown }) {
     return this.pengaduanService.create(body);
   }
 
