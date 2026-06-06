@@ -4,6 +4,7 @@ import { HttpException } from '@nestjs/common';
 import { user_api } from 'src/common/axios/user.axios';
 import { informasi_api } from 'src/common/axios/informasi.axios';
 import { ServiceResponse } from 'src/common/interfaces/service-response.interface';
+import { CreateInformasiDto } from './dto/create-informasi.dto';
 // import FormData using require-style to match declaration (export = FormData)
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 import FormData = require('form-data');
@@ -11,18 +12,9 @@ import FormData = require('form-data');
 @Injectable()
 export class InformasiService {
   // method create
-  async create(
-    body:
-      | {
-          admin_id?: string | number;
-          [key: string]: unknown;
-        }
-      | undefined,
-  ): Promise<ServiceResponse> {
-    if (!body)
-      throw new BadRequestException('Request body tidak boleh kosong!');
+  async create(body: CreateInformasiDto): Promise<ServiceResponse> {
     const maybe = body.admin_id;
-    if (maybe === undefined || maybe === null || maybe === '')
+    if (!maybe || maybe === '')
       throw new BadRequestException('admin_id is required');
     const userId = String(maybe);
 
@@ -43,10 +35,7 @@ export class InformasiService {
       throw err;
     }
 
-    const response = await informasi_api.post<ServiceResponse>(
-      '/',
-      body as any,
-    );
+    const response = await informasi_api.post<ServiceResponse>('/', body);
     return response.data;
   }
 
