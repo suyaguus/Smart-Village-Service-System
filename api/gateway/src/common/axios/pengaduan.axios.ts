@@ -2,7 +2,7 @@ import { HttpException } from '@nestjs/common';
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 export const pengaduan_api = axios.create({
-  baseURL: 'http://localhost:3005/api/pengaduan',
+  baseURL: process.env.PENGADUAN_SERVICE_URL!,
   timeout: 5000,
 });
 
