@@ -9,11 +9,13 @@ import {
   BadRequestException,
   ParseIntPipe,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { PengaduanService } from './pengaduan.service';
 import { CreatePengaduanDto } from './dto/create-pengaduan.dto';
 import { UpdateStatusDto } from './dto/update-pengaduan.dto';
 import { CreateResponDto } from './dto/create-respon.dto';
+import { InternalGuard } from 'src/internal.guard';
 
 // membuat custom ParseIntPipe untuk override pesan error default
 const IntParam = (property: string) =>
@@ -32,6 +34,9 @@ const IntParam = (property: string) =>
   );
 
 @Controller('pengaduan')
+// menambahkan guard internal untuk mengamankan endpoint ini agar hanya bisa diakses
+// oleh service lain dengan secret tertentu
+@UseGuards(InternalGuard)
 export class PengaduanController {
   constructor(private readonly pengaduanService: PengaduanService) {}
 

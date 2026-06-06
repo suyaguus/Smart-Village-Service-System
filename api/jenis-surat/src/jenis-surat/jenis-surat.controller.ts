@@ -9,10 +9,12 @@ import {
   ParseIntPipe,
   HttpStatus,
   BadRequestException,
+  UseGuards,
 } from '@nestjs/common';
 import { JenisSuratService } from './jenis-surat.service';
 import { CreateJenisSuratDto } from './dto/create-jenis-surat.dto';
 import { UpdateJenisSuratDto } from './dto/update-jenis-surat.dto';
+import { InternalGuard } from 'src/internal.guard';
 
 // custom ParseIntPipe untuk override pesan error default
 const IntParam = new ParseIntPipe({
@@ -28,6 +30,9 @@ const IntParam = new ParseIntPipe({
 });
 
 @Controller('jenis-surat')
+// menambahkan guard internal untuk mengamankan endpoint ini agar hanya bisa diakses
+// oleh service lain dengan secret tertentu
+@UseGuards(InternalGuard)
 export class JenisSuratController {
   constructor(private readonly jenisSuratService: JenisSuratService) {}
 

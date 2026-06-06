@@ -18,6 +18,14 @@ export class UserService {
   // buat constructor untuk inject PrismaService
   constructor(private readonly prisma: PrismaService) {}
 
+  // findByEmail: dipakai auth gateway untuk verifikasi login
+  async findByEmail(email: string) {
+    const data = await this.prisma.user.findUnique({
+      where: { email },
+    });
+    return data; // kembalikan null jika tidak ditemukan
+  }
+
   async create(createUserDto: CreateUserDto) {
     // return 'This action adds a new user';
 
