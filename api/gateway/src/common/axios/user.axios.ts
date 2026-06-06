@@ -2,6 +2,9 @@
 
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 export const user_api = axios.create({
   baseURL: process.env.USER_SERVICE_URL!,
@@ -34,7 +37,8 @@ user_api.interceptors.response.use(
       throw new HttpException(message, status);
     }
 
-    // jika status tidak terdefinisi
+    // jika status tidak terdefinisi (bisa jadi ECONNREFUSED, timeout, dll)
+    console.error(`Axios Error (${error.code}):`, error.message);
     throw new HttpException('User Service Error', 500);
   },
 );
