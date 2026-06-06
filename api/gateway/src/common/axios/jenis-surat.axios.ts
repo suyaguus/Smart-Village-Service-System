@@ -1,5 +1,8 @@
 // buat variable untuk endpoint API jenis-surat
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 export const jenis_surat_api = axios.create({
