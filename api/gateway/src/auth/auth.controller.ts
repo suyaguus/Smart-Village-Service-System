@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Redirect,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
@@ -35,6 +43,7 @@ export class AuthController {
   // google callback setelah di approve
   @UseGuards(GoogleGuard)
   @Get('google/callback')
+  @Redirect()
   async googleCallback(@Req() req: { user: { name: string; email: string } }) {
     // req.user diisi oleh GoogleStrategy.validate()
     const tokens = await this.authService.loginWithGoogle(req.user);
