@@ -49,7 +49,8 @@ export class AuthController {
     const tokens = await this.authService.loginWithGoogle(req.user);
     // redirect ke CMS dengan token di URL
     return {
-      url: `${process.env.CMS_URL}/auth/callback?access_token=${tokens.access_token}&refresh_token=${tokens.refresh_token}`,
+      url: `${process.env.CMS_CALLBACK_URL}?access_token=${tokens.access_token}&refresh_token=${tokens.refresh_token}`,
+      statusCode: 302,
     };
   }
 }
