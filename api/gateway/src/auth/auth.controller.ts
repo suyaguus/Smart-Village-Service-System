@@ -11,6 +11,7 @@ import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { GoogleGuard } from './guards/google.guard';
+import { GoogleMobileGuard } from './guards/google-mobile.guard';
 
 interface RequestWithUser extends Request {
   user: { sub: number | null; email: string; role: string };
@@ -52,5 +53,12 @@ export class AuthController {
       url: `${process.env.CMS_CALLBACK_URL}?access_token=${tokens.access_token}&refresh_token=${tokens.refresh_token}`,
       statusCode: 302,
     };
+  }
+
+  // redirect login dengan google (Mobile)
+  @UseGuards(GoogleMobileGuard)
+  @Get('google/mobile')
+  googleMobileLogin() {
+    // Passport otomatis redirect ke Google
   }
 }
