@@ -1,7 +1,17 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Redirect,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
+import { GoogleGuard } from './guards/google.guard';
+import { GoogleMobileGuard } from './guards/google-mobile.guard';
 
 interface RequestWithUser extends Request {
   user: { sub: number | null; email: string; role: string };
@@ -22,5 +32,48 @@ export class AuthController {
   @Post('refresh')
   refresh(@Req() req: RequestWithUser) {
     return this.authService.refresh(req.user);
+  }
+
+  // redirect login dengan google
+  @UseGuards(GoogleGuard)
+  @Get('google')
+  googleLogin() {
+    // Passport otomatis redirect ke Google, tidak perlu isi apapun di sini
+  }
+
+  // google callback setelah di approve
+  @UseGuards(GoogleGuard)
+  @Get('google/callback')
+  @Redirect()
+  async googleCallback(@Req() req: { user: { name: string; email: string } }) {
+    // req.user diisi oleh GoogleStrategy.validate()
+    const tokens = await this.authService.loginWithGoogle(req.user);
+    // redirect ke CMS dengan token di URL
+    return {
+      url: `${process.env.CMS_CALLBACK_URL}?access_token=${tokens.access_token}&refresh_token=${tokens.refresh_token}`,
+      statusCode: 302,
+    };
+  }
+
+  // redirect login dengan google (Mobile)
+  @UseGuards(GoogleMobileGuard)
+  @Get('google/mobile')
+  googleMobileLogin() {
+    // Passport otomatis redirect ke Google
+  }
+
+  // google callback setelah di approve (Mobile)
+  @UseGuards(GoogleMobileGuard)
+  @Get('google/mobile/callback')
+  @Redirect()
+  async googleMobileCallback(
+    @Req() req: { user: { name: string; email: string } },
+  ) {
+    const tokens = await this.authService.loginWithGoogle(req.user);
+    // redirect ke Expo app via Deep Link
+    return {
+      url: `${process.env.MOBILE_APP_CALLBACK}?access_token=${tokens.access_token}&refresh_token=${tokens.refresh_token}`,
+      statusCode: 302,
+    };
   }
 }

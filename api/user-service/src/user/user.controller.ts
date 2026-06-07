@@ -15,6 +15,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InternalGuard } from 'src/internal.guard';
+import { CreateGoogleUserDto } from './dto/create-google-user.dto';
 
 // custom ParseIntPipe untuk override pesan error default
 const IntParam = new ParseIntPipe({
@@ -70,5 +71,11 @@ export class UserController {
   @Delete(':id')
   remove(@Param('id', IntParam) id: number) {
     return this.userService.remove(id);
+  }
+
+  @UseGuards(InternalGuard)
+  @Post('find-or-create-google')
+  findOrCreateGoogle(@Body() dto: CreateGoogleUserDto) {
+    return this.userService.findOrCreateGoogle(dto);
   }
 }
