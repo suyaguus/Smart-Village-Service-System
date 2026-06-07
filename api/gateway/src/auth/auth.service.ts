@@ -120,4 +120,27 @@ export class AuthService {
       },
     };
   }
+
+  // login dengan google
+  async loginWithGoogle(googleUser: { name: string; email: string }) {
+    // panggil user-service untuk cari atau buat user baru
+    const response = await user_api.post<{
+      id: number;
+      email: string;
+      role: string;
+    }>('/find-or-create-google', {
+      name: googleUser.name,
+      email: googleUser.email,
+    });
+
+    const dbUser = response.data;
+
+    const payload: JwtPayload = {
+      sub: dbUser.id,
+      email: dbUser.email,
+      role: dbUser.role,
+    };
+
+    return this.issueTokens(payload);
+  }
 }
