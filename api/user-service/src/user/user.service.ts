@@ -12,6 +12,7 @@ import * as bcrypt from 'bcrypt';
 import { conflictEmail } from 'src/common/utils/conflict.util';
 import { notExistUser } from 'src/common/utils/not-exist.util';
 import { USER_SELECT } from 'src/common/constants/select';
+import { CreateGoogleUserDto } from './dto/create-google-user.dto';
 
 @Injectable()
 export class UserService {
@@ -312,5 +313,27 @@ export class UserService {
         },
       });
     }
+  }
+
+  // create google user
+  async findOrCreateGoogle(dto: CreateGoogleUserDto) {
+    // cari user berdasarkan email
+    const existing = await this.prisma.user.findUnique({
+      where: { email: dto.email },
+    });
+
+    // jika sudah ada, kembalikan data user
+    if (existing) return existing;
+
+    // jika belum ada, buat user baru (tanpa password & phone)
+    const newUser = await this.prisma.user.create({
+      data: {
+        name: dto.name,
+        email: dto.email,
+        // password dan phone biarkan null
+      },
+    });
+
+    return newUser;
   }
 }
