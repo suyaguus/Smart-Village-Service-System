@@ -31,4 +31,16 @@ export class AuthController {
   googleLogin() {
     // Passport otomatis redirect ke Google, tidak perlu isi apapun di sini
   }
+
+  // google callback setelah di approve
+  @UseGuards(GoogleGuard)
+  @Get('google/callback')
+  async googleCallback(@Req() req: { user: { name: string; email: string } }) {
+    // req.user diisi oleh GoogleStrategy.validate()
+    const tokens = await this.authService.loginWithGoogle(req.user);
+    // redirect ke CMS dengan token di URL
+    return {
+      url: `${process.env.CMS_URL}/auth/callback?access_token=${tokens.access_token}&refresh_token=${tokens.refresh_token}`,
+    };
+  }
 }
