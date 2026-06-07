@@ -61,4 +61,19 @@ export class AuthController {
   googleMobileLogin() {
     // Passport otomatis redirect ke Google
   }
+
+  // google callback setelah di approve (Mobile)
+  @UseGuards(GoogleMobileGuard)
+  @Get('google/mobile/callback')
+  @Redirect()
+  async googleMobileCallback(
+    @Req() req: { user: { name: string; email: string } },
+  ) {
+    const tokens = await this.authService.loginWithGoogle(req.user);
+    // redirect ke Expo app via Deep Link
+    return {
+      url: `${process.env.MOBILE_APP_CALLBACK}?access_token=${tokens.access_token}&refresh_token=${tokens.refresh_token}`,
+      statusCode: 302,
+    };
+  }
 }
