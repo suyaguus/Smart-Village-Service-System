@@ -1,28 +1,21 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-  createElement,
-} from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { login, logout, register, getStoredUser } from '@/services/auth.service';
+import type {
+  User,
+  LoginRequest,
+  CreateUserRequest,
+  LoginResponse,
+} from '@/types';
 
-const AUTH_KEY = "smart_village_auth";
-
-// Types
-
-export interface AuthUser {
-  nik: string;
-  nama: string;
-}
+// Context Type
 
 interface AuthContextValue {
-  user: AuthUser | null;
+  user: User | null;
   isLoggedIn: boolean;
   isLoading: boolean;
-  login: (user: AuthUser) => Promise<void>;
-  logout: () => Promise<void>;
+  signIn: (credentials: LoginRequest) => Promise<LoginResponse>;
+  signOut: () => Promise<void>;
+  signUp: (payload: CreateUserRequest) => Promise<User>;
 }
 
 // Context
@@ -32,41 +25,46 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 // Provider
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<AuthUser | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Restore sesi dari AsyncStorage saat app dibuka
   useEffect(() => {
-    AsyncStorage.getItem(AUTH_KEY)
-      .then((raw) => {
-        if (raw) setUser(JSON.parse(raw));
-      })
+    getStoredUser()
+      .then((u) => setUser(u))
       .catch(() => {})
       .finally(() => setIsLoading(false));
   }, []);
 
-  const login = async (userData: AuthUser) => {
-    try {
-      await AsyncStorage.setItem(AUTH_KEY, JSON.stringify(userData));
-    } catch {
-      // For development flow, still allow navigation even if persistence fails.
-    }
-    setUser(userData);
+  const signIn = async (credentials: LoginRequest): Promise<LoginResponse> => {
+    const response = await login(credentials);
+    setUser(response.user);
+    return response;
   };
 
-  const logout = async () => {
-    try {
-      await AsyncStorage.removeItem(AUTH_KEY);
-    } catch {
-      // Ignore storage failures during development.
-    }
+  const signOut = async () => {
+    await logout();
     setUser(null);
   };
 
-  return createElement(
-    AuthContext.Provider,
-    { value: { user, isLoggedIn: !!user, isLoading, login, logout } },
-    children,
+  const signUp = async (payload: CreateUserRequest): Promise<User> => {
+    return register(payload);
+    // Tidak auto-login setelah register, user harus login manual
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        isLoggedIn: !!user,
+        isLoading,
+        signIn,
+        signOut,
+        signUp,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
 }
 
@@ -74,6 +72,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 export function useAuth(): AuthContextValue {
   const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth harus digunakan di dalam <AuthProvider>");
+  if (!ctx) throw new Error('useAuth harus digunakan di dalam <AuthProvider>');
   return ctx;
 }
