@@ -1,86 +1,175 @@
-// Status Pengajuan 
- 
-export type StatusPengajuan = 'diproses' | 'menunggu' | 'selesai' | 'ditolak';
- 
-// Pengajuan (Surat) 
- 
-export interface Pengajuan {
-  id: string;
-  jenisSurat: string;
-  nomorSurat: string;
-  tanggal: string;
-  jam: string;
-  status: StatusPengajuan;
-  keterangan?: string;
+export interface ApiResponse<T> {
+  data: T;
+  message?: string;
+  statusCode?: number;
 }
- 
-// Jenis Surat
- 
-export type JenisSurat = 'SKD' | 'SKTM' | 'SPK';
- 
-export interface JenisSuratItem {
-  id: JenisSurat;
-  label: string;
-  deskripsi: string;
-  icon: string;
-  route: string;
+
+export interface PaginatedResponse<T> {
+  data: T[];
+  total: number;
+  page: number;
+  limit: number;
 }
- 
+
+// Auth
+
+export interface LoginRequest {
+  nik: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  access_token: string;
+  refresh_token: string;
+  user: User;
+}
+
+export interface RefreshResponse {
+  access_token: string;
+}
+
 // User / Warga
- 
-export interface Warga {
+
+export interface User {
+  id: string;
   nik: string;
   nama: string;
-  tempatLahir: string;
-  tanggalLahir: string;
-  alamat: string;
-  rt: string;
-  rw: string;
-  kelurahan: string;
-  kecamatan: string;
-  agama: string;
-  pekerjaan: string;
-  statusPerkawinan: string;
+  no_telepon?: string;
+  alamat?: string;
+  rt?: string;
+  rw?: string;
+  kelurahan?: string;
+  kecamatan?: string;
+  created_at?: string;
+  updated_at?: string;
 }
- 
+
+export interface CreateUserRequest {
+  nik: string;
+  nama: string;
+  no_telepon: string;
+  password: string;
+}
+
+export interface UpdateUserRequest {
+  nama?: string;
+  no_telepon?: string;
+  alamat?: string;
+  rt?: string;
+  rw?: string;
+  kelurahan?: string;
+  kecamatan?: string;
+  password?: string;
+}
+
+// Jenis Surat
+
+export interface JenisSurat {
+  id: string;
+  nama: string;
+  kode?: string;
+  deskripsi?: string;
+  created_at?: string;
+}
+
+// Field Surat
+
+export type FieldType =
+  | 'text'
+  | 'number'
+  | 'date'
+  | 'textarea'
+  | 'select'
+  | 'radio';
+
+export interface FieldSurat {
+  id: string;
+  jenis_surat_id: string;
+  nama_field: string;       // label yang ditampilkan di form
+  key: string;              // key untuk payload
+  tipe: FieldType;
+  wajib: boolean;
+  urutan: number;
+  opsi?: string[];          // untuk tipe select/radio
+}
+
+// Pengajuan Surat
+
+export type StatusPengajuan = 'menunggu' | 'diproses' | 'selesai' | 'ditolak';
+
+export interface PengajuanSurat {
+  id: string;
+  user_id: string;
+  jenis_surat_id: string;
+  jenis_surat?: JenisSurat;
+  nomor_surat?: string;
+  status: StatusPengajuan;
+  data_isian: Record<string, string>;   // dynamic form values
+  keterangan?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CreatePengajuanRequest {
+  jenis_surat_id: string;
+  data_isian: Record<string, string>;
+}
+
 // Pengaduan
- 
+
+export type StatusPengaduan = 'menunggu' | 'diproses' | 'selesai' | 'ditolak';
+
 export type KategoriPengaduan =
   | 'infrastruktur'
   | 'sosial'
   | 'kebersihan'
   | 'keamanan'
   | 'lainnya';
- 
+
+export interface ResponPengaduan {
+  id: string;
+  pengaduan_id: string;
+  pesan: string;
+  created_at: string;
+}
+
 export interface Pengaduan {
   id: string;
+  user_id: string;
   judul: string;
   kategori: KategoriPengaduan;
   deskripsi: string;
-  tanggal: string;
-  status: StatusPengajuan;
-  fotoUrl?: string;
+  status: StatusPengaduan;
+  foto_url?: string;
+  respon?: ResponPengaduan[];
+  created_at: string;
+  updated_at: string;
 }
- 
+
+export interface CreatePengaduanRequest {
+  judul: string;
+  kategori: KategoriPengaduan;
+  deskripsi: string;
+}
+
 // Informasi / Berita
- 
+
+export interface FotoInformasi {
+  id: string;
+  url: string;
+}
+
 export interface Informasi {
   id: string;
   judul: string;
-  ringkasan: string;
+  ringkasan?: string;
   konten: string;
-  tanggal: string;
-  kategori: string;
-  gambarUrl?: string;
+  kategori?: string;
+  foto?: FotoInformasi[];
+  created_at: string;
+  updated_at: string;
 }
- 
-// Notifikasi
- 
-export interface Notifikasi {
-  id: string;
-  judul: string;
-  pesan: string;
-  tanggal: string;
-  dibaca: boolean;
-  tipe: 'status' | 'pengumuman' | 'sistem';
-}
+
+// UI Helpers
+
+export type ColorScheme = 'light' | 'dark';

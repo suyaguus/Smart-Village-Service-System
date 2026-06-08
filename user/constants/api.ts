@@ -1,9 +1,3 @@
-/**
- * constants/api.ts
- * Semua URL dan endpoint API terpusat di sini.
- * Ganti BASE_URL saat deploy ke production.
- */
-
 export const BASE_URL = 'http://localhost:3007/api';
 
 export const ENDPOINTS = {
