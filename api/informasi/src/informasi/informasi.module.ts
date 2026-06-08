@@ -3,20 +3,15 @@ import { InformasiService } from './informasi.service';
 import { InformasiController } from './informasi.controller';
 import { PrismaService } from 'src/prisma.service';
 import { MulterModule } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
+import { memoryStorage } from 'multer';
+import { CloudinaryService } from 'src/common/cloudinary/cloudinary.service';
 
 @Module({
   imports: [
     MulterModule.register({
-      storage: diskStorage({
-        destination: './uploads',
-        filename: (req, file, cb) => {
-          const uniqueSuffix =
-            Date.now() + '-' + Math.round(Math.random() * 1e9);
-          cb(null, 'foto-' + uniqueSuffix + extname(file.originalname));
-        },
-      }),
+      // menggunakan memoryStorage agar file tersimpan sebagai buffer
+      // dan dikirim langsung ke Cloudinary (tidak disimpan ke disk)
+      storage: memoryStorage(),
       fileFilter: (req, file, cb) => {
         const allowed = /\.(jpg|jpeg|png|webp)$/i;
         if (!allowed.test(file.originalname)) {
@@ -28,6 +23,6 @@ import { extname } from 'path';
     }),
   ],
   controllers: [InformasiController],
-  providers: [InformasiService, PrismaService],
+  providers: [InformasiService, PrismaService, CloudinaryService],
 })
 export class InformasiModule {}

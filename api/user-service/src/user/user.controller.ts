@@ -9,10 +9,13 @@ import {
   Delete,
   ParseIntPipe,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { InternalGuard } from 'src/internal.guard';
+import { CreateGoogleUserDto } from './dto/create-google-user.dto';
 
 // custom ParseIntPipe untuk override pesan error default
 const IntParam = new ParseIntPipe({
@@ -26,6 +29,9 @@ const IntParam = new ParseIntPipe({
 });
 
 @Controller('user')
+// menambahkan guard internal untuk mengamankan endpoint ini agar hanya bisa diakses
+// oleh service lain dengan secret tertentu
+@UseGuards(InternalGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -34,16 +40,25 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+  @UseGuards(InternalGuard)
+  @Post('find-by-email')
+  findByEmail(@Body('email') email: string) {
+    return this.userService.findByEmail(email);
+  }
+
+  @UseGuards(InternalGuard)
   @Get()
   findAll() {
     return this.userService.findAll();
   }
 
+  @UseGuards(InternalGuard)
   @Get(':id')
   findOne(@Param('id', IntParam) id: number) {
     return this.userService.findOne(id);
   }
 
+  @UseGuards(InternalGuard)
   @Patch(':id')
   update(
     @Param('id', IntParam) id: number,
@@ -52,8 +67,15 @@ export class UserController {
     return this.userService.update(id, updateUserDto);
   }
 
+  @UseGuards(InternalGuard)
   @Delete(':id')
   remove(@Param('id', IntParam) id: number) {
     return this.userService.remove(id);
+  }
+
+  @UseGuards(InternalGuard)
+  @Post('find-or-create-google')
+  findOrCreateGoogle(@Body() dto: CreateGoogleUserDto) {
+    return this.userService.findOrCreateGoogle(dto);
   }
 }

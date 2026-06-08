@@ -18,8 +18,8 @@ model User {
   id         Int      @id @default(autoincrement())
   name       String   @db.VarChar(255)
   email      String   @unique @db.VarChar(255)
-  password   String   @db.VarChar(255)
-  phone      String   @db.VarChar(20)
+  password   String?  @db.VarChar(255)
+  phone      String?  @db.VarChar(20)
   role       Role     @default(USER)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

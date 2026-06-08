@@ -18,6 +18,7 @@ async function bootstrap() {
 
   // menambahkan prefix global
   app.setGlobalPrefix('api');
-  await app.listen(process.env.PORT!);
+  // menambahkan ip address untuk listen
+  await app.listen(process.env.PORT!, 'localhost');
 }
 void bootstrap();

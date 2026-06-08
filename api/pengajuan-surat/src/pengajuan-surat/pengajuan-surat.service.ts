@@ -13,6 +13,9 @@ import {
   PENGAJUAN_SURAT_SELECT,
 } from 'src/common/constants/select';
 import { notExistPengajuan } from 'src/common/utils/not-exist.util';
+import { user_api } from 'src/common/axios/user.axios';
+import { jenis_surat_api } from 'src/common/axios/jenis-surat.axios';
+import { field_surat_api } from 'src/common/axios/field-surat.axios';
 
 // cek apakah status yang akan diupdate valid berdasarkan status saat ini
 const STATUS_TRANSITIONS: Record<string, string[]> = {
@@ -33,6 +36,64 @@ export class PengajuanSuratService {
 
     // membuat constanta untuk memisahkan data pengajuan dengan detail dan dokumen
     const { detail, dokumen, ...pengajuanData } = createPengajuanSuratDto;
+
+    // validasi: user_id harus ada di user-service
+    try {
+      await user_api.get(`/${createPengajuanSuratDto.user_id}`);
+    } catch {
+      throw new NotFoundException({
+        success: false,
+        message: 'User dengan ID tersebut tidak ditemukan.',
+        metadata: {
+          status: HttpStatus.NOT_FOUND,
+        },
+      });
+    }
+
+    // validasi: jenis_surat_id harus ada di jenis-surat service
+    try {
+      await jenis_surat_api.get(`/${createPengajuanSuratDto.jenis_surat_id}`);
+    } catch {
+      throw new NotFoundException({
+        success: false,
+        message: 'Jenis surat dengan ID tersebut tidak ditemukan.',
+        metadata: {
+          status: HttpStatus.NOT_FOUND,
+        },
+      });
+    }
+
+    // validasi: semua field_id di dalam detail array harus ada di field-surat service
+    for (const detailItem of detail) {
+      try {
+        await field_surat_api.get(`/${detailItem.field_id}`);
+      } catch {
+        throw new NotFoundException({
+          success: false,
+          message: `Field surat dengan ID ${detailItem.field_id} tidak ditemukan.`,
+          metadata: {
+            status: HttpStatus.NOT_FOUND,
+          },
+        });
+      }
+    }
+
+    // validasi: semua field_id di dalam dokumen array harus ada di field-surat service
+    if (dokumen && dokumen.length > 0) {
+      for (const dokumenItem of dokumen) {
+        try {
+          await field_surat_api.get(`/${dokumenItem.field_id}`);
+        } catch {
+          throw new NotFoundException({
+            success: false,
+            message: `Field surat dengan ID ${dokumenItem.field_id} tidak ditemukan.`,
+            metadata: {
+              status: HttpStatus.NOT_FOUND,
+            },
+          });
+        }
+      }
+    }
 
     // simpan data pengajuan surat beserta detail dan dokumen ke database
     await this.prisma.pengajuanSurat.create({

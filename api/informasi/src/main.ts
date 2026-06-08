@@ -2,13 +2,11 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import * as dotenv from 'dotenv';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import { join } from 'path';
 
 dotenv.config();
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create(AppModule);
 
   // validationPipe
   app.useGlobalPipes(
@@ -21,11 +19,7 @@ async function bootstrap() {
   // menambahkan prefix global
   app.setGlobalPrefix('api');
 
-  // menambahkan folder static untuk menyimpan file yang diupload
-  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
-    prefix: '/uploads',
-  });
-
-  await app.listen(process.env.PORT ?? 3006);
+  // menambahkan ip address untuk listen
+  await app.listen(process.env.PORT!, 'localhost');
 }
 void bootstrap();

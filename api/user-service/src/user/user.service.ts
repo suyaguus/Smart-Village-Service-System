@@ -12,11 +12,20 @@ import * as bcrypt from 'bcrypt';
 import { conflictEmail } from 'src/common/utils/conflict.util';
 import { notExistUser } from 'src/common/utils/not-exist.util';
 import { USER_SELECT } from 'src/common/constants/select';
+import { CreateGoogleUserDto } from './dto/create-google-user.dto';
 
 @Injectable()
 export class UserService {
   // buat constructor untuk inject PrismaService
   constructor(private readonly prisma: PrismaService) {}
+
+  // findByEmail: dipakai auth gateway untuk verifikasi login
+  async findByEmail(email: string) {
+    const data = await this.prisma.user.findUnique({
+      where: { email },
+    });
+    return data; // kembalikan null jika tidak ditemukan
+  }
 
   async create(createUserDto: CreateUserDto) {
     // return 'This action adds a new user';
@@ -304,5 +313,27 @@ export class UserService {
         },
       });
     }
+  }
+
+  // create google user
+  async findOrCreateGoogle(dto: CreateGoogleUserDto) {
+    // cari user berdasarkan email
+    const existing = await this.prisma.user.findUnique({
+      where: { email: dto.email },
+    });
+
+    // jika sudah ada, kembalikan data user
+    if (existing) return existing;
+
+    // jika belum ada, buat user baru (tanpa password & phone)
+    const newUser = await this.prisma.user.create({
+      data: {
+        name: dto.name,
+        email: dto.email,
+        // password dan phone biarkan null
+      },
+    });
+
+    return newUser;
   }
 }
