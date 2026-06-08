@@ -11,6 +11,7 @@ import { PrismaService } from 'src/prisma.service';
 import { FIELD_SURAT_SELECT } from 'src/common/constants/select';
 import { notExistFieldSurat } from 'src/common/utils/not-exist.util';
 import { conflictFieldName } from 'src/common/utils/conflict.util';
+import { jenis_surat_api } from 'src/common/axios/jenis-surat.axios';
 
 @Injectable()
 export class FieldSuratService {
@@ -194,6 +195,21 @@ export class FieldSuratService {
 
       // refactor: menggunakan fungsi notExistFieldSurat untuk mengecek apakah data field surat dengan id tersebut ada di database
       await notExistFieldSurat(id, this.prisma.fieldSurat);
+
+      // validasi: jika jenis_surat_id diupdate, pastikan jenis_surat_id ada di database jenis_surat service
+      if (updateFieldSuratDto.jenis_surat_id) {
+        try {
+          await jenis_surat_api.get(`/${updateFieldSuratDto.jenis_surat_id}`);
+        } catch {
+          throw new NotFoundException({
+            success: false,
+            message: 'Jenis surat dengan ID tersebut tidak ditemukan.',
+            metadata: {
+              status: HttpStatus.NOT_FOUND,
+            },
+          });
+        }
+      }
 
       // refactor: menambahkan conflict field name
       if (

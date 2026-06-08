@@ -26,7 +26,8 @@ model Informasi {
 model InformasiFoto {
   id           Int       @id @default(autoincrement())
   informasi_id Int
-  filename     String    @db.VarChar(255)
+  url          String    @db.VarChar(500)
+  public_id    String    @db.VarChar(255)
   created_at   DateTime  @default(now())
   informasi    Informasi @relation(fields: [informasi_id], references: [id], onDelete: Cascade)
 
