@@ -1,0 +1,34 @@
+import { Text, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useColorScheme } from "@/hooks/use-color-scheme";
+import { Colors, FontSize, FontWeight } from "@/constants/theme";
+
+export default function NotifikasiScreen() {
+  const scheme = (useColorScheme() ?? "light") as "light" | "dark";
+  const c = Colors[scheme];
+
+  return (
+    <SafeAreaView style={[styles.container, { backgroundColor: c.background }]}>
+      <Text style={[styles.title, { color: c.text }]}>Notifikasi</Text>
+      <Text style={[styles.sub, { color: c.textSecondary }]}>Belum ada notifikasi baru.</Text>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 24,
+    gap: 8,
+  },
+  title: {
+    fontSize: FontSize.xl,
+    fontWeight: FontWeight.bold,
+  },
+  sub: {
+    fontSize: FontSize.sm,
+    textAlign: "center",
+  },
+});

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, createElement, useContext, useEffect, useState, ReactNode } from 'react';
 import { login, logout, register, getStoredUser } from '@/services/auth.service';
 import type {
   User,
@@ -52,19 +52,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Tidak auto-login setelah register, user harus login manual
   };
 
-  return (
-    <AuthContext.Provider
-      value={{
+  return createElement(
+    AuthContext.Provider,
+    {
+      value: {
         user,
         isLoggedIn: !!user,
         isLoading,
         signIn,
         signOut,
         signUp,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+      },
+    },
+    children,
   );
 }
 

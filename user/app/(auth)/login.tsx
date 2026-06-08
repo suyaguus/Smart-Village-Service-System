@@ -14,7 +14,7 @@ import {
 import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useColorScheme } from "@/hooks/use-color-scheme";
-import { MOCK_ACCOUNT, useLoginForm } from "@/hooks/use-login-form";
+import { useLoginForm } from "@/hooks/use-login-form";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { Icons, getIconColor } from "@/constants/icons";
 import {
@@ -30,8 +30,8 @@ export default function LoginScreen() {
   const scheme = (useColorScheme() ?? "light") as "light" | "dark";
   const c = Colors[scheme];
 
-  const [nik, setNik] = useState(MOCK_ACCOUNT.nik);
-  const [password, setPassword] = useState(MOCK_ACCOUNT.password);
+  const [nik, setNik] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const { errors, isSubmitting, handleSubmit, clearError } = useLoginForm();
 
@@ -52,7 +52,7 @@ export default function LoginScreen() {
           {/* Header */}
           <View style={styles.headerSection}>
             <View style={styles.logoCard}>
-              <Text style={styles.logoEmoji}>🏡</Text>
+              <Text style={styles.logoEmoji}></Text>
             </View>
             <Text style={styles.appName}>Smart Village</Text>
             <Text style={styles.appSub}>Layanan Desa Digital</Text>
