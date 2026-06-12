@@ -1,33 +1,110 @@
-import { Text, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useColorScheme } from "@/hooks/use-color-scheme";
-import { Colors } from "@/constants/theme";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faCommentDots } from "@fortawesome/free-solid-svg-icons";
+import { View, Text, ScrollView, StyleSheet, StatusBar } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Colors, FontSize, FontWeight, Spacing } from '@/constants/theme';
+import { useFetch } from '@/hooks/use-fetch';
+import { getAllJenisSurat } from '@/services/jenis-surat.service';
+import { JenisSuratCard } from '@/components/layanan/jenis-surat-card';
+import { LoadingState, ErrorState, EmptyState } from '@/components/common/screen-state';
+import type { JenisSurat } from '@/types';
 
 export default function LayananScreen() {
-  const scheme = (useColorScheme() ?? "light") as "light" | "dark";
+  const scheme = (useColorScheme() ?? 'light') as 'light' | 'dark';
   const c = Colors[scheme];
 
+  const { data: jenisSuratList, isLoading, error, refetch } = useFetch<JenisSurat[]>(
+    getAllJenisSurat,
+  );
+
+  const handleSelect = (item: JenisSurat) => {
+    router.push({
+      pathname: '/layanan/[jenisSuratId]',
+      params: { jenisSuratId: item.id, nama: item.nama },
+    });
+  };
+
+  // Body content berdasarkan state
+  const renderContent = () => {
+    if (isLoading) return <LoadingState message="Memuat jenis surat..." />;
+    if (error) return <ErrorState onRetry={refetch} />;
+    if (!jenisSuratList || jenisSuratList.length === 0) {
+      return (
+        <EmptyState
+          emoji="📄"
+          title="Belum Ada Jenis Surat"
+          message="Jenis surat akan muncul setelah ditambahkan admin desa."
+        />
+      );
+    }
+
+    return (
+      <View style={styles.list}>
+        {jenisSuratList.map((item) => (
+          <JenisSuratCard
+            key={item.id}
+            item={item}
+            onPress={() => handleSelect(item)}
+          />
+        ))}
+      </View>
+    );
+  };
+
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: c.background }]}>
-      <FontAwesomeIcon icon={faCommentDots} size={24} color={c.text} />
-      <Text style={[styles.title, { color: c.text }]}>Layanan</Text>
-      <Text style={[styles.sub, { color: c.textSecondary }]}>
-        Dalam pengembangan
-      </Text>
+    <SafeAreaView
+      style={[styles.safe, { backgroundColor: c.primary }]}
+      edges={['top']}
+    >
+      <StatusBar barStyle="light-content" backgroundColor={c.primary} />
+
+      {/* Header biru */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Buat Surat</Text>
+        <Text style={styles.headerSub}>Pilih jenis surat yang ingin diajukan</Text>
+      </View>
+
+      {/* Body */}
+      <ScrollView
+        style={[styles.body, { backgroundColor: c.background }]}
+        contentContainerStyle={styles.bodyContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {renderContent()}
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safe: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
   },
-  emoji: { fontSize: 40 },
-  title: { fontSize: 18, fontWeight: "700" },
-  sub: { fontSize: 13 },
+  header: {
+    paddingHorizontal: Spacing.lg,
+    paddingTop: Spacing.base,
+    paddingBottom: Spacing.lg,
+    gap: 4,
+  },
+  headerTitle: {
+    fontSize: FontSize.xxl,
+    fontWeight: FontWeight.bold,
+    color: '#FFFFFF',
+  },
+  headerSub: {
+    fontSize: FontSize.sm,
+    color: 'rgba(255,255,255,0.75)',
+  },
+  body: {
+    flex: 1,
+    borderTopLeftRadius: Spacing.lg,
+    borderTopRightRadius: Spacing.lg,
+  },
+  bodyContent: {
+    flexGrow: 1,
+    padding: Spacing.lg,
+  },
+  list: {
+    flex: 1,
+  },
 });
