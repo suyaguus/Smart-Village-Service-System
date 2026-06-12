@@ -1,6 +1,8 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors, FontSize, FontWeight, Spacing, Radius } from '@/constants/theme';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { Icons } from '@/constants/icons';
 import type { FieldType } from '@/types';
 
 interface FormInputProps {
@@ -78,7 +80,13 @@ export function FormInput({
           },
         ]}
       >
-        {isDate && <Text style={styles.leadingIcon}>📅</Text>}
+        {isDate && (
+          <FontAwesomeIcon
+            icon={Icons.calendarDays}
+            size={16}
+            color={c.textTertiary}
+          />
+        )}
         <TextInput
           style={[
             styles.input,
@@ -131,7 +139,7 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   leadingIcon: {
-    fontSize: 16,
+    justifyContent: 'center',
   },
   input: {
     flex: 1,

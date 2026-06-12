@@ -52,7 +52,7 @@ export default function LoginScreen() {
           {/* Header */}
           <View style={styles.headerSection}>
             <View style={styles.logoCard}>
-              <Text style={styles.logoEmoji}></Text>
+              <FontAwesomeIcon icon={Icons.home} size={36} color="#FFFFFF" />
             </View>
             <Text style={styles.appName}>Smart Village</Text>
             <Text style={styles.appSub}>Layanan Desa Digital</Text>
@@ -238,7 +238,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 4,
   },
-  logoEmoji: { fontSize: 36 },
   appName: {
     fontSize: FontSize.xxl,
     fontWeight: FontWeight.bold,

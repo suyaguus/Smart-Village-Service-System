@@ -1,6 +1,8 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors, FontSize, FontWeight, Spacing, Radius, Shadow } from '@/constants/theme';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { Icons } from '@/constants/icons';
 import type { JenisSurat } from '@/types';
 
 interface JenisSuratCardProps {
@@ -20,7 +22,7 @@ export function JenisSuratCard({ item, onPress }: JenisSuratCardProps) {
     >
       {/* Icon */}
       <View style={[styles.iconBox, { backgroundColor: c.primaryBg }]}>
-        <Text style={styles.icon}>📄</Text>
+        <FontAwesomeIcon icon={Icons.fileLines} size={22} color={c.primary} />
       </View>
 
       {/* Info */}
@@ -36,7 +38,7 @@ export function JenisSuratCard({ item, onPress }: JenisSuratCardProps) {
       </View>
 
       {/* Chevron */}
-      <Text style={[styles.chevron, { color: c.textTertiary }]}>›</Text>
+      <FontAwesomeIcon icon={Icons.chevronRight} size={18} color={c.textTertiary} />
     </TouchableOpacity>
   );
 }
@@ -57,9 +59,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  icon: {
-    fontSize: 22,
-  },
   info: {
     flex: 1,
     gap: 3,
@@ -74,8 +73,6 @@ const styles = StyleSheet.create({
     lineHeight: 17,
   },
   chevron: {
-    fontSize: 28,
-    fontWeight: '300',
     marginLeft: 4,
   },
 });

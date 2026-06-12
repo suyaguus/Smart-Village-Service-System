@@ -2,11 +2,13 @@ import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-nati
 import { router } from 'expo-router';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors, FontSize, FontWeight, Spacing, Radius } from '@/constants/theme';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { Icons } from '@/constants/icons';
 
 interface LayananItem {
   id: string;
   label: string;
-  icon: string;
+  iconKey: keyof typeof Icons;
   bgColor: keyof typeof Colors.light;
   route: string;
 }
@@ -15,28 +17,28 @@ const LAYANAN_ITEMS: LayananItem[] = [
   {
     id: 'buat-surat',
     label: 'Buat\nSurat',
-    icon: '📄',
+    iconKey: 'fileLines',
     bgColor: 'iconBuatSurat',
     route: '/(tabs)/layanan',
   },
   {
     id: 'pengaduan',
     label: 'Pengaduan',
-    icon: '🚩',
+    iconKey: 'flag',
     bgColor: 'iconPengaduan',
     route: '/pengaduan/buat',
   },
   {
     id: 'status',
     label: 'Status',
-    icon: '🕐',
+    iconKey: 'clock',
     bgColor: 'iconStatus',
     route: '/(tabs)/status',
   },
   {
     id: 'informasi',
     label: 'Informasi',
-    icon: 'ℹ️',
+    iconKey: 'info',
     bgColor: 'iconInformasi',
     route: '/(tabs)/informasi',
   },
@@ -58,7 +60,7 @@ function LayananItemCard({ item }: LayananItemCardProps) {
       activeOpacity={0.75}
     >
       <View style={[styles.iconBox, { backgroundColor: bgColor }]}>
-        <Text style={styles.icon}>{item.icon}</Text>
+        <FontAwesomeIcon icon={Icons[item.iconKey]} size={26} color="#FFFFFF" />
       </View>
       <Text
         style={[styles.itemLabel, { color: c.text }]}
@@ -119,9 +121,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: Spacing.sm,
-  },
-  icon: {
-    fontSize: 26,
   },
   itemLabel: {
     fontSize: FontSize.xs,

@@ -1,6 +1,8 @@
 import { View, Text, ActivityIndicator, TouchableOpacity, StyleSheet } from 'react-native';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors, FontSize, FontWeight, Spacing, Radius } from '@/constants/theme';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { Icons } from '@/constants/icons';
 
 // Loading
 
@@ -32,7 +34,7 @@ export function ErrorState({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.emoji}>⚠️</Text>
+      <FontAwesomeIcon icon={Icons.triangleExclamation} size={40} color={c.ditolak} />
       <Text style={[styles.title, { color: c.text }]}>Gagal Memuat</Text>
       <Text style={[styles.message, { color: c.textSecondary }]}>{message}</Text>
 
@@ -52,13 +54,13 @@ export function ErrorState({
 // Empty
 
 interface EmptyStateProps {
-  emoji?: string;
+  icon?: keyof typeof Icons;
   title?: string;
   message?: string;
 }
 
 export function EmptyState({
-  emoji = '📭',
+  icon = 'inbox',
   title = 'Belum Ada Data',
   message = 'Data akan muncul di sini.',
 }: EmptyStateProps) {
@@ -67,7 +69,7 @@ export function EmptyState({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.emoji}>{emoji}</Text>
+      <FontAwesomeIcon icon={Icons[icon]} size={40} color={c.primary} />
       <Text style={[styles.title, { color: c.text }]}>{title}</Text>
       <Text style={[styles.message, { color: c.textSecondary }]}>{message}</Text>
     </View>
@@ -83,8 +85,7 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
     minHeight: 240,
   },
-  emoji: {
-    fontSize: 40,
+  icon: {
     marginBottom: 4,
   },
   title: {

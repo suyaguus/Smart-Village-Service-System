@@ -18,10 +18,7 @@ export default function LayananScreen() {
   );
 
   const handleSelect = (item: JenisSurat) => {
-    router.push({
-      pathname: '/layanan/[jenisSuratId]',
-      params: { jenisSuratId: item.id, nama: item.nama },
-    });
+    router.push(`/layanan/${item.id}?nama=${encodeURIComponent(item.nama)}` as never);
   };
 
   // Body content berdasarkan state
@@ -31,7 +28,7 @@ export default function LayananScreen() {
     if (!jenisSuratList || jenisSuratList.length === 0) {
       return (
         <EmptyState
-          emoji="📄"
+          icon="fileLines"
           title="Belum Ada Jenis Surat"
           message="Jenis surat akan muncul setelah ditambahkan admin desa."
         />

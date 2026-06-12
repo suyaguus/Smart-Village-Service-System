@@ -174,7 +174,7 @@ export default function RegisterScreen() {
               style={styles.backButton}
               onPress={() => router.back()}
             >
-              <Text style={styles.backIcon}>←</Text>
+              <FontAwesomeIcon icon={Icons.arrowLeft} size={22} color="#FFFFFF" />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>Buat Akun</Text>
             <Text style={styles.headerSub}>
@@ -295,7 +295,6 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   backButton: { marginBottom: Spacing.md, alignSelf: "flex-start", padding: 4 },
-  backIcon: { fontSize: 22, color: "#FFFFFF" },
   headerTitle: {
     fontSize: FontSize.xxl,
     fontWeight: FontWeight.bold,

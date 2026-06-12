@@ -17,6 +17,8 @@ import { usePengajuanForm } from '@/hooks/use-pengajuan-form';
 import { getFieldsByJenisSurat } from '@/services/field-surat.service';
 import { FormInput } from '@/components/layanan/form-input';
 import { LoadingState, ErrorState } from '@/components/common/screen-state';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { Icons } from '@/constants/icons';
 import type { FieldSurat } from '@/types';
 
 export default function DynamicFormScreen() {
@@ -86,7 +88,7 @@ export default function DynamicFormScreen() {
           >
             {/* Info banner */}
             <View style={[styles.infoBanner, { backgroundColor: c.primaryBg }]}>
-              <Text style={styles.infoIcon}>📝</Text>
+              <FontAwesomeIcon icon={Icons.fileLines} size={18} color={c.diprosesText} />
               <Text style={[styles.infoText, { color: c.diprosesText }]}>
                 Lengkapi data berikut untuk mengajukan {nama || 'surat'}.
               </Text>
@@ -95,9 +97,12 @@ export default function DynamicFormScreen() {
             {/* General error */}
             {generalError && (
               <View style={[styles.errorBanner, { backgroundColor: c.ditolakLight }]}>
-                <Text style={[styles.errorBannerText, { color: c.ditolakText }]}>
-                  ⚠️ {generalError}
-                </Text>
+                <View style={styles.errorBannerRow}>
+                  <FontAwesomeIcon icon={Icons.triangleExclamation} size={16} color={c.ditolakText} />
+                  <Text style={[styles.errorBannerText, { color: c.ditolakText }]}>
+                    {generalError}
+                  </Text>
+                </View>
               </View>
             )}
 
@@ -157,9 +162,6 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.lg,
     gap: Spacing.sm,
   },
-  infoIcon: {
-    fontSize: 18,
-  },
   infoText: {
     flex: 1,
     fontSize: FontSize.sm,
@@ -169,6 +171,11 @@ const styles = StyleSheet.create({
     borderRadius: Radius.sm,
     padding: Spacing.md,
     marginBottom: Spacing.base,
+  },
+  errorBannerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
   },
   errorBannerText: {
     fontSize: FontSize.sm,
