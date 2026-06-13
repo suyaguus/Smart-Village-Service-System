@@ -19,16 +19,22 @@ export default function InformasiDesaPage() {
     { id: 2, judul: 'Pencairan BLT Dana Desa Tahap 3', kategori: 'Ekonomi', tanggal: '02 Mei 2026', views: 540, status: 'PUBLISHED', image: 'https://images.unsplash.com/photo-1580519542036-c47de6196ba5?w=400&q=80' },
     { id: 3, judul: 'Rencana Kerja Bakti Serentak', kategori: 'Sosial', tanggal: '28 April 2026', views: 89, status: 'DRAFT', image: 'https://images.unsplash.com/photo-1559027615-cd9d732ffade?w=400&q=80' },
   ];
-}
 
-
-const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setCoverImage(URL.createObjectURL(e.target.files[0]));
     }
   };
 
+
   //View Data Informasi
+  
+}
+
+
+
+
+  
 
 
   
