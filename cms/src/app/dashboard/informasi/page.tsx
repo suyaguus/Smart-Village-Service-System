@@ -67,6 +67,10 @@ export default function InformasiDesaPage() {
                      <div className="flex items-center gap-1 text-slate-400 text-xs">
                       <Eye className="w-3.5 h-3.5" aria-hidden="true" /> <span>{info.views} Dilihat</span>
                     </div>
+                    <div className="flex gap-2">
+                      <button aria-label="Edit informasi" className="p-1.5 text-slate-400 hover:text-[#769FCD] hover:bg-[#F7FBFC] rounded border border-[#D6E6F2] transition-colors"><Edit2 className="w-4 h-4"/></button>
+                      <button aria-label="Hapus informasi" className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded border border-[#D6E6F2] transition-colors"><Trash2 className="w-4 h-4"/></button>
+                    </div>
                    </footer>
                 </div>
               </Card>
