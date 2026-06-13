@@ -153,6 +153,17 @@ export default function InformasiDesaPage() {
           </div>
         </Card>
         </div>
+
+        {/* Kolom Kanan - Media & Aksi Publikasi */}
+        <aside className="w-full lg:w-1/3" aria-label="Pengaturan Publikasi">
+         <div className="sticky top-6">
+          <Card className="overflow-hidden shadow-md border-[#D6E6F2]">
+            <header className="px-5 py-4 border-b border-[#D6E6F2] bg-[#F7FBFC]">
+                <h2 className="font-bold text-slate-800 text-sm uppercase tracking-wider">Pengaturan Publikasi</h2>
+              </header>
+          </Card>
+         </div>
+        </aside>
       </form>
     </section>
   );
