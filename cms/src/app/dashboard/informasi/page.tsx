@@ -137,6 +137,11 @@ export default function InformasiDesaPage() {
                   <option value="Pendidikan">Pendidikan</option>
                 </select>
             </div>
+            <div>
+              <label htmlFor="konten" className="block text-sm font-semibold text-slate-700 mb-1">
+                  Isi Konten <span className="text-red-500">*</span>
+                </label>
+            </div>
           </div>
         </Card>
         </div>
