@@ -14,3 +14,10 @@ export default function InformasiDesaPage() {
    // State untuk form tambah
   const [coverImage, setCoverImage] = useState<string | null>(null);
 }
+
+const mockInfo = [
+    { id: 1, judul: 'Penyuluhan Kesehatan Lingkungan', kategori: 'Kesehatan', tanggal: '05 Mei 2026', views: 124, status: 'PUBLISHED', image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&q=80' },
+    { id: 2, judul: 'Pencairan BLT Dana Desa Tahap 2', kategori: 'Ekonomi', tanggal: '02 Mei 2026', views: 540, status: 'PUBLISHED', image: 'https://images.unsplash.com/photo-1580519542036-c47de6196ba5?w=400&q=80' },
+    { id: 3, judul: 'Rencana Kerja Bakti Serentak', kategori: 'Sosial', tanggal: '28 April 2026', views: 89, status: 'DRAFT', image: 'https://images.unsplash.com/photo-1559027615-cd9d732ffade?w=400&q=80' },
+  ];
+  
