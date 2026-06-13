@@ -62,6 +62,12 @@ export default function InformasiDesaPage() {
                       <Clock className="w-3 h-3" aria-hidden="true" /> <time dateTime={info.tanggal}>{info.tanggal}</time>
                     </span>
                    </header>
+                   <h3 className="font-bold text-slate-800 leading-snug mb-3 flex-1">{info.judul}</h3>
+                   <footer className="pt-4 border-t border-[#D6E6F2] flex justify-between items-center">
+                     <div className="flex items-center gap-1 text-slate-400 text-xs">
+                      <Eye className="w-3.5 h-3.5" aria-hidden="true" /> <span>{info.views} Dilihat</span>
+                    </div>
+                   </footer>
                 </div>
               </Card>
             </article>
