@@ -193,6 +193,12 @@ export default function InformasiDesaPage() {
                     </label>
                   </div>
                 </fieldset>
+                {/* Tombol Aksi */}
+                <div className="pt-4 border-t border-[#D6E6F2] space-y-3">
+                  <button type="submit" className="w-full py-2.5 bg-[#769FCD] text-white rounded-lg text-sm font-bold flex items-center justify-center gap-2 hover:bg-[#6086b3] transition-colors shadow-sm">
+                    <Send className="w-4 h-4" aria-hidden="true" /> Simpan & Selesai
+                  </button>
+                </div>
               </div>
           </Card>
          </div>
