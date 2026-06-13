@@ -148,6 +148,7 @@ export default function InformasiDesaPage() {
                   className="w-full border border-[#B9D7EA] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#769FCD]/50 transition-shadow resize-y" 
                   required
                 ></textarea>
+                <p className="text-[11px] text-slate-400 mt-1.5">Gunakan paragraf yang jelas agar mudah dibaca oleh warga.</p>
             </div>
           </div>
         </Card>
