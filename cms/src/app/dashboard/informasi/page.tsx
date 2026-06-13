@@ -80,7 +80,27 @@ export default function InformasiDesaPage() {
       </section>
     );
   }
+
+
+
+
+  //View 2 Form Tambah Informasi
+  return (
+    <section className="space-y-6 max-w-7xl mx-auto" aria-label="Form Tambah Informasi">
+      {/* Navigasi Kembali */}
+      <nav aria-label="Navigasi kembali">
+        <button 
+          onClick={() => setIsAddingMode(false)} 
+          className="flex items-center text-sm font-medium text-slate-500 hover:text-[#769FCD] transition-colors w-fit"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" aria-hidden="true" /> Kembali ke Daftar Informasi
+        </button>
+      </nav>
+    </section>
+  );
 }
+
+
 
 
 
