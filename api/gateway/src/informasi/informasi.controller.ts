@@ -17,9 +17,11 @@ import { InformasiService } from './informasi.service';
 import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
 import { CreateInformasiDto } from './dto/create-informasi.dto';
 import { UpdateInformasiDto } from './dto/update-informasi.dto';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Controller('informasi')
-@UseGuards(JwtAccessGuard)
+@UseGuards(JwtAccessGuard, RolesGuard)
 export class InformasiController {
   constructor(private readonly informasiService: InformasiService) {}
 
@@ -30,12 +32,14 @@ export class InformasiController {
   }
 
   //   method get
+  @Roles('USER')
   @Get()
   findAll() {
     return this.informasiService.findAll();
   }
 
   //   method get by id
+  @Roles('USER')
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.informasiService.findOne(id);
