@@ -13,9 +13,11 @@ import { JwtAccessGuard } from 'src/auth/guards/jwt-access.guard';
 import { JenisSuratService } from './jenis-surat.service';
 import { CreateJenisSuratDto } from './dto/create-jenis-surat.dto';
 import { UpdateJenisSuratDto } from './dto/update-jenis-surat.dto';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Controller('jenis-surat')
-@UseGuards(JwtAccessGuard)
+@UseGuards(JwtAccessGuard, RolesGuard)
 export class JenisSuratController {
   constructor(private readonly jenisSuratService: JenisSuratService) {}
 
@@ -26,12 +28,14 @@ export class JenisSuratController {
   }
 
   //   method get
+  @Roles('USER')
   @Get()
   findAll() {
     return this.jenisSuratService.findAll();
   }
 
   //   method get by id
+  @Roles('USER')
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.jenisSuratService.findOne(id);
