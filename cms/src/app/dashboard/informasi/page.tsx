@@ -124,6 +124,18 @@ export default function InformasiDesaPage() {
               <label htmlFor="kategori" className="block text-sm font-semibold text-slate-700 mb-1">
                   Kategori <span className="text-red-500">*</span>
                 </label>
+                <select 
+                  id="kategori" 
+                  className="w-full border border-[#B9D7EA] rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#769FCD]/50 bg-white cursor-pointer" 
+                  required
+                >
+                  <option value="">Pilih Kategori</option>
+                  <option value="Kesehatan">Kesehatan</option>
+                  <option value="Ekonomi">Ekonomi</option>
+                  <option value="Sosial">Sosial</option>
+                  <option value="Pembangunan">Pembangunan</option>
+                  <option value="Pendidikan">Pendidikan</option>
+                </select>
             </div>
           </div>
         </Card>
