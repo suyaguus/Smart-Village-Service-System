@@ -179,6 +179,10 @@ export default function InformasiDesaPage() {
                     <input type="file" aria-label="Upload foto cover" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/png, image/jpeg" onChange={handleImageChange} />
                   </div>
                 </div>
+                {/* Pemilihan Status */}
+                <fieldset>
+                  <legend className="block text-sm font-semibold text-slate-700 mb-2">Status Publikasi</legend>
+                </fieldset>
               </div>
           </Card>
          </div>
