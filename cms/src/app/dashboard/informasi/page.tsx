@@ -120,6 +120,11 @@ export default function InformasiDesaPage() {
                   required 
                 />
             </div>
+            <div>
+              <label htmlFor="kategori" className="block text-sm font-semibold text-slate-700 mb-1">
+                  Kategori <span className="text-red-500">*</span>
+                </label>
+            </div>
           </div>
         </Card>
         </div>
