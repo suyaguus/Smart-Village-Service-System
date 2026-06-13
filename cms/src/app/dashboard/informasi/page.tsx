@@ -46,6 +46,16 @@ export default function InformasiDesaPage() {
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" aria-label="Daftar Kartu Informasi">
           {mockInfo.map((info) => (
             <article key={info.id}>
+              <Card className="overflow-hidden flex flex-col hover:shadow-md transition-shadow h-full">
+                <figure className="relative h-48 w-full overflow-hidden m-0">
+                  <img src={info.image} alt={info.judul} className="w-full h-full object-cover transition-transform hover:scale-105 duration-500" />
+                  <div className="absolute top-3 left-3">
+                    <span className={`text-[10px] font-bold px-2 py-1 rounded shadow-sm ${info.status === 'PUBLISHED' ? 'bg-green-500 text-white' : 'bg-slate-500 text-white'}`}>
+                      {info.status}
+                    </span>
+                  </div>
+                </figure>
+              </Card>
             </article>
           ))}
         </section>
