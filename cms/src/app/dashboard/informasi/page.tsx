@@ -96,6 +96,12 @@ export default function InformasiDesaPage() {
           <ArrowLeft className="w-4 h-4 mr-2" aria-hidden="true" /> Kembali ke Daftar Informasi
         </button>
       </nav>
+
+      {/* Header Halaman */}
+      <header>
+        <h1 className="text-2xl font-bold text-slate-800">Buat Informasi Baru</h1>
+        <p className="text-sm text-slate-500 mt-1">Tulis pengumuman atau berita terbaru untuk aplikasi warga desa.</p>
+      </header>
     </section>
   );
 }
