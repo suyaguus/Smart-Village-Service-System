@@ -4,6 +4,7 @@ import { ENDPOINTS, STORAGE_KEYS } from '@/constants/api';
 import type {
   LoginRequest,
   LoginResponse,
+  ApiLoginResponse,
   CreateUserRequest,
   User,
 } from '@/types';
@@ -11,30 +12,26 @@ import type {
 // Login
 
 export async function login(credentials: LoginRequest): Promise<LoginResponse> {
-  const { data } = await apiClient.post<LoginResponse>(
+  const { data: body } = await apiClient.post<ApiLoginResponse>(
     ENDPOINTS.AUTH.LOGIN,
     credentials,
   );
 
-  // Simpan token dan user ke storage
+  const { access_token, refresh_token, user } = body.data;
+
   await AsyncStorage.multiSet([
-    [STORAGE_KEYS.ACCESS_TOKEN,  data.access_token],
-    [STORAGE_KEYS.REFRESH_TOKEN, data.refresh_token],
-    [STORAGE_KEYS.USER,          JSON.stringify(data.user)],
+    [STORAGE_KEYS.ACCESS_TOKEN, access_token],
+    [STORAGE_KEYS.REFRESH_TOKEN, refresh_token],
+    [STORAGE_KEYS.USER, JSON.stringify(user)],
   ]);
 
-  return data;
+  return body.data;
 }
 
 // Register
 
-export async function register(payload: CreateUserRequest): Promise<User> {
-  // POST /user tidak butuh auth
-  const { data } = await apiClient.post<User>(
-    ENDPOINTS.USER.BASE,
-    payload,
-  );
-  return data;
+export async function register(payload: CreateUserRequest): Promise<void> {
+  await apiClient.post(ENDPOINTS.USER.BASE, payload);
 }
 
 // Logout
@@ -47,7 +44,7 @@ export async function logout(): Promise<void> {
   ]);
 }
 
-// Restore session dari storage 
+// Restore session dari storage
 
 export async function getStoredUser(): Promise<User | null> {
   const raw = await AsyncStorage.getItem(STORAGE_KEYS.USER);

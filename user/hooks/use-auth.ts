@@ -15,7 +15,7 @@ interface AuthContextValue {
   isLoading: boolean;
   signIn: (credentials: LoginRequest) => Promise<LoginResponse>;
   signOut: () => Promise<void>;
-  signUp: (payload: CreateUserRequest) => Promise<User>;
+  signUp: (payload: CreateUserRequest) => Promise<void>;
 }
 
 // Context
@@ -47,8 +47,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
   };
 
-  const signUp = async (payload: CreateUserRequest): Promise<User> => {
-    return register(payload);
+  const signUp = async (payload: CreateUserRequest): Promise<void> => {
+    await register(payload);
     // Tidak auto-login setelah register, user harus login manual
   };
 
