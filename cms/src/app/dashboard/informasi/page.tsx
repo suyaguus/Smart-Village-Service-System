@@ -102,6 +102,11 @@ export default function InformasiDesaPage() {
         <h1 className="text-2xl font-bold text-slate-800">Buat Informasi Baru</h1>
         <p className="text-sm text-slate-500 mt-1">Tulis pengumuman atau berita terbaru untuk aplikasi warga desa.</p>
       </header>
+
+      {/* Form Utama */}
+      <form className="flex flex-col lg:flex-row gap-6" onSubmit={(e) => { e.preventDefault(); alert('Tersimpan!'); setIsAddingMode(false); }}>
+        
+      </form>
     </section>
   );
 }
