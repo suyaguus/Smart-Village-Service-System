@@ -55,6 +55,14 @@ export default function InformasiDesaPage() {
                     </span>
                   </div>
                 </figure>
+                <div className="p-5 flex-1 flex flex-col">
+                   <header className="flex justify-between items-center mb-2">
+                    <span className="text-xs font-semibold text-[#769FCD] uppercase tracking-wider">{info.kategori}</span>
+                    <span className="text-[11px] text-slate-400 flex items-center gap-1">
+                      <Clock className="w-3 h-3" aria-hidden="true" /> <time dateTime={info.tanggal}>{info.tanggal}</time>
+                    </span>
+                   </header>
+                </div>
               </Card>
             </article>
           ))}
