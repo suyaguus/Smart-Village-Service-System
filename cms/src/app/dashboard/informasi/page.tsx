@@ -28,7 +28,18 @@ export default function InformasiDesaPage() {
 
 
   //View Data Informasi
-  
+  if (!isAddingMode) {
+    return (
+      <section className="space-y-6 max-w-7xl mx-auto" aria-label="Manajemen Informasi Desa">
+        <header className="flex justify-between items-center">
+           <div>
+            <h1 className="text-2xl font-bold text-slate-800">Informasi & Berita Desa</h1>
+            <p className="text-sm text-slate-500 mt-1">Kelola konten pengumuman dan berita untuk aplikasi mobile warga.</p>
+          </div>
+        </header>
+      </section>
+    );
+  }
 }
 
 
