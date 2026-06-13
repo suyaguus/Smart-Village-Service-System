@@ -161,6 +161,13 @@ export default function InformasiDesaPage() {
             <header className="px-5 py-4 border-b border-[#D6E6F2] bg-[#F7FBFC]">
                 <h2 className="font-bold text-slate-800 text-sm uppercase tracking-wider">Pengaturan Publikasi</h2>
               </header>
+
+              <div className="p-5 space-y-6">
+                {/* Upload Cover */}
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">Foto Cover / Thumbnail</label>
+                </div>
+              </div>
           </Card>
          </div>
         </aside>
