@@ -36,6 +36,12 @@ export default function InformasiDesaPage() {
             <h1 className="text-2xl font-bold text-slate-800">Informasi & Berita Desa</h1>
             <p className="text-sm text-slate-500 mt-1">Kelola konten pengumuman dan berita untuk aplikasi mobile warga.</p>
           </div>
+          <button 
+            onClick={() => setIsAddingMode(true)}
+            className="bg-[#769FCD] text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-[#6086b3] transition-colors shadow-sm"
+          >
+            <Plus className="w-4 h-4" aria-hidden="true" /> Buat Informasi Baru
+          </button>
         </header>
       </section>
     );
