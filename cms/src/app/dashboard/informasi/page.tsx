@@ -112,6 +112,13 @@ export default function InformasiDesaPage() {
               <label htmlFor="judul" className="block text-sm font-semibold text-slate-700 mb-1">
                   Judul Informasi <span className="text-red-500">*</span>
                 </label>
+                <input 
+                  id="judul" 
+                  type="text" 
+                  placeholder="Masukkan judul pengumuman/berita..." 
+                  className="w-full border border-[#B9D7EA] rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#769FCD]/50 transition-shadow" 
+                  required 
+                />
             </div>
           </div>
         </Card>
