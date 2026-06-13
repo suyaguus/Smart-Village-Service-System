@@ -8,5 +8,9 @@ import { Card } from '@/components/ui/card';
 
 
 export default function InformasiDesaPage() {
-
+    // State untuk mengontrol apakah sedang di halaman daftar atau form tambah
+  const [isAddingMode, setIsAddingMode] = useState(false);
+  
+   // State untuk form tambah
+  const [coverImage, setCoverImage] = useState<string | null>(null);
 }
