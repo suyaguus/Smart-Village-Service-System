@@ -48,8 +48,13 @@ export default function RootLayout() {
           <Stack.Screen name="layanan/[jenisSuratId]" options={{ headerShown: true, title: 'Buat Surat', headerBackTitle: 'Kembali' }} />
           <Stack.Screen name="layanan/submit-success" options={{ headerShown: false, gestureEnabled: false }} />
           <Stack.Screen name="status/[id]" options={{ headerShown: true, title: 'Detail Pengajuan', headerBackTitle: 'Kembali' }} />
+          <Stack.Screen name="pengaduan/index" options={{ headerShown: true, title: 'Pengaduan', headerBackTitle: 'Kembali' }} />
           <Stack.Screen name="pengaduan/buat" options={{ headerShown: true, title: 'Buat Pengaduan', headerBackTitle: 'Kembali' }} />
+          <Stack.Screen name="pengaduan/[id]" options={{ headerShown: true, title: 'Detail Pengaduan', headerBackTitle: 'Kembali' }} />
+          <Stack.Screen name="informasi/index" options={{ headerShown: true, title: 'Informasi Desa', headerBackTitle: 'Kembali' }} />
           <Stack.Screen name="informasi/[id]" options={{ headerShown: true, title: 'Informasi', headerBackTitle: 'Kembali' }} />
+          <Stack.Screen name="notifikasi" options={{ headerShown: true, title: 'Notifikasi', headerBackTitle: 'Kembali' }} />
+          <Stack.Screen name="profil/edit" options={{ headerShown: true, title: 'Edit Profil', headerBackTitle: 'Kembali' }} />
         </Stack>
         <StatusBar style="auto" />
       </ThemeProvider>

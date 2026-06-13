@@ -2,13 +2,17 @@ import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-nati
 import { router } from 'expo-router';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors, FontSize, FontWeight, Spacing, Radius } from '@/constants/theme';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { Icons } from '@/constants/icons';
+
+/**
+ * components/home/layanan-cepat.tsx
+ * 4 ikon layanan cepat horizontal scrollable.
+ * Tap → navigasi ke route yang sesuai.
+ */
 
 interface LayananItem {
   id: string;
   label: string;
-  iconKey: keyof typeof Icons;
+  icon: string;
   bgColor: keyof typeof Colors.light;
   route: string;
 }
@@ -17,30 +21,30 @@ const LAYANAN_ITEMS: LayananItem[] = [
   {
     id: 'buat-surat',
     label: 'Buat\nSurat',
-    iconKey: 'fileLines',
+    icon: '📄',
     bgColor: 'iconBuatSurat',
     route: '/(tabs)/layanan',
   },
   {
     id: 'pengaduan',
     label: 'Pengaduan',
-    iconKey: 'flag',
+    icon: '🚩',
     bgColor: 'iconPengaduan',
-    route: '/pengaduan/buat',
+    route: '/pengaduan',
   },
   {
     id: 'status',
     label: 'Status',
-    iconKey: 'clock',
+    icon: '🕐',
     bgColor: 'iconStatus',
     route: '/(tabs)/status',
   },
   {
     id: 'informasi',
     label: 'Informasi',
-    iconKey: 'info',
+    icon: 'ℹ️',
     bgColor: 'iconInformasi',
-    route: '/(tabs)/informasi',
+    route: '/informasi',
   },
 ];
 
@@ -60,7 +64,7 @@ function LayananItemCard({ item }: LayananItemCardProps) {
       activeOpacity={0.75}
     >
       <View style={[styles.iconBox, { backgroundColor: bgColor }]}>
-        <FontAwesomeIcon icon={Icons[item.iconKey]} size={26} color="#FFFFFF" />
+        <Text style={styles.icon}>{item.icon}</Text>
       </View>
       <Text
         style={[styles.itemLabel, { color: c.text }]}
@@ -121,6 +125,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: Spacing.sm,
+  },
+  icon: {
+    fontSize: 26,
   },
   itemLabel: {
     fontSize: FontSize.xs,
