@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 interface FetchState<T> {
   data: T | null;
   isLoading: boolean;
@@ -19,7 +20,7 @@ export function useFetch<T>(
     error: null,
   });
 
-  // reloadKey dinaikkan saat refetch() dipanggil -> trigger useEffect
+  // reloadKey dinaikkan saat refetch() dipanggil → trigger useEffect
   const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
