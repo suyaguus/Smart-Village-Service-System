@@ -1,5 +1,11 @@
-import { createContext, createElement, useContext, useEffect, useState, ReactNode } from 'react';
-import { login, logout, register, getStoredUser } from '@/services/auth.service';
+/**
+ * hooks/use-auth.ts
+ * AuthContext + useAuth hook.
+ * Menggunakan auth.service.ts yang sudah terhubung ke real API.
+ */
+
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { login, logout, register, getStoredUser, setStoredUser } from '@/services/auth.service';
 import type {
   User,
   LoginRequest,
@@ -15,14 +21,15 @@ interface AuthContextValue {
   isLoading: boolean;
   signIn: (credentials: LoginRequest) => Promise<LoginResponse>;
   signOut: () => Promise<void>;
-  signUp: (payload: CreateUserRequest) => Promise<void>;
+  signUp: (payload: CreateUserRequest) => Promise<User>;
+  updateLocalUser: (user: User) => Promise<void>;
 }
 
 // Context
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-// Provider
+// Provider 
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -47,24 +54,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
   };
 
-  const signUp = async (payload: CreateUserRequest): Promise<void> => {
-    await register(payload);
+  const signUp = async (payload: CreateUserRequest): Promise<User> => {
+    return register(payload);
     // Tidak auto-login setelah register, user harus login manual
   };
 
-  return createElement(
-    AuthContext.Provider,
-    {
-      value: {
+  // Sinkronkan user di context + storage (dipakai setelah edit profil)
+  const updateLocalUser = async (updated: User) => {
+    await setStoredUser(updated);
+    setUser(updated);
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
         user,
         isLoggedIn: !!user,
         isLoading,
         signIn,
         signOut,
         signUp,
-      },
-    },
-    children,
+        updateLocalUser,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
 }
 
