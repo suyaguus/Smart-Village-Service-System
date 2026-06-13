@@ -141,6 +141,13 @@ export default function InformasiDesaPage() {
               <label htmlFor="konten" className="block text-sm font-semibold text-slate-700 mb-1">
                   Isi Konten <span className="text-red-500">*</span>
                 </label>
+                <textarea 
+                  id="konten" 
+                  rows={12} 
+                  placeholder="Tuliskan isi informasi secara lengkap di sini..." 
+                  className="w-full border border-[#B9D7EA] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#769FCD]/50 transition-shadow resize-y" 
+                  required
+                ></textarea>
             </div>
           </div>
         </Card>
