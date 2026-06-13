@@ -182,6 +182,12 @@ export default function InformasiDesaPage() {
                 {/* Pemilihan Status */}
                 <fieldset>
                   <legend className="block text-sm font-semibold text-slate-700 mb-2">Status Publikasi</legend>
+                  <div className="flex flex-col gap-3">
+                    <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer hover:bg-slate-50 p-2 rounded-md border border-transparent hover:border-[#D6E6F2] transition-colors">
+                      <input type="radio" name="status" value="DRAFT" className="w-4 h-4 text-[#769FCD] focus:ring-[#769FCD]" defaultChecked /> 
+                      Simpan sebagai Draft
+                    </label>
+                  </div>
                 </fieldset>
               </div>
           </Card>
