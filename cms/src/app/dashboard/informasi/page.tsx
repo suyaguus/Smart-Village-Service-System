@@ -105,7 +105,17 @@ export default function InformasiDesaPage() {
 
       {/* Form Utama */}
       <form className="flex flex-col lg:flex-row gap-6" onSubmit={(e) => { e.preventDefault(); alert('Tersimpan!'); setIsAddingMode(false); }}>
-        
+        <div className="w-full lg:w-2/3 space-y-6">
+        <Card>
+          <div className="p-6 space-y-5">
+            <div>
+              <label htmlFor="judul" className="block text-sm font-semibold text-slate-700 mb-1">
+                  Judul Informasi <span className="text-red-500">*</span>
+                </label>
+            </div>
+          </div>
+        </Card>
+        </div>
       </form>
     </section>
   );
