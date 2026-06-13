@@ -166,6 +166,18 @@ export default function InformasiDesaPage() {
                 {/* Upload Cover */}
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-2">Foto Cover / Thumbnail</label>
+                  <div className="border-2 border-dashed border-[#B9D7EA] rounded-xl p-1 relative hover:bg-[#F7FBFC] transition-colors group text-center h-48 flex flex-col items-center justify-center cursor-pointer overflow-hidden">
+                    {coverImage ? (
+                      <img src={coverImage} alt="Cover Preview" className="w-full h-full object-cover rounded-lg" />
+                    ) : (
+                      <div className="flex flex-col items-center justify-center p-4">
+                        <ImageIcon className="w-8 h-8 text-[#769FCD] mb-2 group-hover:scale-110 transition-transform" aria-hidden="true" />
+                        <span className="text-sm font-medium text-slate-600">Klik untuk upload foto</span>
+                        <span className="text-[10px] text-slate-400 mt-1 text-center">Format JPG, PNG (Max. 2MB) Rekomendasi rasio 16:9</span>
+                      </div>
+                    )}
+                    <input type="file" aria-label="Upload foto cover" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/png, image/jpeg" onChange={handleImageChange} />
+                  </div>
                 </div>
               </div>
           </Card>
