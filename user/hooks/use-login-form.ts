@@ -40,18 +40,19 @@ export function useLoginForm() {
     setIsSubmitting(true);
 
     try {
-      // POST /auth/login
       await signIn({ nik: values.nik, password: values.password });
       router.replace('/(tabs)');
-
     } catch (err) {
       const axiosErr = err as AxiosError<{ message?: string }>;
+      const msg = axiosErr.response?.data?.message;
       const status = axiosErr.response?.status;
 
-      if (status === 401 || status === 404) {
-        setErrors({ general: 'NIK atau kata sandi salah.' });
+      if (status === 400 || status === 401 || status === 404) {
+        setErrors({ general: msg ?? 'NIK atau kata sandi salah.' });
+      } else if (!axiosErr.response) {
+        setErrors({ general: 'Tidak dapat terhubung ke server. Periksa koneksi Anda.' });
       } else {
-        setErrors({ general: 'Terjadi kesalahan. Coba lagi.' });
+        setErrors({ general: msg ?? 'Terjadi kesalahan. Coba lagi.' });
       }
     } finally {
       setIsSubmitting(false);

@@ -1,63 +1,50 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  StyleSheet,
-} from "react-native";
-import { router } from "expo-router";
-import { useColorScheme } from "@/hooks/use-color-scheme";
-import {
-  Colors,
-  FontSize,
-  FontWeight,
-  Spacing,
-  Radius,
-} from "@/constants/theme";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { Icons } from "@/constants/icons";
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { router } from 'expo-router';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Colors, FontSize, FontWeight, Spacing, Radius } from '@/constants/theme';
+
+/**
+ * components/home/layanan-cepat.tsx
+ * 4 ikon layanan cepat horizontal scrollable.
+ * Tap → navigasi ke route yang sesuai.
+ */
 
 interface LayananItem {
   id: string;
   label: string;
-  icon: string | any;
+  icon: string;
   bgColor: keyof typeof Colors.light;
-  iconColor: keyof typeof Colors.light;
   route: string;
 }
 
 const LAYANAN_ITEMS: LayananItem[] = [
   {
-    id: "buat-surat",
-    label: "Buat\nSurat",
-    icon: Icons.note,
-    bgColor: "iconBuatSurat",
-    iconColor: "primaryDark",
-    route: "/layanan/buat-surat",
+    id: 'buat-surat',
+    label: 'Buat\nSurat',
+    icon: '📄',
+    bgColor: 'iconBuatSurat',
+    route: '/(tabs)/layanan',
   },
   {
-    id: "pengaduan",
-    label: "Pengaduan",
-    icon: Icons.flag,
-    bgColor: "iconPengaduan",
-    iconColor: "menungguText",
-    route: "/pengaduan/buat",
+    id: 'pengaduan',
+    label: 'Pengaduan',
+    icon: '🚩',
+    bgColor: 'iconPengaduan',
+    route: '/pengaduan',
   },
   {
-    id: "status",
-    label: "Status",
-    icon: Icons.magnifyingGlass,
-    bgColor: "iconStatus",
-    iconColor: "selesaiText",
-    route: "/(tabs)/status",
+    id: 'status',
+    label: 'Status',
+    icon: '🕐',
+    bgColor: 'iconStatus',
+    route: '/(tabs)/status',
   },
   {
-    id: "informasi",
-    label: "Informasi",
-    icon: Icons.info,
-    bgColor: "iconInformasi",
-    iconColor: "textSecondary",
-    route: "/(tabs)/informasi",
+    id: 'informasi',
+    label: 'Informasi',
+    icon: 'ℹ️',
+    bgColor: 'iconInformasi',
+    route: '/informasi',
   },
 ];
 
@@ -66,10 +53,9 @@ interface LayananItemCardProps {
 }
 
 function LayananItemCard({ item }: LayananItemCardProps) {
-  const scheme = (useColorScheme() ?? "light") as "light" | "dark";
+  const scheme = (useColorScheme() ?? 'light') as 'light' | 'dark';
   const c = Colors[scheme];
   const bgColor = c[item.bgColor] as string;
-  const isEmojiIcon = typeof item.icon === "string";
 
   return (
     <TouchableOpacity
@@ -78,13 +64,12 @@ function LayananItemCard({ item }: LayananItemCardProps) {
       activeOpacity={0.75}
     >
       <View style={[styles.iconBox, { backgroundColor: bgColor }]}>
-        {isEmojiIcon ? (
-          <Text style={styles.icon}>{item.icon}</Text>
-        ) : (
-          <FontAwesomeIcon icon={item.icon} size={26} color={c[item.iconColor]} />
-        )}
+        <Text style={styles.icon}>{item.icon}</Text>
       </View>
-      <Text style={[styles.itemLabel, { color: c.text }]} numberOfLines={2}>
+      <Text
+        style={[styles.itemLabel, { color: c.text }]}
+        numberOfLines={2}
+      >
         {item.label}
       </Text>
     </TouchableOpacity>
@@ -92,7 +77,7 @@ function LayananItemCard({ item }: LayananItemCardProps) {
 }
 
 export function LayananCepat() {
-  const scheme = (useColorScheme() ?? "light") as "light" | "dark";
+  const scheme = (useColorScheme() ?? 'light') as 'light' | 'dark';
   const c = Colors[scheme];
 
   return (
@@ -130,15 +115,15 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
   },
   item: {
-    alignItems: "center",
+    alignItems: 'center',
     width: 76,
   },
   iconBox: {
     width: 60,
     height: 60,
     borderRadius: Radius.lg,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: Spacing.sm,
   },
   icon: {
@@ -147,7 +132,7 @@ const styles = StyleSheet.create({
   itemLabel: {
     fontSize: FontSize.xs,
     fontWeight: FontWeight.medium,
-    textAlign: "center",
+    textAlign: 'center',
     lineHeight: 15,
   },
 });

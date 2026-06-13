@@ -1,3 +1,12 @@
+/**
+ * services/pengaduan.service.ts
+ * API call untuk pengaduan masyarakat.
+ *
+ * createPengaduan mendukung foto opsional:
+ *  - Tanpa foto → kirim JSON biasa
+ *  - Dengan foto → kirim multipart/form-data (field: judul, kategori, deskripsi, foto)
+ */
+
 import apiClient from './api-client';
 import { ENDPOINTS } from '@/constants/api';
 import type { Pengaduan, CreatePengaduanRequest } from '@/types';
@@ -18,31 +27,32 @@ export async function getPengaduanById(id: string): Promise<Pengaduan> {
 
 export async function createPengaduan(
   payload: CreatePengaduanRequest,
+  fotoUri?: string,
 ): Promise<Pengaduan> {
+  // Dengan foto → multipart
+  if (fotoUri) {
+    const formData = new FormData();
+    formData.append('judul', payload.judul);
+    formData.append('kategori', payload.kategori);
+    formData.append('deskripsi', payload.deskripsi);
+    formData.append('foto', {
+      uri: fotoUri,
+      type: 'image/jpeg',
+      name: `pengaduan_${Date.now()}.jpg`,
+    } as unknown as Blob);
+
+    const { data } = await apiClient.post<Pengaduan>(
+      ENDPOINTS.PENGADUAN.BASE,
+      formData,
+      { headers: { 'Content-Type': 'multipart/form-data' } },
+    );
+    return data;
+  }
+
+  // Tanpa foto → JSON
   const { data } = await apiClient.post<Pengaduan>(
     ENDPOINTS.PENGADUAN.BASE,
     payload,
-  );
-  return data;
-}
-
-// Upload foto pengaduan (multipart/form-data)
-export async function uploadFotoPengaduan(
-  pengaduanId: string,
-  fotoUri: string,
-): Promise<Pengaduan> {
-  const formData = new FormData();
-  formData.append('foto', {
-    uri: fotoUri,
-    type: 'image/jpeg',
-    name: 'foto.jpg',
-  } as unknown as Blob);
-
-  const { data } = await apiClient.post<Pengaduan>(
-    // Endpoint upload foto pengaduan — sesuaikan jika backend beda
-    `${ENDPOINTS.PENGADUAN.BY_ID(pengaduanId)}/foto`,
-    formData,
-    { headers: { 'Content-Type': 'multipart/form-data' } },
   );
   return data;
 }

@@ -18,10 +18,20 @@ export interface LoginRequest {
   password: string;
 }
 
+/** Shape yang dikembalikan oleh backend (terbungkus dalam wrapper) */
 export interface LoginResponse {
   access_token: string;
   refresh_token: string;
+  type: string;
   user: User;
+}
+
+/** Wrapper response dari backend */
+export interface ApiLoginResponse {
+  success: boolean;
+  message: string;
+  metadata: { status: number };
+  data: LoginResponse;
 }
 
 export interface RefreshResponse {
@@ -32,22 +42,25 @@ export interface RefreshResponse {
 
 export interface User {
   id: string;
-  nik: string;
-  nama: string;
-  no_telepon?: string;
+  nik?: string;
+  name: string;
+  email?: string;
+  phone?: string;
   alamat?: string;
   rt?: string;
   rw?: string;
   kelurahan?: string;
   kecamatan?: string;
+  role?: string;
   created_at?: string;
   updated_at?: string;
 }
 
 export interface CreateUserRequest {
   nik: string;
-  nama: string;
-  no_telepon: string;
+  name: string;
+  email: string;
+  phone: string;
   password: string;
 }
 

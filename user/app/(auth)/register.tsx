@@ -14,6 +14,8 @@ import {
 import { Link, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useColorScheme } from "@/hooks/use-color-scheme";
+import { useAuth } from "@/hooks/use-auth";
+import { AxiosError } from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { Icons, getIconColor } from "@/constants/icons";
 import {
@@ -28,6 +30,7 @@ import {
 interface RegisterForm {
   nik: string;
   namaLengkap: string;
+  email: string;
   noTelepon: string;
   password: string;
   konfirmasiPassword: string;
@@ -36,6 +39,7 @@ interface RegisterForm {
 interface FormErrors {
   nik?: string;
   namaLengkap?: string;
+  email?: string;
   noTelepon?: string;
   password?: string;
   konfirmasiPassword?: string;
@@ -45,6 +49,7 @@ interface FormErrors {
 const INITIAL_FORM: RegisterForm = {
   nik: "",
   namaLengkap: "",
+  email: "",
   noTelepon: "",
   password: "",
   konfirmasiPassword: "",
@@ -53,6 +58,7 @@ const INITIAL_FORM: RegisterForm = {
 export default function RegisterScreen() {
   const scheme = (useColorScheme() ?? "light") as "light" | "dark";
   const c = Colors[scheme];
+  const { signUp } = useAuth();
 
   const [form, setForm] = useState<RegisterForm>(INITIAL_FORM);
   const [showPassword, setShowPassword] = useState(false);
@@ -79,6 +85,10 @@ export default function RegisterScreen() {
     else if (form.namaLengkap.trim().length < 3)
       errs.namaLengkap = "Nama minimal 3 karakter";
 
+    if (!form.email.trim()) errs.email = "Email wajib diisi";
+    else if (!/^\S+@\S+\.\S+$/.test(form.email))
+      errs.email = "Format email tidak valid";
+
     if (!form.noTelepon.trim()) errs.noTelepon = "Nomor telepon wajib diisi";
     else if (!/^08\d{8,11}$/.test(form.noTelepon))
       errs.noTelepon = "Format: 08xxxxxxxxxx";
@@ -99,11 +109,28 @@ export default function RegisterScreen() {
     if (!validate()) return;
     setIsSubmitting(true);
     try {
-      // TODO: Ganti dengan API call ke backend
-      await new Promise((res) => setTimeout(res, 1200));
+      await signUp({
+        nik: form.nik,
+        name: form.namaLengkap,
+        email: form.email,
+        phone: form.noTelepon,
+        password: form.password,
+      });
       router.replace("/(auth)/login");
-    } catch {
-      setErrors({ general: "Pendaftaran gagal. Coba lagi." });
+    } catch (err) {
+      const axiosErr = err as AxiosError<{ message?: string }>;
+      const msg = axiosErr.response?.data?.message;
+      const status = axiosErr.response?.status;
+
+      if (status === 409) {
+        setErrors({ general: msg ?? "NIK atau email sudah terdaftar." });
+      } else if (status === 400) {
+        setErrors({ general: msg ?? "Data yang dimasukkan tidak valid." });
+      } else if (!axiosErr.response) {
+        setErrors({ general: "Tidak dapat terhubung ke server. Periksa koneksi Anda." });
+      } else {
+        setErrors({ general: msg ?? "Pendaftaran gagal. Coba lagi." });
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -174,7 +201,7 @@ export default function RegisterScreen() {
               style={styles.backButton}
               onPress={() => router.back()}
             >
-              <Text style={styles.backIcon}>←</Text>
+              <FontAwesomeIcon icon={Icons.arrowLeft} size={22} color="#FFFFFF" />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>Buat Akun</Text>
             <Text style={styles.headerSub}>
@@ -193,10 +220,11 @@ export default function RegisterScreen() {
                   { backgroundColor: c.ditolakLight },
                 ]}
               >
+                <FontAwesomeIcon icon={Icons.triangleExclamation} color={getIconColor('triangleExclamation', scheme)} />
                 <Text
                   style={[styles.errorBannerText, { color: c.ditolakText }]}
                 >
-                  <FontAwesomeIcon icon={Icons.triangleExclamation} color={getIconColor('triangleExclamation', scheme)} /> {errors.general}
+                  {" "}{errors.general}
                 </Text>
               </View>
             )}
@@ -206,11 +234,19 @@ export default function RegisterScreen() {
               keyboardType: "numeric",
               maxLength: 16,
               returnKeyType: "next",
+              onChangeText: (t) => setField("nik")(t.replace(/\D/g, "").slice(0, 16)),
             })}
 
             {renderField("Nama Lengkap", "user", "namaLengkap", {
               placeholder: "Sesuai KTP",
               autoCapitalize: "words",
+              returnKeyType: "next",
+            })}
+
+            {renderField("Email", "addressCard", "email", {
+              placeholder: "Masukkan email",
+              keyboardType: "email-address",
+              autoCapitalize: "none",
               returnKeyType: "next",
             })}
 
@@ -295,7 +331,6 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   backButton: { marginBottom: Spacing.md, alignSelf: "flex-start", padding: 4 },
-  backIcon: { fontSize: 22, color: "#FFFFFF" },
   headerTitle: {
     fontSize: FontSize.xxl,
     fontWeight: FontWeight.bold,
@@ -308,11 +343,14 @@ const styles = StyleSheet.create({
     padding: Spacing.xl,
   },
   errorBanner: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.sm,
     borderRadius: Radius.sm,
     padding: Spacing.md,
     marginBottom: Spacing.base,
   },
-  errorBannerText: { fontSize: FontSize.sm, fontWeight: FontWeight.medium },
+  errorBannerText: { fontSize: FontSize.sm, fontWeight: FontWeight.medium, flex: 1 },
   fieldGroup: { marginBottom: Spacing.base },
   label: {
     fontSize: FontSize.sm,

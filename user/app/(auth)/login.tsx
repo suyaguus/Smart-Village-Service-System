@@ -52,7 +52,7 @@ export default function LoginScreen() {
           {/* Header */}
           <View style={styles.headerSection}>
             <View style={styles.logoCard}>
-              <Text style={styles.logoEmoji}></Text>
+              <FontAwesomeIcon icon={Icons.home} size={36} color="#FFFFFF" />
             </View>
             <Text style={styles.appName}>Smart Village</Text>
             <Text style={styles.appSub}>Layanan Desa Digital</Text>
@@ -75,8 +75,11 @@ export default function LoginScreen() {
                   { backgroundColor: c.ditolakLight },
                 ]}
               >
-                <FontAwesomeIcon icon={Icons.triangleExclamation} color={getIconColor('triangleExclamation', scheme)} />
-                <Text style={[styles.errorBannerText, { color: c.ditolakText }]}>
+                <FontAwesomeIcon
+                  icon={Icons.triangleExclamation}
+                  color={getIconColor('triangleExclamation', scheme)}
+                />
+                <Text style={[styles.errorBannerText, { color: c.ditolakText }]}> 
                   {errors.general}
                 </Text>
               </View>
@@ -84,9 +87,7 @@ export default function LoginScreen() {
 
             {/* NIK Field */}
             <View style={styles.fieldGroup}>
-              <Text style={[styles.label, { color: c.textSecondary }]}>
-                NIK (Nomor Induk Kependudukan)
-              </Text>
+              <Text style={[styles.label, { color: c.textSecondary }]}>NIK (16 digit)</Text>
               <View
                 style={[
                   styles.inputWrapper,
@@ -96,15 +97,18 @@ export default function LoginScreen() {
                   },
                 ]}
               >
-                <FontAwesomeIcon icon={Icons.addressCard} color={getIconColor('addressCard', scheme)} />
+                <FontAwesomeIcon
+                  icon={Icons.addressCard}
+                  color={getIconColor('addressCard', scheme)}
+                />
                 <TextInput
                   style={[styles.input, { color: c.text }]}
                   placeholder="Masukkan 16 digit NIK"
                   placeholderTextColor={c.textTertiary}
                   value={nik}
                   onChangeText={(t) => {
-                    setNik(t);
-                    clearError("nik");
+                    setNik(t.replace(/\D/g, '').slice(0, 16));
+                    clearError('nik');
                   }}
                   keyboardType="numeric"
                   maxLength={16}
@@ -238,7 +242,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 4,
   },
-  logoEmoji: { fontSize: 36 },
   appName: {
     fontSize: FontSize.xxl,
     fontWeight: FontWeight.bold,

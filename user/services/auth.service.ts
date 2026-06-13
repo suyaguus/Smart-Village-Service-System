@@ -1,3 +1,8 @@
+/**
+ * services/auth.service.ts
+ * Semua API call yang berhubungan dengan autentikasi.
+ */
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from './api-client';
 import { ENDPOINTS, STORAGE_KEYS } from '@/constants/api';
@@ -47,7 +52,7 @@ export async function logout(): Promise<void> {
   ]);
 }
 
-// Restore session dari storage 
+// Restore session dari storage
 
 export async function getStoredUser(): Promise<User | null> {
   const raw = await AsyncStorage.getItem(STORAGE_KEYS.USER);
@@ -57,4 +62,10 @@ export async function getStoredUser(): Promise<User | null> {
   } catch {
     return null;
   }
+}
+
+// Update user tersimpan (mis. setelah edit profil) 
+
+export async function setStoredUser(user: User): Promise<void> {
+  await AsyncStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
 }

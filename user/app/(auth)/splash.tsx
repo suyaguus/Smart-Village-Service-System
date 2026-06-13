@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Animated } from 'react-native';
 import { router } from 'expo-router';
 import { Colors, FontSize, FontWeight } from '@/constants/theme';
 import { useAuth } from '@/hooks/use-auth';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { Icons } from '@/constants/icons';
 
 export default function SplashScreen() {
   const { isLoggedIn, isLoading } = useAuth();
@@ -52,7 +54,7 @@ export default function SplashScreen() {
         ]}
       >
         <View style={styles.logoCard}>
-          <Text style={styles.logoEmoji}>🏡</Text>
+          <FontAwesomeIcon icon={Icons.home} size={48} color="#FFFFFF" />
         </View>
 
         <Text style={styles.appName}>Smart Village</Text>
@@ -83,9 +85,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 8,
-  },
-  logoEmoji: {
-    fontSize: 48,
   },
   appName: {
     fontSize: FontSize.xxxl,
