@@ -198,6 +198,9 @@ export default function InformasiDesaPage() {
                   <button type="submit" className="w-full py-2.5 bg-[#769FCD] text-white rounded-lg text-sm font-bold flex items-center justify-center gap-2 hover:bg-[#6086b3] transition-colors shadow-sm">
                     <Send className="w-4 h-4" aria-hidden="true" /> Simpan & Selesai
                   </button>
+                  <button type="button" onClick={() => setIsAddingMode(false)} className="w-full py-2.5 bg-white border border-[#B9D7EA] text-slate-600 rounded-lg text-sm font-bold flex items-center justify-center gap-2 hover:bg-[#F7FBFC] transition-colors">
+                    <Save className="w-4 h-4" aria-hidden="true" /> Batal
+                  </button>
                 </div>
               </div>
           </Card>
