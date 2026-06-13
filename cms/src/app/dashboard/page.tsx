@@ -26,13 +26,13 @@ export default function DashboardPage() {
                     { title: 'Pengaduan Baru', count: mockStats.pengaduanBaru, icon: MessageSquare, color: 'text-rose-600', bg: 'bg-rose-50', border: 'border-rose-200' },
                 ].map((stat, idx) => (
                     <Card key={idx} className={`hover:shadow-md transition-shadow border-l-4 ${stat.border.replace('border-', 'border-l-')}`}>
-                        <div className="p-6 flex items-center justify-between">
-                            <div>
+                        <article className="p-6 flex items-center justify-between">
+                            <section>
                                 <h2 className="text-sm font-medium text-slate-500 mb-1">{stat.title}</h2>
                                 <p className="text-3xl font-bold text-slate-800">{stat.count}</p>
-                            </div>
-                            <div className={`p-3 rounded-xl ${stat.bg}`}><stat.icon className={`w-6 h-6 ${stat.color}`} aria-hidden="true" /></div>
-                        </div>
+                            </section>
+                            <figure className={`p-3 rounded-xl ${stat.bg}`}><stat.icon className={`w-6 h-6 ${stat.color}`} aria-hidden="true" /></figure>
+                        </article>
                     </Card>
                 ))}
             </section>
