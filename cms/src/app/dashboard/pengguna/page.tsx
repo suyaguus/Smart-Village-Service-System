@@ -12,4 +12,9 @@ export default function ManajemenPenggunaPage() {
   
   // 2. State untuk kolom pencarian
   const [searchQuery, setSearchQuery] = useState('');
+
+  // 3. Logika Filter Data
+  const filteredUsers = mockUsers.filter(user => {
+    
+  });
 }
