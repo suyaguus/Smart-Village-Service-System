@@ -19,5 +19,11 @@ export default function ManajemenPenggunaPage() {
   // Filter berdasarkan Role
     const matchesFilter = activeFilter === 'ALL' || user.role === activeFilter;
 
+    // Filter berdasarkan Search (Nama atau Email)
+    const matchesSearch = user.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          user.email.toLowerCase().includes(searchQuery.toLowerCase());
+                          
+    return matchesFilter && matchesSearch;
+
   });
 }
