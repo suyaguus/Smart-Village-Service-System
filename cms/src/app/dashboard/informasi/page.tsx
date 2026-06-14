@@ -120,7 +120,7 @@ export default function InformasiDesaPage() {
                   required 
                 />
             </div>
-            <div>
+            <form>
               <label htmlFor="kategori" className="block text-sm font-semibold text-slate-700 mb-1">
                   Kategori <span className="text-red-500">*</span>
                 </label>
@@ -136,7 +136,7 @@ export default function InformasiDesaPage() {
                   <option value="Pembangunan">Pembangunan</option>
                   <option value="Pendidikan">Pendidikan</option>
                 </select>
-            </div>
+            </form>
             <div>
               <label htmlFor="konten" className="block text-sm font-semibold text-slate-700 mb-1">
                   Isi Konten <span className="text-red-500">*</span>
