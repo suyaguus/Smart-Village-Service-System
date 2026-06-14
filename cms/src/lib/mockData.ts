@@ -45,3 +45,9 @@ export const mockPengaduan = [
     { id: 'TKT-001', user: 'Agus Setiawan', judul: 'Lampu Jalan Mati di RT 03', tanggal: '2026-05-08', status: 'MENUNGGU', deskripsi: 'Pak, lampu jalan di depan gapura RT 03 sudah mati sejak 3 hari lalu. Mohon segera diperbaiki.' },
     { id: 'TKT-002', user: 'Lina Marlina', judul: 'Jalan Berlubang', tanggal: '2026-05-07', status: 'DIPROSES', deskripsi: 'Ada jalan berlubang cukup dalam di simpang empat desa.' },
 ];
+
+export const mockUsers = [
+    { id: 1, name: 'Budi Santoso', email: 'budi@gmail.com', phone: '08123456789', role: 'USER', status: 'ACTIVE' },
+    { id: 2, name: 'Siti Aminah', email: 'siti_aminah@gmail.com', phone: '08571234567', role: 'USER', status: 'PENDING' },
+    { id: 3, name: 'Andi Wijaya', email: 'andi_admin@desa.id', phone: '08119876543', role: 'ADMIN', status: 'ACTIVE' },
+  ];
