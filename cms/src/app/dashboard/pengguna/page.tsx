@@ -15,6 +15,9 @@ export default function ManajemenPenggunaPage() {
 
   // 3. Logika Filter Data
   const filteredUsers = mockUsers.filter(user => {
-    
+
+  // Filter berdasarkan Role
+    const matchesFilter = activeFilter === 'ALL' || user.role === activeFilter;
+
   });
 }
