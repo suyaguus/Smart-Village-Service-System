@@ -181,7 +181,7 @@ export default function PengajuanPage() {
             </header>
 
             <Card className="overflow-hidden">
-                <div className="overflow-x-auto">
+                <section className="overflow-x-auto">
                     <table className="w-full text-left text-sm">
                         <thead className="bg-[#D6E6F2]/50 text-slate-700 border-b border-[#D6E6F2]">
                             <tr>
@@ -218,7 +218,7 @@ export default function PengajuanPage() {
                             ))}
                         </tbody>
                     </table>
-                </div>
+                </section>
             </Card>
         </section>
     );

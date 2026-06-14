@@ -8,10 +8,10 @@ import { Card } from '@/components/ui/card';
 
 
 export default function InformasiDesaPage() {
-    // State untuk mengontrol apakah sedang di halaman daftar atau form tambah
+  // State untuk mengontrol apakah sedang di halaman daftar atau form tambah
   const [isAddingMode, setIsAddingMode] = useState(false);
-  
-   // State untuk form tambah
+
+  // State untuk form tambah
   const [coverImage, setCoverImage] = useState<string | null>(null);
 
   const mockInfo = [
@@ -32,11 +32,11 @@ export default function InformasiDesaPage() {
     return (
       <section className="space-y-6 max-w-7xl mx-auto" aria-label="Manajemen Informasi Desa">
         <header className="flex justify-between items-center">
-           <div>
+          <section>
             <h1 className="text-2xl font-bold text-slate-800">Informasi & Berita Desa</h1>
             <p className="text-sm text-slate-500 mt-1">Kelola konten pengumuman dan berita untuk aplikasi mobile warga.</p>
-          </div>
-          <button 
+          </section>
+          <button
             onClick={() => setIsAddingMode(true)}
             className="bg-[#769FCD] text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-[#6086b3] transition-colors shadow-sm"
           >
@@ -49,29 +49,29 @@ export default function InformasiDesaPage() {
               <Card className="overflow-hidden flex flex-col hover:shadow-md transition-shadow h-full">
                 <figure className="relative h-48 w-full overflow-hidden m-0">
                   <img src={info.image} alt={info.judul} className="w-full h-full object-cover transition-transform hover:scale-105 duration-500" />
-                  <div className="absolute top-3 left-3">
+                  <figcaption className="absolute top-3 left-3">
                     <span className={`text-[10px] font-bold px-2 py-1 rounded shadow-sm ${info.status === 'PUBLISHED' ? 'bg-green-500 text-white' : 'bg-slate-500 text-white'}`}>
                       {info.status}
                     </span>
-                  </div>
+                  </figcaption>
                 </figure>
                 <div className="p-5 flex-1 flex flex-col">
-                   <header className="flex justify-between items-center mb-2">
+                  <header className="flex justify-between items-center mb-2">
                     <span className="text-xs font-semibold text-[#769FCD] uppercase tracking-wider">{info.kategori}</span>
                     <span className="text-[11px] text-slate-400 flex items-center gap-1">
                       <Clock className="w-3 h-3" aria-hidden="true" /> <time dateTime={info.tanggal}>{info.tanggal}</time>
                     </span>
-                   </header>
-                   <h3 className="font-bold text-slate-800 leading-snug mb-3 flex-1">{info.judul}</h3>
-                   <footer className="pt-4 border-t border-[#D6E6F2] flex justify-between items-center">
-                     <div className="flex items-center gap-1 text-slate-400 text-xs">
+                  </header>
+                  <h3 className="font-bold text-slate-800 leading-snug mb-3 flex-1">{info.judul}</h3>
+                  <footer className="pt-4 border-t border-[#D6E6F2] flex justify-between items-center">
+                    <div className="flex items-center gap-1 text-slate-400 text-xs">
                       <Eye className="w-3.5 h-3.5" aria-hidden="true" /> <span>{info.views} Dilihat</span>
                     </div>
                     <div className="flex gap-2">
-                      <button aria-label="Edit informasi" className="p-1.5 text-slate-400 hover:text-[#769FCD] hover:bg-[#F7FBFC] rounded border border-[#D6E6F2] transition-colors"><Edit2 className="w-4 h-4"/></button>
-                      <button aria-label="Hapus informasi" className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded border border-[#D6E6F2] transition-colors"><Trash2 className="w-4 h-4"/></button>
+                      <button aria-label="Edit informasi" className="p-1.5 text-slate-400 hover:text-[#769FCD] hover:bg-[#F7FBFC] rounded border border-[#D6E6F2] transition-colors"><Edit2 className="w-4 h-4" /></button>
+                      <button aria-label="Hapus informasi" className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded border border-[#D6E6F2] transition-colors"><Trash2 className="w-4 h-4" /></button>
                     </div>
-                   </footer>
+                  </footer>
                 </div>
               </Card>
             </article>
@@ -89,8 +89,8 @@ export default function InformasiDesaPage() {
     <section className="space-y-6 max-w-7xl mx-auto" aria-label="Form Tambah Informasi">
       {/* Navigasi Kembali */}
       <nav aria-label="Navigasi kembali">
-        <button 
-          onClick={() => setIsAddingMode(false)} 
+        <button
+          onClick={() => setIsAddingMode(false)}
           className="flex items-center text-sm font-medium text-slate-500 hover:text-[#769FCD] transition-colors w-fit"
         >
           <ArrowLeft className="w-4 h-4 mr-2" aria-hidden="true" /> Kembali ke Daftar Informasi
@@ -106,27 +106,28 @@ export default function InformasiDesaPage() {
       {/* Form Utama */}
       <form className="flex flex-col lg:flex-row gap-6" onSubmit={(e) => { e.preventDefault(); alert('Tersimpan!'); setIsAddingMode(false); }}>
         <div className="w-full lg:w-2/3 space-y-6">
-        <Card>
-          <div className="p-6 space-y-5">
-            <div>
-              <label htmlFor="judul" className="block text-sm font-semibold text-slate-700 mb-1">
+          <Card>
+            <div className="p-6 space-y-5">
+              <div>
+                <label htmlFor="judul" className="block text-sm font-semibold text-slate-700 mb-1">
                   Judul Informasi <span className="text-red-500">*</span>
                 </label>
-                <input 
-                  id="judul" 
-                  type="text" 
-                  placeholder="Masukkan judul pengumuman/berita..." 
-                  className="w-full border border-[#B9D7EA] rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#769FCD]/50 transition-shadow" 
-                  required 
+                <input
+                  id="judul"
+                  type="text"
+                  placeholder="Masukkan judul pengumuman/berita..."
+                  className="w-full border border-[#B9D7EA] rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#769FCD]/50 transition-shadow"
+                  required
                 />
-            </div>
-            <div>
-              <label htmlFor="kategori" className="block text-sm font-semibold text-slate-700 mb-1">
+              </div>
+              <fieldset>
+                <legend className="block text-sm font-semibold text-slate-700 mb-1">
                   Kategori <span className="text-red-500">*</span>
-                </label>
-                <select 
-                  id="kategori" 
-                  className="w-full border border-[#B9D7EA] rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#769FCD]/50 bg-white cursor-pointer" 
+                </legend>
+
+                <select
+                  id="kategori"
+                  className="w-full border border-[#B9D7EA] rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#769FCD]/50 bg-white cursor-pointer"
                   required
                 >
                   <option value="">Pilih Kategori</option>
@@ -136,29 +137,29 @@ export default function InformasiDesaPage() {
                   <option value="Pembangunan">Pembangunan</option>
                   <option value="Pendidikan">Pendidikan</option>
                 </select>
-            </div>
-            <div>
-              <label htmlFor="konten" className="block text-sm font-semibold text-slate-700 mb-1">
+              </fieldset>
+              <div>
+                <label htmlFor="konten" className="block text-sm font-semibold text-slate-700 mb-1">
                   Isi Konten <span className="text-red-500">*</span>
                 </label>
-                <textarea 
-                  id="konten" 
-                  rows={12} 
-                  placeholder="Tuliskan isi informasi secara lengkap di sini..." 
-                  className="w-full border border-[#B9D7EA] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#769FCD]/50 transition-shadow resize-y" 
+                <textarea
+                  id="konten"
+                  rows={12}
+                  placeholder="Tuliskan isi informasi secara lengkap di sini..."
+                  className="w-full border border-[#B9D7EA] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#769FCD]/50 transition-shadow resize-y"
                   required
                 ></textarea>
                 <p className="text-[11px] text-slate-400 mt-1.5">Gunakan paragraf yang jelas agar mudah dibaca oleh warga.</p>
+              </div>
             </div>
-          </div>
-        </Card>
+          </Card>
         </div>
 
         {/* Kolom Kanan - Media & Aksi Publikasi */}
         <aside className="w-full lg:w-1/3" aria-label="Pengaturan Publikasi">
-         <div className="sticky top-6">
-          <Card className="overflow-hidden shadow-md border-[#D6E6F2]">
-            <header className="px-5 py-4 border-b border-[#D6E6F2] bg-[#F7FBFC]">
+          <div className="sticky top-6">
+            <Card className="overflow-hidden shadow-md border-[#D6E6F2]">
+              <header className="px-5 py-4 border-b border-[#D6E6F2] bg-[#F7FBFC]">
                 <h2 className="font-bold text-slate-800 text-sm uppercase tracking-wider">Pengaturan Publikasi</h2>
               </header>
 
@@ -184,11 +185,11 @@ export default function InformasiDesaPage() {
                   <legend className="block text-sm font-semibold text-slate-700 mb-2">Status Publikasi</legend>
                   <div className="flex flex-col gap-3">
                     <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer hover:bg-slate-50 p-2 rounded-md border border-transparent hover:border-[#D6E6F2] transition-colors">
-                      <input type="radio" name="status" value="DRAFT" className="w-4 h-4 text-[#769FCD] focus:ring-[#769FCD]" defaultChecked /> 
+                      <input type="radio" name="status" value="DRAFT" className="w-4 h-4 text-[#769FCD] focus:ring-[#769FCD]" defaultChecked />
                       Simpan sebagai Draft
                     </label>
                     <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer hover:bg-slate-50 p-2 rounded-md border border-transparent hover:border-[#D6E6F2] transition-colors">
-                      <input type="radio" name="status" value="PUBLISHED" className="w-4 h-4 text-[#769FCD] focus:ring-[#769FCD]" /> 
+                      <input type="radio" name="status" value="PUBLISHED" className="w-4 h-4 text-[#769FCD] focus:ring-[#769FCD]" />
                       Langsung Publikasikan
                     </label>
                   </div>
@@ -203,8 +204,8 @@ export default function InformasiDesaPage() {
                   </button>
                 </div>
               </div>
-          </Card>
-         </div>
+            </Card>
+          </div>
         </aside>
       </form>
     </section>
@@ -216,8 +217,7 @@ export default function InformasiDesaPage() {
 
 
 
-  
 
 
-  
-  
+
+
